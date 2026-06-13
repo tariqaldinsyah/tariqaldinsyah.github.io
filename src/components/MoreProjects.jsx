@@ -65,7 +65,7 @@ function ProjectItem({ project: p }) {
 
   const onMouseLeave = () =>
     gsap.to(cardRef.current, {
-      borderColor: 'rgba(30,42,10,1)', y: 0,
+      borderColor: getComputedStyle(document.documentElement).getPropertyValue('--border').trim(), y: 0,
       rotateX: 0, rotateY: 0, scale: 1,
       duration: 0.5, ease: 'power2.out',
     })
@@ -83,7 +83,7 @@ function ProjectItem({ project: p }) {
       onMouseLeave={onMouseLeave}
       onMouseMove={onMouseMove}
       className="rounded-2xl overflow-hidden cursor-pointer group"
-      style={{ background: '#0f1505', border: '1px solid #1e2a0a' }}>
+      style={{ background: 'var(--card)', border: '1px solid var(--border)' }}>
 
       {/* Thumbnail */}
       <div className="w-full aspect-square overflow-hidden relative" style={{ background: p.bg }}>

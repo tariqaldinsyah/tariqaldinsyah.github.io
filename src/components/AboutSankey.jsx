@@ -97,7 +97,7 @@ export default function AboutSankey() {
   }, [nodes, links])
 
   return (
-    <div className="rounded-2xl p-6 pb-8" style={{ background: '#0f1505', border: '1px solid #1e2a0a' }}>
+    <div className="rounded-2xl p-6 pb-8" style={{ background: 'var(--card)', border: '1px solid var(--border)' }}>
       <div className="flex items-center justify-between mb-5">
         <p className="label-tag">Design Process Breakdown</p>
         <p className="text-white/20 text-xs">Based on total working hours</p>
@@ -174,7 +174,8 @@ export default function AboutSankey() {
                   <text className="sk-lb"
                     x={n.x1 + 11} y={midY + 6}
                     dominantBaseline="middle"
-                    fill="rgba(255,255,255,0.45)" fontSize={9} opacity={0}>
+                    fontSize={9} opacity={0}
+                    style={{ fill: 'var(--text-40)' }}>
                     {n.name}
                   </text>
                 </>
@@ -186,7 +187,8 @@ export default function AboutSankey() {
         {/* Caption */}
         <text x={CW / 2} y={CH + 20}
           textAnchor="middle"
-          fill="rgba(255,255,255,0.10)" fontSize={8} letterSpacing="0.14em">
+          fontSize={8} letterSpacing="0.14em"
+          style={{ fill: 'var(--text-10)' }}>
           TARIQ ALDINSYAH — DESIGN WORKFLOW
         </text>
       </svg>

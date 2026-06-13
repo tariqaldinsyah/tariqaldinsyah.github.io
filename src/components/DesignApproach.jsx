@@ -125,7 +125,7 @@ export default function DesignApproach() {
               <div key={i} className="flex-1 flex flex-col items-center">
                 <div ref={el => iconRefs.current[i] = el}
                   className="w-11 h-11 rounded-full flex items-center justify-center"
-                  style={{ background: '#0f1505', border: '1px solid rgba(192,245,61,0.22)' }}>
+                  style={{ background: 'var(--card)', border: '1px solid rgba(192,245,61,0.22)' }}>
                   <step.Icon size={16} className="text-lime" />
                 </div>
               </div>
@@ -182,9 +182,9 @@ export default function DesignApproach() {
               <div key={i}
                 ref={el => cardRefs.current[i] = el}
                 className="flex-1 rounded-2xl p-5 flex flex-col gap-3 group transition-colors cursor-default"
-                style={{ background: '#0f1505', border: '1px solid #1e2a0a' }}
+                style={{ background: 'var(--card)', border: '1px solid var(--border)' }}
                 onMouseEnter={e => gsap.to(e.currentTarget, { borderColor: 'rgba(192,245,61,0.28)', duration: 0.25 })}
-                onMouseLeave={e => gsap.to(e.currentTarget, { borderColor: 'rgba(30,42,10,1)', duration: 0.3 })}>
+                onMouseLeave={e => gsap.to(e.currentTarget, { borderColor: getComputedStyle(document.documentElement).getPropertyValue('--border').trim(), duration: 0.3 })}>
                 <span className="text-lime font-black text-xs tabular-nums">{step.num}</span>
                 <h3 className="text-white font-bold text-sm leading-snug">{step.title}</h3>
                 <p className="text-white/40 text-xs leading-relaxed flex-1">{step.desc}</p>
@@ -205,7 +205,7 @@ export default function DesignApproach() {
               {/* Left rail */}
               <div className="flex flex-col items-center">
                 <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
-                  style={{ background: '#0f1505', border: '1px solid rgba(192,245,61,0.22)' }}>
+                  style={{ background: 'var(--card)', border: '1px solid rgba(192,245,61,0.22)' }}>
                   <step.Icon size={14} className="text-lime" />
                 </div>
                 {i < steps.length - 1 && (

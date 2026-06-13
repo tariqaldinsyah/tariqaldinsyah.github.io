@@ -48,7 +48,7 @@ export default function BeyondDesign() {
               className={`rounded-2xl p-6 hover:border-lime/30 transition-all group cursor-default
                 ${i < 3 ? 'lg:col-span-2' : 'lg:col-span-3'}
                 ${i === 4 ? 'sm:col-span-2 lg:col-span-3' : ''}`}
-              style={{ background: '#0f1505', border: '1px solid #1e2a0a' }}>
+              style={{ background: 'var(--card)', border: '1px solid var(--border)' }}>
               <p className="label-tag mb-3">0{i + 1}</p>
               <h3 className="text-white font-bold text-base mb-3 group-hover:text-lime transition-colors leading-snug">
                 {c.title}

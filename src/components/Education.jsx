@@ -58,7 +58,7 @@ export default function Education() {
           {education.map((e) => (
             <div key={e.degree}
               className="rounded-2xl p-7 hover:border-lime/25 transition-colors space-y-4"
-              style={{ background: '#0f1505', border: '1px solid #1e2a0a' }}>
+              style={{ background: 'var(--card)', border: '1px solid var(--border)' }}>
               <div>
                 <p className="label-tag mb-1">{e.period}</p>
                 <h3 className="text-white font-bold text-sm leading-snug mt-2">{e.degree}</h3>
@@ -70,7 +70,7 @@ export default function Education() {
         </div>
 
         {/* Achievements — dark card */}
-        <div ref={achRef} className="rounded-2xl overflow-hidden" style={{ background: '#0f1505', border: '1px solid #1e2a0a' }}>
+        <div ref={achRef} className="rounded-2xl overflow-hidden" style={{ background: 'var(--card)', border: '1px solid var(--border)' }}>
           <div className="grid lg:grid-cols-3">
             <div className="p-8 lg:p-12 lg:border-r border-[#1e2a0a] flex flex-col justify-between">
               <div>

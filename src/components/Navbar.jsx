@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Sun, Moon } from 'lucide-react'
+import { useTheme } from '../hooks/useTheme'
 
 const navLinks = [
   { label: 'About',    href: '#about' },
@@ -14,8 +15,9 @@ const navLinks = [
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const navRef = useRef(null)
+  const navRef    = useRef(null)
   const mobileRef = useRef(null)
+  const { theme, toggle } = useTheme()
 
   useEffect(() => {
     gsap.fromTo(navRef.current, { y: -60, opacity: 0 },
@@ -46,7 +48,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         <div className="flex items-center justify-between h-16">
 
-          {/* Wordmark — boxed like ADSPACE */}
+          {/* Wordmark */}
           <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="wordmark-box hover:bg-lime/10 transition-colors">
             Tariq Aldinsyah
@@ -62,19 +64,31 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* CTA */}
-          <div className="hidden md:block">
+          {/* Desktop: theme toggle + CTA */}
+          <div className="hidden md:flex items-center gap-3">
+            <button onClick={toggle}
+              className="w-9 h-9 flex items-center justify-center rounded-full border border-[#1e2a0a] text-white/50 hover:text-lime hover:border-lime/40 transition-all"
+              aria-label="Toggle theme">
+              {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
+            </button>
             <a href="mailto:aldinsyah1610@gmail.com"
               className="border border-lime/60 text-lime text-sm font-semibold px-5 py-2 rounded-full hover:bg-lime hover:text-dark transition-all duration-200 tracking-wide">
               Let's Talk
             </a>
           </div>
 
-          {/* Hamburger */}
-          <button onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden w-9 h-9 flex items-center justify-center border border-[#1e2a0a] rounded text-white/60 hover:text-lime hover:border-lime/40 transition-colors">
-            {menuOpen ? <X size={18} /> : <Menu size={18} />}
-          </button>
+          {/* Mobile: theme toggle + hamburger */}
+          <div className="md:hidden flex items-center gap-2">
+            <button onClick={toggle}
+              className="w-9 h-9 flex items-center justify-center border border-[#1e2a0a] rounded text-white/60 hover:text-lime hover:border-lime/40 transition-colors"
+              aria-label="Toggle theme">
+              {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
+            </button>
+            <button onClick={() => setMenuOpen(!menuOpen)}
+              className="w-9 h-9 flex items-center justify-center border border-[#1e2a0a] rounded text-white/60 hover:text-lime hover:border-lime/40 transition-colors">
+              {menuOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
+          </div>
         </div>
       </div>
 

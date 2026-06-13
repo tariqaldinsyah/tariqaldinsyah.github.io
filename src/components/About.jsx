@@ -63,7 +63,7 @@ export default function About() {
           <div ref={rightRef} className="space-y-8">
             {/* Bio card */}
             <div className="rounded-2xl p-7"
-              style={{ background: '#0f1505', border: '1px solid #1e2a0a' }}>
+              style={{ background: 'var(--card)', border: '1px solid var(--border)' }}>
               <p className="label-tag mb-4">About the Project</p>
               <p className="text-white/60 leading-relaxed text-sm">
                 My focus goes beyond interface design — I'm passionate about building scalable

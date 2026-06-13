@@ -133,7 +133,7 @@ function ProjectCard({ project: p }) {
     gsap.to(cardRef.current, { borderColor: 'rgba(192,245,61,0.3)', duration: 0.3 })
 
   const onMouseLeave = () =>
-    gsap.to(cardRef.current, { borderColor: 'rgba(30,42,10,1)', rotateX: 0, rotateY: 0, duration: 0.5, ease: 'power2.out' })
+    gsap.to(cardRef.current, { borderColor: getComputedStyle(document.documentElement).getPropertyValue('--border').trim(), rotateX: 0, rotateY: 0, duration: 0.5, ease: 'power2.out' })
 
   const onMouseMove = (e) => {
     const r = cardRef.current.getBoundingClientRect()
@@ -148,7 +148,7 @@ function ProjectCard({ project: p }) {
       onMouseLeave={onMouseLeave}
       onMouseMove={onMouseMove}
       className="rounded-2xl overflow-hidden transition-all group"
-      style={{ background: '#0f1505', border: '1px solid #1e2a0a' }}>
+      style={{ background: 'var(--card)', border: '1px solid var(--border)' }}>
 
       <div className="p-8 lg:p-12">
         <div className="grid lg:grid-cols-2 gap-10">
@@ -188,7 +188,7 @@ function ProjectCard({ project: p }) {
               <div
                 className="w-full aspect-video rounded-xl overflow-hidden gap-1"
                 style={{
-                  background: '#0d1204',
+                  background: 'var(--bg)',
                   display: 'grid',
                   gridTemplateColumns: p.gridCols || '1fr 1fr',
                   gridTemplateRows: '1fr 1fr',
@@ -197,7 +197,7 @@ function ProjectCard({ project: p }) {
                   <div key={idx}
                     className={`overflow-hidden relative flex items-center justify-center ${img.cellClass || ''}`}
                     style={{
-                      background: img.bg || '#0d1204',
+                      background: img.bg || 'var(--bg)',
                       ...(img.colSpan ? { gridColumn: `span ${img.colSpan}` } : {}),
                     }}>
                     <ImageWithSkeleton
@@ -212,11 +212,11 @@ function ProjectCard({ project: p }) {
               </div>
             ) : (
               <div className="w-full aspect-video rounded-xl flex items-center justify-center relative overflow-hidden"
-                style={{ background: '#1a2209' }}>
+                style={{ background: 'var(--medium)' }}>
                 <div className="blob blob-lime w-48 h-48 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-50" />
                 <div className="relative text-center space-y-2">
                   <div className="w-14 h-14 rounded-xl mx-auto flex items-center justify-center text-2xl"
-                    style={{ background: '#243010', border: '1px solid #2d3d12' }}>
+                    style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}>
                     {p.emoji}
                   </div>
                   <p className="text-white/20 text-xs font-serif italic">{p.name}</p>
@@ -229,7 +229,7 @@ function ProjectCard({ project: p }) {
               {p.metrics.map((m, i) => (
                 <div key={m.label}
                   className="rounded-xl p-4 text-center"
-                  style={{ background: '#1a2209', border: '1px solid #1e2a0a' }}>
+                  style={{ background: 'var(--medium)', border: '1px solid var(--border)' }}>
                   <p ref={el => metricRefs.current[i] = el} className="text-lime font-black text-xl leading-none mb-1">{m.val}</p>
                   <p className="text-white/30 text-xs leading-tight">{m.label}</p>
                 </div>

@@ -48,7 +48,7 @@ export default function Skills() {
         </div>
 
         {/* Dark card */}
-        <div className="rounded-2xl overflow-hidden" style={{ background: '#0f1505', border: '1px solid #1e2a0a' }}>
+        <div className="rounded-2xl overflow-hidden" style={{ background: 'var(--card)', border: '1px solid var(--border)' }}>
           <div className="grid lg:grid-cols-3">
 
             {/* Left label */}
