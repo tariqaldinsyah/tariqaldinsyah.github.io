@@ -2,53 +2,22 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ImageWithSkeleton from './ImageWithSkeleton'
+import AboutSankey from './AboutSankey'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const skills = ['Product Design', 'UX Strategy', 'Design System', 'User Research', 'Ecosystem & Platform Design', 'Cross Functional Collaboration']
 
-const achievements = [
-  { stat: '40%',  label: 'Dev Efficiency',  sub: 'Improved development efficiency — Rakit Ecosystem' },
-  { stat: '20+',  label: 'Cooperatives',     sub: 'Integrated into one ecosystem (CoopIn)' },
-  { stat: '20%',  label: 'Active Users',     sub: 'Increased within 3 months — MyKisel Redesign' },
-  { stat: '2y+',  label: 'Experience',       sub: 'Across fintech, enterprise & cooperative systems' },
-]
-
 export default function About() {
   const sectionRef = useRef(null)
   const leftRef    = useRef(null)
   const rightRef   = useRef(null)
-  const statsRef   = useRef(null)
-  const statRefs   = useRef([])
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const st = { trigger: sectionRef.current, start: 'top 78%' }
       gsap.fromTo(leftRef.current,  { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out', scrollTrigger: st })
       gsap.fromTo(rightRef.current, { opacity: 0, x:  40 }, { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out', delay: 0.15, scrollTrigger: st })
-      gsap.fromTo(statsRef.current?.children, { opacity: 0, y: 24 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out', delay: 0.3, scrollTrigger: st })
-
-      // Counter animation
-      achievements.forEach((a, i) => {
-        const el = statRefs.current[i]
-        if (!el) return
-        const match = a.stat.match(/(\d+\.?\d*)/)
-        if (!match) return
-        const num = parseFloat(match[1])
-        const idx = a.stat.indexOf(match[1])
-        const prefix = a.stat.slice(0, idx)
-        const suffix = a.stat.slice(idx + match[1].length)
-        const obj = { val: 0 }
-        gsap.to(obj, {
-          val: num,
-          duration: 1.8,
-          ease: 'power2.out',
-          delay: 0.4 + i * 0.1,
-          onUpdate: () => { el.textContent = prefix + Math.round(obj.val) + suffix },
-          scrollTrigger: { trigger: statsRef.current, start: 'top 85%' },
-        })
-      })
     }, sectionRef)
     return () => ctx.revert()
   }, [])
@@ -104,18 +73,8 @@ export default function About() {
               </p>
             </div>
 
-            {/* Stats grid */}
-            <div ref={statsRef} className="grid grid-cols-2 gap-4">
-              {achievements.map((a, i) => (
-                <div key={a.label}
-                  className="rounded-2xl p-6 hover:border-lime/30 transition-colors"
-                  style={{ background: '#0f1505', border: '1px solid #1e2a0a' }}>
-                  <p ref={el => statRefs.current[i] = el} className="text-lime font-black text-3xl leading-none mb-1">{a.stat}</p>
-                  <p className="text-white font-semibold text-sm mb-1">{a.label}</p>
-                  <p className="text-white/35 text-xs leading-relaxed">{a.sub}</p>
-                </div>
-              ))}
-            </div>
+            {/* Sankey infographic */}
+            <AboutSankey />
           </div>
         </div>
       </div>
