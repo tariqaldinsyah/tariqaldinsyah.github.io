@@ -196,19 +196,46 @@ export default function ProjectDetail() {
         {project.gallery.length > 0 && (
           <div className="pd-section">
             <SectionLabel>Project Gallery</SectionLabel>
-            <div className="mt-6 grid grid-cols-2 gap-3">
-              {project.gallery.map((img, i) => (
-                <div key={i}
-                  className={`rounded-xl overflow-hidden relative ${img.span === 'full' ? 'col-span-2' : ''}`}
-                  style={{ background: img.bg, aspectRatio: img.ratio || '16/9' }}>
-                  <ImageWithSkeleton
-                    src={img.src}
-                    alt={img.alt}
-                    imgClassName={`w-full h-full ${img.fit === 'contain' ? 'object-contain' : 'object-cover'}`}
-                  />
+
+            {project.bento ? (
+              <>
+                {/* Desktop: 12-col bento grid */}
+                <div className="hidden md:grid mt-6 gap-3"
+                  style={{ gridTemplateColumns: 'repeat(12, 1fr)', gridTemplateAreas: project.bento }}>
+                  {project.gallery.map((img, i) => (
+                    <div key={i} className="rounded-xl overflow-hidden relative"
+                      style={{ gridArea: img.area, background: img.bg, aspectRatio: img.bentoRatio || img.ratio }}>
+                      <ImageWithSkeleton src={img.src} alt={img.alt}
+                        imgClassName="w-full h-full object-contain" />
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+
+                {/* Mobile: 2-col grid */}
+                <div className="md:hidden mt-6 grid grid-cols-2 gap-3">
+                  {project.gallery.map((img, i) => (
+                    <div key={i}
+                      className={`rounded-xl overflow-hidden relative ${i === 0 ? 'col-span-2' : ''}`}
+                      style={{ background: img.bg, aspectRatio: img.ratio }}>
+                      <ImageWithSkeleton src={img.src} alt={img.alt}
+                        imgClassName="w-full h-full object-contain" />
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              /* Standard 2-col grid for other projects */
+              <div className="mt-6 grid grid-cols-2 gap-3">
+                {project.gallery.map((img, i) => (
+                  <div key={i}
+                    className={`rounded-xl overflow-hidden relative ${img.span === 'full' ? 'col-span-2' : ''}`}
+                    style={{ background: img.bg, aspectRatio: img.ratio || '16/9' }}>
+                    <ImageWithSkeleton src={img.src} alt={img.alt}
+                      imgClassName={`w-full h-full ${img.fit === 'contain' ? 'object-contain' : 'object-cover'}`} />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
 
