@@ -161,10 +161,15 @@ export const projects = [
       { val: '↑', label: 'User Satisfaction Score' },
     ],
     tags: ['UI Redesign', 'UX Flow', 'System Design'],
+    bento: '"g1 g1 g1 g1 g1 g1 g1 g1 g1 g1 g1 g1" "g5 g5 g5 g5 g5 g5 g5 g5 g3 g3 g3 g3" "g2 g2 g2 g2 g2 g2 g2 g4 g4 g4 g4 g4"',
     gallery: [
-      { src: '/more-bayaraja.jpg', alt: 'BayarAja App UI', bg: '#C8D8C8', fit: 'contain' },
+      { src: '/bayaraja-g1.jpg', area: 'g1', alt: 'BayarAja Brand Story',     bg: '#1A2A4A', ratio: '3824/760' },
+      { src: '/bayaraja-g5.jpg', area: 'g5', alt: 'BayarAja App Overview',    bg: '#f0f0f5', ratio: '16/9' },
+      { src: '/bayaraja-g3.jpg', area: 'g3', alt: 'BayarAja App Icon',        bg: '#1A3A6A', ratio: '1/1', bentoRatio: '8/9' },
+      { src: '/bayaraja-g2.jpg', area: 'g2', alt: 'BayarAja Products',        bg: '#1A4A78', ratio: '2612/1120' },
+      { src: '/bayaraja-g4.jpg', area: 'g4', alt: 'BayarAja App Icon Dock',   bg: '#f5f5f5', ratio: '16/9', bentoRatio: '5/3' },
     ],
-    heroImage: { src: '/more-bayaraja.jpg', bg: '#C8D8C8' },
+    heroImage: { src: '/bayaraja-g5.jpg', bg: '#f0f0f5' },
   },
   {
     id: 'bayaraja-canvasser',
