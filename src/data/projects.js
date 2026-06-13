@@ -399,10 +399,13 @@ export const projects = [
       { val: '↑', label: 'Protocol Consistency' },
     ],
     tags: ['UI Design', 'UX Strategy', 'Platform Design'],
+    bento: '"g1 g1 g1 g1 g1 g1 g1 g1 g1 g1 g1 g1" "g2 g2 g2 g2 g2 g2 g3 g3 g3 g3 g3 g3"',
     gallery: [
-      { src: '/more-nexus.jpg', alt: 'Nexus Care Platform', bg: '#C8D8C8', fit: 'contain' },
+      { src: '/nexus-g1.jpg', area: 'g1', alt: 'Nexus Care Dashboard',      bg: '#f8f8f8', ratio: '7232/3872' },
+      { src: '/nexus-g2.jpg', area: 'g2', alt: 'Nexus Care App Launcher',   bg: '#C42148', ratio: '1/1' },
+      { src: '/nexus-g3.png', area: 'g3', alt: 'Nexus Care Logo',           bg: '#ffffff', ratio: '1/1' },
     ],
-    heroImage: { src: '/more-nexus.jpg', bg: '#C8D8C8' },
+    heroImage: { src: '/nexus-g1.jpg', bg: '#f8f8f8' },
   },
   {
     id: 'selynar-oms',
