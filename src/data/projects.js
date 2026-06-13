@@ -357,10 +357,13 @@ export const projects = [
       { val: '0', label: 'Lost Tickets' },
     ],
     tags: ['UI Design', 'Workflow Design', 'System Design'],
+    bento: '"g1 g1 g1 g1 g1 g1 g1 g1 g1 g1 g1 g1" "g2 g2 g2 g2 g2 g2 g3 g3 g3 g3 g3 g3"',
     gallery: [
-      { src: '/more-dira.jpg', alt: 'Dira Help Desk Interface', bg: '#C8D8C8', fit: 'contain' },
+      { src: '/dira-g1.jpg', area: 'g1', alt: 'Dira Help Desk Dashboard', bg: '#f8f8f8', ratio: '7232/3872' },
+      { src: '/dira-g2.png', area: 'g2', alt: 'Dira Logo Old',            bg: '#ffffff', ratio: '1/1' },
+      { src: '/dira-g3.png', area: 'g3', alt: 'Dira Logo New',            bg: '#ffffff', ratio: '1/1' },
     ],
-    heroImage: { src: '/more-dira.jpg', bg: '#C8D8C8' },
+    heroImage: { src: '/dira-g1.jpg', bg: '#f8f8f8' },
   },
   {
     id: 'nexus-care',
