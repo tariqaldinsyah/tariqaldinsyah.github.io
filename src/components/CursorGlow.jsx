@@ -24,6 +24,7 @@ export default function CursorGlow() {
         width: 500,
         height: 500,
         background: 'radial-gradient(circle, rgba(192,245,61,0.055) 0%, transparent 65%)',
+        willChange: 'transform',
       }} />
   )
 }

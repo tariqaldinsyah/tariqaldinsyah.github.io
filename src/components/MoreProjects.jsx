@@ -59,24 +59,29 @@ export default function MoreProjects() {
 }
 
 function ProjectItem({ project: p }) {
-  const cardRef  = useRef(null)
-  const navigate = useNavigate()
+  const cardRef    = useRef(null)
+  const borderRef  = useRef(null)
+  const navigate   = useNavigate()
+
+  useEffect(() => {
+    borderRef.current = getComputedStyle(document.documentElement).getPropertyValue('--border').trim()
+  }, [])
 
   const onMouseEnter = () =>
-    gsap.to(cardRef.current, { borderColor: 'rgba(192,245,61,0.3)', y: -4, duration: 0.25, ease: 'power2.out' })
+    gsap.to(cardRef.current, { borderColor: 'rgba(192,245,61,0.3)', y: -4, duration: 0.25, ease: 'power2.out', overwrite: 'auto' })
 
   const onMouseLeave = () =>
     gsap.to(cardRef.current, {
-      borderColor: getComputedStyle(document.documentElement).getPropertyValue('--border').trim(), y: 0,
+      borderColor: borderRef.current, y: 0,
       rotateX: 0, rotateY: 0, scale: 1,
-      duration: 0.5, ease: 'power2.out',
+      duration: 0.5, ease: 'power2.out', overwrite: 'auto',
     })
 
   const onMouseMove = (e) => {
     const r = cardRef.current.getBoundingClientRect()
     const x = (e.clientX - r.left - r.width  / 2) / (r.width  / 2)
     const y = (e.clientY - r.top  - r.height / 2) / (r.height / 2)
-    gsap.to(cardRef.current, { rotateY: x * 8, rotateX: -y * 8, scale: 1.02, duration: 0.3, ease: 'power2.out' })
+    gsap.to(cardRef.current, { rotateY: x * 8, rotateX: -y * 8, scale: 1.02, duration: 0.3, ease: 'power2.out', overwrite: 'auto' })
   }
 
   return (

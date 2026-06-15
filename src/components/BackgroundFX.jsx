@@ -44,20 +44,9 @@ export default function BackgroundFX() {
   return (
     <div className="pointer-events-none select-none">
 
-      {/* ── Film grain ── */}
-      <svg className="fixed inset-0 z-[2]"
-        style={{ width: '100%', height: '100%', opacity: 0.04, mixBlendMode: 'screen' }}
-        xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-        <filter id="grain">
-          <feTurbulence type="fractalNoise" baseFrequency="0.78" numOctaves="4" stitchTiles="stitch" />
-          <feColorMatrix type="saturate" values="0" />
-        </filter>
-        <rect width="100%" height="100%" filter="url(#grain)" />
-      </svg>
-
       {/* ── Top-right ring cluster ── */}
       <div className="fixed top-0 right-0 z-[2] overflow-hidden"
-        style={{ width: 640, height: 640, transform: 'translate(30%, -30%)' }}>
+        style={{ width: 640, height: 640, transform: 'translate(30%, -30%)', willChange: 'transform' }}>
         <svg width="640" height="640" viewBox="0 0 640 640" fill="none">
           <circle ref={ring1Ref} cx="320" cy="320" r="300"
             stroke="#C0F53D" strokeWidth="0.6" strokeOpacity="0.1" strokeDasharray="5 18" />
@@ -73,7 +62,7 @@ export default function BackgroundFX() {
 
       {/* ── Bottom-left ring ── */}
       <div className="fixed bottom-0 left-0 z-[2]"
-        style={{ width: 480, height: 480, transform: 'translate(-35%, 35%)' }}>
+        style={{ width: 480, height: 480, transform: 'translate(-35%, 35%)', willChange: 'transform' }}>
         <svg width="480" height="480" viewBox="0 0 480 480" fill="none">
           <circle ref={ring3Ref} cx="240" cy="240" r="220"
             stroke="#C0F53D" strokeWidth="0.6" strokeOpacity="0.08" strokeDasharray="4 14" />
