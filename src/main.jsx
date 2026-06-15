@@ -27,6 +27,11 @@ ScrollTrigger.addEventListener('refresh', () => lenis.resize())
 gsap.ticker.add(time => lenis.raf(time * 1000))
 gsap.ticker.lagSmoothing(0)
 
+// Refresh ScrollTrigger positions after preloader restores layout
+window.addEventListener('preloader-done', () => {
+  requestAnimationFrame(() => ScrollTrigger.refresh())
+}, { once: true })
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />

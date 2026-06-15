@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 export default function Preloader({ onComplete }) {
   const wrapRef    = useRef(null)
@@ -20,7 +19,6 @@ export default function Preloader({ onComplete }) {
           document.body.style.overflow = ''
           if (window.__lenis) window.__lenis.start()
           window.__preloaderDone = true
-          ScrollTrigger.refresh()
           window.dispatchEvent(new CustomEvent('preloader-done'))
           onComplete?.()
         },
