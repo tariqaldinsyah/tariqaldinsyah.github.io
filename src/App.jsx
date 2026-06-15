@@ -14,6 +14,7 @@ import MoreProjects from './components/MoreProjects'
 import WorksReel from './components/WorksReel'
 import Skills from './components/Skills'
 import Education from './components/Education'
+import WorkExperience from './components/WorkExperience'
 import BeyondDesign from './components/BeyondDesign'
 import Contact from './components/Contact'
 import ScrollProgress from './components/ScrollProgress'
@@ -40,6 +41,7 @@ function Home() {
         <MoreProjects />
         <Skills />
         <Education />
+        <WorkExperience />
         <BeyondDesign />
         <Contact />
       </div>
