@@ -4,6 +4,7 @@ import { sankey as createSankey, sankeyLinkHorizontal, sankeyLeft } from 'd3-san
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Maximize2, X } from 'lucide-react'
+import { useTheme } from '../hooks/useTheme'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -49,17 +50,24 @@ const RAW_LINKS = [
   { source: 3, target: 15, value:  5 },
 ]
 
-const C = {
+const COLORS_DARK = {
   src:      { node: 'rgba(192,245,61,0.10)', stroke: 'rgba(192,245,61,0.40)', link: 'rgba(192,245,61,0.22)', txt: '#C0F53D' },
   research: { node: 'rgba(192,245,61,0.08)', stroke: 'rgba(192,245,61,0.32)', link: 'rgba(192,245,61,0.22)', txt: '#C0F53D' },
   ux:       { node: 'rgba(150,212,55,0.08)', stroke: 'rgba(150,212,55,0.28)', link: 'rgba(150,212,55,0.18)', txt: '#96d437' },
   ui:       { node: 'rgba(104,165,42,0.08)', stroke: 'rgba(104,165,42,0.24)', link: 'rgba(104,165,42,0.16)', txt: '#68a52a' },
 }
 
+const COLORS_LIGHT = {
+  src:      { node: 'rgba(44,110,0,0.08)',  stroke: 'rgba(44,110,0,0.50)',  link: 'rgba(44,110,0,0.22)',  txt: '#2c6e00' },
+  research: { node: 'rgba(44,110,0,0.07)',  stroke: 'rgba(44,110,0,0.42)',  link: 'rgba(44,110,0,0.20)',  txt: '#2c6e00' },
+  ux:       { node: 'rgba(34,90,0,0.07)',   stroke: 'rgba(34,90,0,0.38)',   link: 'rgba(34,90,0,0.16)',   txt: '#225a00' },
+  ui:       { node: 'rgba(24,72,0,0.07)',   stroke: 'rgba(24,72,0,0.34)',   link: 'rgba(24,72,0,0.14)',   txt: '#184800' },
+}
+
 const makePath = sankeyLinkHorizontal()
 
 // Shared SVG content — animated=false for modal (fully visible)
-function SankeyContent({ nodes, links, animated = false }) {
+function SankeyContent({ nodes, links, animated = false, C }) {
   const op = animated ? 0 : 1
   return (
     <>
@@ -138,6 +146,8 @@ export default function AboutSankey() {
   const svgRef   = useRef(null)
   const modalRef = useRef(null)
   const [open, setOpen] = useState(false)
+  const { theme } = useTheme()
+  const C = theme === 'light' ? COLORS_LIGHT : COLORS_DARK
 
   const { nodes, links } = useMemo(() => {
     const layout = createSankey()
@@ -226,7 +236,7 @@ export default function AboutSankey() {
           viewBox={`-110 -24 ${CW + 260} ${CH + 44}`}
           className="w-full"
           style={{ overflow: 'visible', fontFamily: "'Space Grotesk', sans-serif" }}>
-          <SankeyContent nodes={nodes} links={links} animated={true} />
+          <SankeyContent nodes={nodes} links={links} animated={true} C={C} />
         </svg>
       </div>
 
@@ -265,7 +275,7 @@ export default function AboutSankey() {
               viewBox={`-110 -24 ${CW + 260} ${CH + 44}`}
               className="w-full"
               style={{ overflow: 'visible', fontFamily: "'Space Grotesk', sans-serif" }}>
-              <SankeyContent nodes={nodes} links={links} animated={false} />
+              <SankeyContent nodes={nodes} links={links} animated={false} C={C} />
             </svg>
 
             {/* ESC hint */}
