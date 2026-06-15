@@ -107,6 +107,22 @@ export default function Navbar() {
               Tariq Aldinsyah
             </button>
 
+            {/* Desktop shortcut links */}
+            <nav className="hidden lg:flex items-center gap-1" style={{ position: 'relative', zIndex: 102 }}>
+              {navLinks.map((l) => (
+                <button key={l.href}
+                  onClick={() => {
+                    const el = document.querySelector(l.href)
+                    if (!el) return
+                    if (window.__lenis) window.__lenis.scrollTo(el)
+                    else el.scrollIntoView({ behavior: 'smooth' })
+                  }}
+                  className="px-3.5 py-1.5 text-[11px] font-bold tracking-[0.12em] uppercase text-white/40 hover:text-lime transition-colors rounded-md hover:bg-lime/5">
+                  {l.label}
+                </button>
+              ))}
+            </nav>
+
             {/* Right controls */}
             <div className="flex items-center gap-3" style={{ position: 'relative', zIndex: 102 }}>
               <button onClick={toggle} aria-label="Toggle theme"
