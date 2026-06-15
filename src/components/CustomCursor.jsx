@@ -5,7 +5,6 @@ export default function CustomCursor() {
   const dotRef   = useRef(null)
   const wrapRef  = useRef(null)
   const ringRef  = useRef(null)
-  const labelRef = useRef(null)
   const stateRef = useRef('idle')
 
   useEffect(() => {
@@ -18,7 +17,6 @@ export default function CustomCursor() {
     gsap.set(wrapRef.current, { xPercent: -50, yPercent: -50, x: -300, y: -300 })
     // Ring initial state
     gsap.set(ringRef.current, { scale: 0.55, backgroundColor: 'rgba(192,245,61,0)' })
-    gsap.set(labelRef.current, { opacity: 0 })
 
     const applyState = (state) => {
       if (stateRef.current === state) return
@@ -33,9 +31,8 @@ export default function CustomCursor() {
         gsap.to(ringRef.current,  { scale: 0.85, backgroundColor: 'rgba(192,245,61,0)', duration: 0.35, ease: 'power3.out' })
         gsap.to(labelRef.current, { opacity: 0, duration: 0.1 })
       } else if (state === 'view') {
-        gsap.to(dotRef.current,   { scale: 0, opacity: 0, duration: 0.15 })
-        gsap.to(ringRef.current,  { scale: 1, backgroundColor: 'rgba(192,245,61,1)', duration: 0.4, ease: 'power3.out' })
-        gsap.to(labelRef.current, { opacity: 1, duration: 0.2, delay: 0.15 })
+        gsap.to(dotRef.current,  { scale: 0, opacity: 0, duration: 0.15 })
+        gsap.to(ringRef.current, { scale: 1, backgroundColor: 'rgba(192,245,61,1)', duration: 0.4, ease: 'power3.out' })
       }
     }
 
@@ -104,16 +101,6 @@ export default function CustomCursor() {
           style={{ border: '1.5px solid #C0F53D', transformOrigin: 'center' }}
         />
 
-        {/* Label — only visible in view state */}
-        <div ref={labelRef}
-          className="absolute inset-0 flex flex-col items-center justify-center"
-          style={{ opacity: 0 }}>
-          <span className="font-black uppercase leading-none"
-            style={{ fontSize: 8, color: '#070707', letterSpacing: '0.15em' }}>
-            VIEW
-          </span>
-          <span style={{ fontSize: 10, color: '#070707', lineHeight: 1.2 }}>→</span>
-        </div>
       </div>
     </>
   )
