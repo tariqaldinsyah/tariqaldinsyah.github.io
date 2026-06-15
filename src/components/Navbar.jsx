@@ -35,11 +35,19 @@ export default function Navbar() {
   // Nav drop-in — wait for preloader
   useEffect(() => {
     gsap.set(navRef.current, { y: -60, opacity: 0 })
-    const anim = () =>
+    let fired = false
+    const anim = () => {
+      if (fired) return
+      fired = true
       gsap.to(navRef.current, { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out', delay: 0.1 })
-    if (window.__preloaderDone) anim()
-    else window.addEventListener('preloader-done', anim, { once: true })
-    return () => window.removeEventListener('preloader-done', anim)
+    }
+    if (window.__preloaderDone) { anim(); return }
+    window.addEventListener('preloader-done', anim, { once: true })
+    const fallback = setTimeout(anim, 4000)
+    return () => {
+      window.removeEventListener('preloader-done', anim)
+      clearTimeout(fallback)
+    }
   }, [])
 
   // Body scroll lock when overlay is open
