@@ -2,95 +2,131 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 
 export default function CustomCursor() {
-  const dotRef     = useRef(null)
-  const reticleRef = useRef(null)
-  const isHover    = useRef(false)
+  const dotRef   = useRef(null)
+  const wrapRef  = useRef(null)
+  const ringRef  = useRef(null)
+  const labelRef = useRef(null)
+  const stateRef = useRef('idle')
 
   useEffect(() => {
-    // Only on true pointer devices (not touch)
     if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
 
     document.documentElement.classList.add('custom-cursor')
 
+    // Off-screen initially so no top-left flash
+    gsap.set([dotRef.current, wrapRef.current], { x: -300, y: -300 })
+    gsap.set(ringRef.current, { scale: 0.46, backgroundColor: 'rgba(192,245,61,0)' })
+    gsap.set(labelRef.current, { opacity: 0 })
+
+    const applyState = (state) => {
+      if (stateRef.current === state) return
+      stateRef.current = state
+
+      if (state === 'idle') {
+        gsap.to(dotRef.current,   { scale: 1, opacity: 1, duration: 0.3, ease: 'power2.out' })
+        gsap.to(ringRef.current,  { scale: 0.46, backgroundColor: 'rgba(192,245,61,0)', duration: 0.4, ease: 'power3.out' })
+        gsap.to(labelRef.current, { opacity: 0, duration: 0.12 })
+        return
+      }
+
+      if (state === 'link') {
+        gsap.to(dotRef.current,   { scale: 0, opacity: 0, duration: 0.18 })
+        gsap.to(ringRef.current,  { scale: 0.75, backgroundColor: 'rgba(192,245,61,0)', duration: 0.4, ease: 'power3.out' })
+        gsap.to(labelRef.current, { opacity: 0, duration: 0.12 })
+        return
+      }
+
+      if (state === 'view') {
+        gsap.to(dotRef.current,   { scale: 0, opacity: 0, duration: 0.18 })
+        gsap.to(ringRef.current,  { scale: 1, backgroundColor: 'rgba(192,245,61,1)', duration: 0.45, ease: 'power3.out' })
+        gsap.to(labelRef.current, { opacity: 1, duration: 0.25, delay: 0.18, ease: 'power2.out' })
+        return
+      }
+    }
+
+    // Track all state changes via mouseover — fired on every element entered
+    const onOver = (e) => {
+      if (e.target.closest('[data-cursor="view"]')) {
+        applyState('view')
+      } else if (e.target.closest('a, button, [role="button"], input, textarea, select, [data-interactive]')) {
+        applyState('link')
+      } else {
+        applyState('idle')
+      }
+    }
+
     const move = (e) => {
-      // Dot: instant
       gsap.set(dotRef.current, { x: e.clientX, y: e.clientY })
-      // Reticle: slight lag
-      gsap.to(reticleRef.current, {
-        x: e.clientX, y: e.clientY,
-        duration: 0.18, ease: 'power2.out', overwrite: true,
+      gsap.to(wrapRef.current, {
+        x: e.clientX,
+        y: e.clientY,
+        duration: 0.42,
+        ease: 'power2.out',
+        overwrite: 'auto',
       })
     }
 
-    const down = () => {
-      gsap.to(reticleRef.current, { scale: 0.7, duration: 0.1 })
-      gsap.to(dotRef.current,     { scale: 1.8, duration: 0.1 })
-    }
-    const up = () => {
-      gsap.to(reticleRef.current, { scale: isHover.current ? 1.6 : 1, duration: 0.3, ease: 'back.out(2)' })
-      gsap.to(dotRef.current,     { scale: 1, duration: 0.2 })
+    const SCALE_BY_STATE = { idle: 0.46, link: 0.75, view: 1 }
+
+    const onDown = () => {
+      gsap.to(ringRef.current, { scale: SCALE_BY_STATE[stateRef.current] * 0.78, duration: 0.1 })
+      if (stateRef.current === 'idle')
+        gsap.to(dotRef.current, { scale: 2.5, duration: 0.1 })
     }
 
-    // Event delegation for hover on interactive elements
-    const onOver = (e) => {
-      if (e.target.closest('a, button, [role="button"], input, textarea, select, [tabindex]')) {
-        isHover.current = true
-        gsap.to(reticleRef.current, { scale: 1.6, opacity: 0.85, duration: 0.25, ease: 'power2.out' })
-        gsap.to(dotRef.current,     { scale: 0, duration: 0.2 })
-      }
+    const onUp = () => {
+      gsap.to(ringRef.current, { scale: SCALE_BY_STATE[stateRef.current] ?? 0.46, duration: 0.45, ease: 'back.out(2)' })
+      if (stateRef.current === 'idle')
+        gsap.to(dotRef.current, { scale: 1, duration: 0.35, ease: 'back.out(2)' })
     }
-    const onOut = (e) => {
-      if (e.target.closest('a, button, [role="button"], input, textarea, select, [tabindex]')) {
-        isHover.current = false
-        gsap.to(reticleRef.current, { scale: 1, opacity: 1, duration: 0.25, ease: 'power2.out' })
-        gsap.to(dotRef.current,     { scale: 1, duration: 0.2 })
-      }
-    }
+
+    const onLeave = () => applyState('idle')
 
     window.addEventListener('mousemove', move)
-    window.addEventListener('mousedown', down)
-    window.addEventListener('mouseup',   up)
-    document.addEventListener('mouseover', onOver)
-    document.addEventListener('mouseout',  onOut)
+    window.addEventListener('mousedown', onDown)
+    window.addEventListener('mouseup',   onUp)
+    document.addEventListener('mouseover',  onOver)
+    document.addEventListener('mouseleave', onLeave)
 
     return () => {
       document.documentElement.classList.remove('custom-cursor')
       window.removeEventListener('mousemove', move)
-      window.removeEventListener('mousedown', down)
-      window.removeEventListener('mouseup',   up)
-      document.removeEventListener('mouseover', onOver)
-      document.removeEventListener('mouseout',  onOut)
+      window.removeEventListener('mousedown', onDown)
+      window.removeEventListener('mouseup',   onUp)
+      document.removeEventListener('mouseover',  onOver)
+      document.removeEventListener('mouseleave', onLeave)
     }
   }, [])
 
   return (
     <>
-      {/* Centre dot — snaps to cursor */}
+      {/* Dot — snaps to exact cursor position */}
       <div ref={dotRef}
-        className="fixed top-0 left-0 z-[1001] pointer-events-none rounded-full bg-lime"
-        style={{ width: 5, height: 5, marginLeft: -2.5, marginTop: -2.5, willChange: 'transform' }} />
+        className="fixed top-0 left-0 z-[1001] pointer-events-none rounded-full"
+        style={{ width: 7, height: 7, marginLeft: -3.5, marginTop: -3.5, background: '#C0F53D', willChange: 'transform' }}
+      />
 
-      {/* Targeting reticle — follows with lag */}
-      <div ref={reticleRef}
+      {/* Ring wrapper — follows with lag at ring center */}
+      <div ref={wrapRef}
         className="fixed top-0 left-0 z-[1000] pointer-events-none"
-        style={{ marginLeft: -20, marginTop: -20, willChange: 'transform' }}>
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          {/* Top-left corner */}
-          <line x1="2"  y1="11" x2="2"  y2="2"  stroke="#C0F53D" strokeWidth="1.5" strokeLinecap="round" />
-          <line x1="2"  y1="2"  x2="11" y2="2"  stroke="#C0F53D" strokeWidth="1.5" strokeLinecap="round" />
-          {/* Top-right corner */}
-          <line x1="29" y1="2"  x2="38" y2="2"  stroke="#C0F53D" strokeWidth="1.5" strokeLinecap="round" />
-          <line x1="38" y1="2"  x2="38" y2="11" stroke="#C0F53D" strokeWidth="1.5" strokeLinecap="round" />
-          {/* Bottom-left corner */}
-          <line x1="2"  y1="29" x2="2"  y2="38" stroke="#C0F53D" strokeWidth="1.5" strokeLinecap="round" />
-          <line x1="2"  y1="38" x2="11" y2="38" stroke="#C0F53D" strokeWidth="1.5" strokeLinecap="round" />
-          {/* Bottom-right corner */}
-          <line x1="29" y1="38" x2="38" y2="38" stroke="#C0F53D" strokeWidth="1.5" strokeLinecap="round" />
-          <line x1="38" y1="29" x2="38" y2="38" stroke="#C0F53D" strokeWidth="1.5" strokeLinecap="round" />
-          {/* Tiny centre crosshair */}
-          <line x1="17" y1="20" x2="23" y2="20" stroke="#C0F53D" strokeWidth="0.8" strokeOpacity="0.5" />
-          <line x1="20" y1="17" x2="20" y2="23" stroke="#C0F53D" strokeWidth="0.8" strokeOpacity="0.5" />
-        </svg>
+        style={{ marginLeft: -44, marginTop: -44, willChange: 'transform' }}>
+
+        {/* Ring — scales between states */}
+        <div ref={ringRef}
+          className="w-[88px] h-[88px] rounded-full"
+          style={{ border: '1.5px solid #C0F53D', transformOrigin: 'center' }}
+        />
+
+        {/* Label — centered inside ring, visible only on view state */}
+        <div ref={labelRef}
+          className="absolute inset-0 flex flex-col items-center justify-center gap-[2px]"
+          style={{ opacity: 0 }}>
+          <span className="font-black uppercase tracking-widest leading-none"
+            style={{ fontSize: 9, color: '#070707', letterSpacing: '0.18em' }}>
+            VIEW
+          </span>
+          <span style={{ fontSize: 11, color: '#070707', lineHeight: 1 }}>→</span>
+        </div>
       </div>
     </>
   )

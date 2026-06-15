@@ -104,6 +104,7 @@ function ProjectItem({ project: p }) {
 
   return (
     <div ref={cardRef}
+      data-cursor="view"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onMouseMove={onMouseMove}
