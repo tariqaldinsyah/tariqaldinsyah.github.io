@@ -81,15 +81,19 @@ function ProjectItem({ project: p }) {
     borderRef.current = getComputedStyle(document.documentElement).getPropertyValue('--border').trim()
   }, [])
 
-  const onMouseEnter = () =>
+  const onMouseEnter = () => {
     gsap.to(cardRef.current, { borderColor: 'rgba(192,245,61,0.3)', y: -4, duration: 0.25, ease: 'power2.out', overwrite: 'auto' })
+    window.__previewShow?.(p.img)
+  }
 
-  const onMouseLeave = () =>
+  const onMouseLeave = () => {
     gsap.to(cardRef.current, {
       borderColor: borderRef.current, y: 0,
       rotateX: 0, rotateY: 0, scale: 1,
       duration: 0.5, ease: 'power2.out', overwrite: 'auto',
     })
+    window.__previewHide?.()
+  }
 
   const onMouseMove = (e) => {
     const r = cardRef.current.getBoundingClientRect()

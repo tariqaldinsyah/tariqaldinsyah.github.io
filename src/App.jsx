@@ -1,8 +1,11 @@
+import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './index.css'
 import ScrollToTop from './components/ScrollToTop'
 import ProjectDetail from './pages/ProjectDetail'
 
+import Preloader from './components/Preloader'
+import CursorImagePreview from './components/CursorImagePreview'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -44,9 +47,13 @@ function Home() {
 }
 
 function App() {
+  const [preloaderDone, setPreloaderDone] = useState(false)
+
   return (
     <BrowserRouter>
       <ScrollToTop />
+      {!preloaderDone && <Preloader onComplete={() => setPreloaderDone(true)} />}
+      <CursorImagePreview />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/projects/:id" element={<ProjectDetail />} />

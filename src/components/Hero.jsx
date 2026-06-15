@@ -20,48 +20,42 @@ export default function Hero() {
   const sectionRef   = useRef(null)
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Clip-path initial state on italic gradient text
-      gsap.set(italicRef.current, { clipPath: 'inset(0 100% 0 0)' })
+    let ctx
 
-      const tl = gsap.timeline({ delay: 0.3 })
-      tl
-        .fromTo(metaRef.current,  { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' })
-        .fromTo(line1Ref.current, { y: '120%' },          { y: '0%',  duration: 1.0, ease: 'power4.out' }, '-=0.1')
-        // italic text wipe-in from left after line1 arrives
-        .to(italicRef.current, { clipPath: 'inset(0 0% 0 0)', duration: 0.7, ease: 'power3.inOut' }, '-=0.1')
-        .fromTo(line2Ref.current, { y: '120%' },          { y: '0%',  duration: 1.0, ease: 'power4.out' }, '-=0.55')
-        .fromTo(descRef.current,  { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.5')
-        .fromTo(ctaRef.current,   { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.4')
-        .fromTo(phoneWrapRef.current, { opacity: 0, x: 60, scale: 0.93 }, { opacity: 1, x: 0, scale: 1, duration: 1.1, ease: 'power3.out' }, '-=0.85')
+    const startAnim = () => {
+      ctx = gsap.context(() => {
+        gsap.set(italicRef.current, { clipPath: 'inset(0 100% 0 0)' })
 
-      // Sparkle markers pop in with bounce
-      const sparkles = sectionRef.current?.querySelectorAll('.sparkle')
-      if (sparkles?.length) {
-        gsap.from(sparkles, {
-          scale: 0, opacity: 0, rotation: -45,
-          stagger: 0.15, duration: 0.6, ease: 'back.out(3)',
-          delay: 1.2,
+        const tl = gsap.timeline({ delay: 0.2 })
+        tl
+          .fromTo(metaRef.current,  { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' })
+          .fromTo(line1Ref.current, { y: '120%' },          { y: '0%',  duration: 1.0, ease: 'power4.out' }, '-=0.1')
+          .to(italicRef.current, { clipPath: 'inset(0 0% 0 0)', duration: 0.7, ease: 'power3.inOut' }, '-=0.1')
+          .fromTo(line2Ref.current, { y: '120%' },          { y: '0%',  duration: 1.0, ease: 'power4.out' }, '-=0.55')
+          .fromTo(descRef.current,  { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.5')
+          .fromTo(ctaRef.current,   { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.4')
+          .fromTo(phoneWrapRef.current, { opacity: 0, x: 60, scale: 0.93 }, { opacity: 1, x: 0, scale: 1, duration: 1.1, ease: 'power3.out' }, '-=0.85')
+
+        const sparkles = sectionRef.current?.querySelectorAll('.sparkle')
+        if (sparkles?.length)
+          gsap.from(sparkles, { scale: 0, opacity: 0, rotation: -45, stagger: 0.15, duration: 0.6, ease: 'back.out(3)', delay: 1.0 })
+
+        gsap.to(phoneRef.current, { y: -14, duration: 3.2, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 1.5 })
+
+        gsap.to(phoneWrapRef.current, {
+          y: -55, ease: 'none',
+          scrollTrigger: { trigger: document.documentElement, start: 'top top', end: '+=600', scrub: 1 },
         })
-      }
-
-      // Float loop on inner phone div
-      gsap.to(phoneRef.current, {
-        y: -14, duration: 3.2, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 1.5,
       })
+    }
 
-      // Scroll parallax on phone wrapper
-      gsap.to(phoneWrapRef.current, {
-        y: -55, ease: 'none',
-        scrollTrigger: {
-          trigger: document.documentElement,
-          start: 'top top',
-          end: '+=600',
-          scrub: 1,
-        },
-      })
-    })
-    return () => ctx.revert()
+    if (window.__preloaderDone) startAnim()
+    else window.addEventListener('preloader-done', startAnim, { once: true })
+
+    return () => {
+      window.removeEventListener('preloader-done', startAnim)
+      ctx?.revert()
+    }
   }, [])
 
   const magnetic = (ref) => ({

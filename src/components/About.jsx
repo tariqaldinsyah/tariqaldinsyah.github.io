@@ -3,6 +3,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ImageWithSkeleton from './ImageWithSkeleton'
 import AboutSankey from './AboutSankey'
+import { splitWords } from '../utils/splitText'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -12,6 +13,7 @@ export default function About() {
   const sectionRef = useRef(null)
   const leftRef    = useRef(null)
   const rightRef   = useRef(null)
+  const bioRef     = useRef(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -42,6 +44,22 @@ export default function About() {
           stagger: 0.05, duration: 0.4, ease: 'back.out(2)', delay: 0.4,
           scrollTrigger: st,
         })
+
+      // Bio text scrub reveal — each word brightens as you scroll through
+      if (bioRef.current) {
+        const words = splitWords(bioRef.current)
+        if (words.length) {
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: bioRef.current,
+              start: 'top 80%',
+              end: 'bottom 60%',
+              scrub: 1.5,
+            },
+          })
+          tl.from(words, { opacity: 0.12, stagger: 0.25, ease: 'none' })
+        }
+      }
     }, sectionRef)
     return () => ctx.revert()
   }, [])
@@ -92,7 +110,7 @@ export default function About() {
             <div className="rounded-2xl p-7"
               style={{ background: 'var(--card)', border: '1px solid var(--border)' }}>
               <p className="label-tag mb-4">About the Project</p>
-              <p className="text-white/60 leading-relaxed text-sm">
+              <p ref={bioRef} className="text-white/60 leading-relaxed text-sm">
                 My focus goes beyond interface design — I'm passionate about building scalable
                 digital ecosystems that balance user needs, business goals, and operational efficiency.
                 Designing platforms across fintech, cooperatives, HR systems, and enterprise tools

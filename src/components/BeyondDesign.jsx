@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { splitWords, splitChars } from '../utils/splitText'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -19,10 +20,22 @@ export default function BeyondDesign() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const st = { trigger: sectionRef.current, start: 'top 78%' }
-      gsap.fromTo(headRef.current, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', scrollTrigger: st })
+      const st    = { trigger: sectionRef.current, start: 'top 78%' }
+      const label = headRef.current?.querySelector('.label-tag')
+
+      gsap.fromTo(label, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', scrollTrigger: st })
+
+      const h2 = headRef.current?.querySelector('h2')
+      if (h2) {
+        const words = splitWords(h2.children[0])
+        const chars = splitChars(h2.children[1])
+        gsap.from(words, { y: '105%', duration: 0.7, stagger: 0.09, ease: 'power3.out', scrollTrigger: st })
+        gsap.from(chars, { y: '105%', stagger: 0.055, duration: 0.55, ease: 'back.out(2.5)', scrollTrigger: st })
+      }
+
       gsap.fromTo(cardsRef.current?.children, { opacity: 0, y: 28 },
-        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out', delay: 0.2, scrollTrigger: st })
+        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out', delay: 0.2,
+          scrollTrigger: { trigger: cardsRef.current, start: 'top 82%' } })
     }, sectionRef)
     return () => ctx.revert()
   }, [])
