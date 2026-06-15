@@ -3,6 +3,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Search, Compass, Layers, Users, CheckCircle } from 'lucide-react'
 import { splitWords, splitChars } from '../utils/splitText'
+import { useTheme } from '../hooks/useTheme'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -45,6 +46,11 @@ const principles = ['Simplicity', 'Scalability', 'Accessibility', 'User Trust', 
 const DOT_POS = ['10%', '30%', '50%', '70%', '90%']
 
 export default function DesignApproach() {
+  const { theme } = useTheme()
+  const isLight = theme === 'light'
+  // lime in dark mode = #C0F53D, in light mode = #4A7200
+  const lr = (a) => isLight ? `rgba(74,114,0,${a})` : `rgba(192,245,61,${a})`
+
   const sectionRef = useRef(null)
   const headerRef  = useRef(null)
   const barRef     = useRef(null)
@@ -140,7 +146,7 @@ export default function DesignApproach() {
               <div key={i} className="flex-1 flex flex-col items-center">
                 <div ref={el => iconRefs.current[i] = el}
                   className="w-11 h-11 rounded-full flex items-center justify-center cursor-default"
-                  style={{ background: 'var(--card)', border: '1px solid rgba(192,245,61,0.22)' }}
+                  style={{ background: 'var(--card)', border: `1px solid ${lr(0.40)}` }}
                   onMouseEnter={e => gsap.to(e.currentTarget.querySelector('svg'), { rotation: 360, duration: 0.5, ease: 'power2.out', overwrite: 'auto' })}
                   onMouseLeave={e => gsap.to(e.currentTarget.querySelector('svg'), { rotation: 0, duration: 0.4, ease: 'power2.inOut', overwrite: 'auto' })}>
                   <step.Icon size={16} className="text-lime" style={{ display: 'block' }} />
@@ -155,7 +161,7 @@ export default function DesignApproach() {
               <div key={i} className="flex-1 flex justify-center">
                 <div ref={el => lineRefs.current[i] = el}
                   className="w-px h-5"
-                  style={{ background: 'linear-gradient(to bottom, rgba(192,245,61,0.35), rgba(192,245,61,0.06))' }}
+                  style={{ background: `linear-gradient(to bottom, ${lr(0.55)}, ${lr(0.08)})` }}
                 />
               </div>
             ))}
@@ -164,20 +170,20 @@ export default function DesignApproach() {
           {/* Progress bar */}
           <div ref={barRef}
             className="relative h-11 rounded-full overflow-hidden"
-            style={{ background: 'rgba(192,245,61,0.04)', border: '1px solid rgba(192,245,61,0.13)' }}>
+            style={{ background: lr(0.07), border: `1px solid ${lr(0.28)}` }}>
 
             {/* Tick marks */}
             {TICKS.map(i => (
               <div key={i}
                 className="absolute top-2 bottom-2 w-px pointer-events-none"
-                style={{ left: `${(i + 1) / (TICKS.length + 1) * 100}%`, background: 'rgba(192,245,61,0.07)' }}
+                style={{ left: `${(i + 1) / (TICKS.length + 1) * 100}%`, background: lr(0.14) }}
               />
             ))}
 
             {/* Animated fill */}
             <div ref={fillRef}
               className="absolute inset-y-0 left-0 w-full origin-left"
-              style={{ background: 'linear-gradient(to right, rgba(192,245,61,0.20), rgba(192,245,61,0.06))' }}
+              style={{ background: `linear-gradient(to right, ${lr(0.32)}, ${lr(0.08)})` }}
             />
 
             {/* Dots — outer handles position, inner is GSAP target */}
@@ -187,7 +193,7 @@ export default function DesignApproach() {
                 style={{ left: DOT_POS[i], transform: 'translate(-50%, -50%)' }}>
                 <div ref={el => dotRefs.current[i] = el}
                   className="w-[14px] h-[14px] rounded-full"
-                  style={{ background: '#C0F53D', boxShadow: '0 0 10px rgba(192,245,61,0.55)' }}
+                  style={{ background: isLight ? '#4A7200' : '#C0F53D', boxShadow: `0 0 10px ${lr(0.55)}` }}
                 />
               </div>
             ))}
@@ -200,7 +206,7 @@ export default function DesignApproach() {
                 ref={el => cardRefs.current[i] = el}
                 className="flex-1 rounded-2xl p-5 flex flex-col gap-3 group transition-colors cursor-default"
                 style={{ background: 'var(--card)', border: '1px solid var(--border)' }}
-                onMouseEnter={e => gsap.to(e.currentTarget, { borderColor: 'rgba(192,245,61,0.28)', duration: 0.25 })}
+                onMouseEnter={e => gsap.to(e.currentTarget, { borderColor: lr(0.45), duration: 0.25 })}
                 onMouseLeave={e => gsap.to(e.currentTarget, { borderColor: getComputedStyle(document.documentElement).getPropertyValue('--border').trim(), duration: 0.3 })}>
                 <span className="text-lime font-black text-xs tabular-nums">{step.num}</span>
                 <h3 className="text-white font-bold text-sm leading-snug">{step.title}</h3>
@@ -222,11 +228,11 @@ export default function DesignApproach() {
               {/* Left rail */}
               <div className="flex flex-col items-center">
                 <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
-                  style={{ background: 'var(--card)', border: '1px solid rgba(192,245,61,0.22)' }}>
+                  style={{ background: 'var(--card)', border: `1px solid ${lr(0.40)}` }}>
                   <step.Icon size={14} className="text-lime" />
                 </div>
                 {i < steps.length - 1 && (
-                  <div className="w-px flex-1 my-1" style={{ background: 'rgba(192,245,61,0.12)' }} />
+                  <div className="w-px flex-1 my-1" style={{ background: lr(0.22) }} />
                 )}
               </div>
               {/* Content */}
