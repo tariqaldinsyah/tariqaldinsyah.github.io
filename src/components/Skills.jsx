@@ -62,7 +62,7 @@ export default function Skills() {
       <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
 
         {/* Header */}
-        <div ref={headerRef} className="mb-14">
+        <div ref={headerRef} className="mb-16">
           <p className="label-tag mb-4">Expertise</p>
           <h2 className="font-black leading-[1.05] tracking-tight"
             style={{ fontSize: 'clamp(1.8rem, 4vw, 4.2rem)' }}>

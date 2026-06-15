@@ -81,7 +81,7 @@ export default function Hero() {
 
       <div className="relative max-w-7xl mx-auto px-5 sm:px-8 py-8 lg:py-10 w-full">
 
-        <div ref={metaRef} className="grid grid-cols-3 gap-4 mb-8 lg:mb-14 border-b border-[#1e2a0a] pb-6 lg:pb-8 text-sm">
+        <div ref={metaRef} className="grid grid-cols-3 gap-4 mb-8 lg:mb-16 border-b border-[#1e2a0a] pb-6 lg:pb-8 text-sm">
           <div>
             <p className="text-white/30 uppercase text-xs tracking-widest mb-1">Designer</p>
             <p className="text-white/70 font-medium text-xs sm:text-sm">Tariq Aldinsyah</p>

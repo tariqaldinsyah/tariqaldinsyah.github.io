@@ -80,7 +80,7 @@ export default function Education() {
       <div className="relative max-w-7xl mx-auto px-5 sm:px-8 space-y-8">
 
         {/* Heading */}
-        <div ref={headerRef} className="mb-12">
+        <div ref={headerRef} className="mb-16">
           <p className="label-tag mb-4">Education & Certification</p>
           <h2 className="font-black leading-[1.05] tracking-tight"
             style={{ fontSize: 'clamp(1.8rem, 4vw, 4.2rem)' }}>

@@ -46,7 +46,7 @@ export default function BeyondDesign() {
       <div className="absolute inset-0 grid-overlay opacity-30" />
 
       <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
-        <div ref={headRef} className="mb-12">
+        <div ref={headRef} className="mb-16">
           <p className="label-tag mb-4">Beyond Interface</p>
           <h2 className="font-black leading-[1.05] tracking-tight"
             style={{ fontSize: 'clamp(1.8rem, 4vw, 4.2rem)' }}>
