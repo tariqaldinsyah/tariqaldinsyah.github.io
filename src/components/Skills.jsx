@@ -23,10 +23,6 @@ export default function Skills() {
       const st  = { trigger: sectionRef.current, start: 'top 78%' }
       const lst = { trigger: listRef.current, start: 'top 82%' }
       const h2  = headerRef.current?.querySelector('h2')
-      const label = headerRef.current?.querySelector('.label-tag')
-
-      gsap.fromTo(label, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', scrollTrigger: st })
-
       if (h2) {
         const words = splitWords(h2.children[0])
         const chars = splitChars(h2.children[1])
@@ -63,9 +59,8 @@ export default function Skills() {
 
         {/* Header */}
         <div ref={headerRef} className="mb-16">
-          <p className="label-tag mb-4">Expertise</p>
           <h2 className="font-black leading-[1.05] tracking-tight"
-            style={{ fontSize: 'clamp(1.8rem, 4vw, 4.2rem)' }}>
+            style={{ fontSize: 'clamp(2rem, 4vw, 4.5rem)' }}>
             <span className="text-white">Skills & </span>
             <span className="font-serif italic font-semibold text-lime">Expertise</span>
           </h2>

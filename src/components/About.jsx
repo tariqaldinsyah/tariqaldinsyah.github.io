@@ -111,7 +111,6 @@ export default function About() {
             {/* Bio card */}
             <div className="rounded-2xl p-7"
               style={{ background: 'var(--card)', border: '1px solid var(--border)' }}>
-              <p className="label-tag mb-4">About the Project</p>
               <p ref={bioRef} className="text-white/60 leading-relaxed text-sm">
                 My focus goes beyond interface design — I'm passionate about building scalable
                 digital ecosystems that balance user needs, business goals, and operational efficiency.

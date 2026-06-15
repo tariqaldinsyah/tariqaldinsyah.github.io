@@ -30,10 +30,6 @@ export default function Education() {
     const ctx = gsap.context(() => {
       const hst = { trigger: sectionRef.current, start: 'top 80%' }
       const h2  = headerRef.current?.querySelector('h2')
-      const label = headerRef.current?.querySelector('.label-tag')
-
-      // Heading word reveal
-      gsap.fromTo(label, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', scrollTrigger: hst })
       if (h2) {
         const words = splitWords(h2.children[0])
         const chars = splitChars(h2.children[1])
@@ -81,9 +77,8 @@ export default function Education() {
 
         {/* Heading */}
         <div ref={headerRef} className="mb-16">
-          <p className="label-tag mb-4">Education & Certification</p>
           <h2 className="font-black leading-[1.05] tracking-tight"
-            style={{ fontSize: 'clamp(1.8rem, 4vw, 4.2rem)' }}>
+            style={{ fontSize: 'clamp(2rem, 4vw, 4.5rem)' }}>
             <span className="text-white">Education & </span>
             <span className="font-serif italic font-semibold text-lime">Credentials</span>
           </h2>
@@ -110,7 +105,6 @@ export default function Education() {
           <div className="grid lg:grid-cols-3">
             <div className="p-8 lg:p-12 lg:border-r border-[#1e2a0a] flex flex-col justify-between">
               <div>
-                <p className="label-tag mb-4">Awards & Recognition</p>
                 <h3 className="font-black leading-[1.05] tracking-tight text-white"
                   style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2.2rem)' }}>
                   Achievement &{' '}

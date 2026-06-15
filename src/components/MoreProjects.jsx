@@ -29,11 +29,6 @@ export default function MoreProjects() {
       const st  = { trigger: sectionRef.current, start: 'top 80%' }
       const gst = { trigger: gridRef.current, start: 'top 85%' }
       const h2  = headerRef.current?.querySelector('h2')
-      const label = headerRef.current?.querySelector('.label-tag')
-
-      // Label
-      gsap.fromTo(label, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', scrollTrigger: st })
-
       if (h2) {
         const words = splitWords(h2.children[0])
         const chars = splitChars(h2.children[1])
@@ -56,9 +51,8 @@ export default function MoreProjects() {
 
       <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
         <div ref={headerRef} className="mb-16">
-          <p className="label-tag mb-4">More Work</p>
           <h2 className="font-black leading-[1.05] tracking-tight"
-            style={{ fontSize: 'clamp(1.8rem, 4vw, 4.2rem)' }}>
+            style={{ fontSize: 'clamp(2rem, 4vw, 4.5rem)' }}>
             <span className="text-white">We Help Companies </span>
             <span className="font-serif italic font-semibold text-lime">Grow</span>
           </h2>

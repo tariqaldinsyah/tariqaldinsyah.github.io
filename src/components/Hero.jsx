@@ -83,7 +83,7 @@ export default function Hero() {
   })
 
   return (
-    <section ref={sectionRef} className="relative flex flex-col justify-center overflow-hidden bg-dark pt-16">
+    <section ref={sectionRef} className="relative flex flex-col justify-center overflow-hidden bg-dark pt-16 min-h-[90vh]">
       <div className="absolute inset-0 grid-overlay opacity-60" />
 
       <span className="sparkle absolute top-24 left-[8%] text-lg select-none">+</span>
@@ -91,7 +91,7 @@ export default function Hero() {
       <span className="sparkle absolute bottom-32 left-[20%] text-base select-none">+</span>
       <span className="sparkle absolute bottom-24 right-[25%] text-lg select-none">✦</span>
 
-      <div className="relative max-w-7xl mx-auto px-5 sm:px-8 py-8 lg:py-10 w-full">
+      <div className="relative max-w-7xl mx-auto px-5 sm:px-8 py-12 lg:py-20 w-full">
 
         <div ref={metaRef} className="grid grid-cols-3 gap-4 mb-8 lg:mb-16 border-b border-[#1e2a0a] pb-6 lg:pb-8 text-sm">
           <div>
@@ -112,21 +112,14 @@ export default function Hero() {
 
           <div>
             <div className="mb-6 lg:mb-10">
-              <h1 className="font-sans font-black leading-[1.05] tracking-tight"
-                style={{ fontSize: 'clamp(1.8rem, 4vw, 4.2rem)' }}>
+              <h1 className="font-sans font-black leading-[1.0] tracking-tight"
+                style={{ fontSize: 'clamp(2.5rem, 5.5vw, 5.8rem)' }}>
 
                 <span className="block overflow-hidden">
                   <span ref={line1Ref} className="block">
                     <span className="text-white">Building Scalable </span>
-                    <span ref={italicRef} className="font-serif italic font-semibold"
-                      style={{
-                        fontSize: '0.9em',
-                        background: 'linear-gradient(135deg, #C0F53D 0%, #6fa818 100%)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text',
-                        display: 'inline-block',
-                      }}>Digital Ecosystem</span>
+                    <span ref={italicRef} className="font-serif italic font-semibold text-lime"
+                      style={{ fontSize: '0.9em', display: 'inline-block' }}>Digital Ecosystem</span>
                   </span>
                 </span>
 

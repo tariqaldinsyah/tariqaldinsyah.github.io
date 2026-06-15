@@ -21,10 +21,6 @@ export default function BeyondDesign() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       const st    = { trigger: sectionRef.current, start: 'top 78%' }
-      const label = headRef.current?.querySelector('.label-tag')
-
-      gsap.fromTo(label, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', scrollTrigger: st })
-
       const h2 = headRef.current?.querySelector('h2')
       if (h2) {
         const words = splitWords(h2.children[0])
@@ -47,9 +43,8 @@ export default function BeyondDesign() {
 
       <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
         <div ref={headRef} className="mb-16">
-          <p className="label-tag mb-4">Beyond Interface</p>
           <h2 className="font-black leading-[1.05] tracking-tight"
-            style={{ fontSize: 'clamp(1.8rem, 4vw, 4.2rem)' }}>
+            style={{ fontSize: 'clamp(2rem, 4vw, 4.5rem)' }}>
             <span className="text-white">Beyond </span>
             <span className="font-serif italic font-semibold text-lime">Interface Design</span>
           </h2>
@@ -62,7 +57,6 @@ export default function BeyondDesign() {
                 ${i < 3 ? 'lg:col-span-2' : 'lg:col-span-3'}
                 ${i === 4 ? 'sm:col-span-2 lg:col-span-3' : ''}`}
               style={{ background: 'var(--card)', border: '1px solid var(--border)' }}>
-              <p className="label-tag mb-3">0{i + 1}</p>
               <h3 className="text-white font-bold text-base mb-3 group-hover:text-lime transition-colors leading-snug">
                 {c.title}
               </h3>

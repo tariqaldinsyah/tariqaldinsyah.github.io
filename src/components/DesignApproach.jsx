@@ -65,10 +65,6 @@ export default function DesignApproach() {
       const hST = { trigger: sectionRef.current, start: 'top 78%' }
       const bST = { trigger: barRef.current,     start: 'top 80%' }
 
-      // Header label
-      const label = headerRef.current?.querySelector('.label-tag')
-      gsap.fromTo(label, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', scrollTrigger: hST })
-
       // h2 word reveal
       const h2 = headerRef.current?.querySelector('h2')
       if (h2) {
@@ -124,10 +120,9 @@ export default function DesignApproach() {
 
         {/* Header */}
         <div ref={headerRef} className="mb-16">
-          <p className="label-tag mb-4">Process</p>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <h2 className="font-black leading-[1.05] tracking-tight"
-              style={{ fontSize: 'clamp(1.8rem, 4vw, 4.2rem)' }}>
+              style={{ fontSize: 'clamp(2rem, 4vw, 4.5rem)' }}>
               <span className="text-white">My Design </span>
               <span className="font-serif italic font-semibold text-lime">Approach</span>
             </h2>
