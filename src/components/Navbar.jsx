@@ -17,10 +17,12 @@ const navLinks = [
 export default function Navbar() {
   const [open, setOpen]       = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const navRef     = useRef(null)
-  const overlayRef = useRef(null)
-  const linksRef   = useRef([])
-  const sideRef    = useRef(null)
+  const navRef       = useRef(null)
+  const overlayRef   = useRef(null)
+  const linksRef     = useRef([])
+  const sideRef      = useRef(null)
+  const themeIconRef = useRef(null)
+  const menuIconRef  = useRef(null)
   const { theme, toggle } = useTheme()
   const navigate   = useNavigate()
   const location   = useLocation()
@@ -31,6 +33,26 @@ export default function Navbar() {
     window.addEventListener('scroll', fn, { passive: true })
     return () => window.removeEventListener('scroll', fn)
   }, [])
+
+  // Theme icon swap animation
+  useEffect(() => {
+    const el = themeIconRef.current
+    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    gsap.fromTo(el,
+      { opacity: 0, scale: 0.82, filter: 'blur(3px)' },
+      { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.16, ease: 'power2.out', clearProps: 'filter' }
+    )
+  }, [theme])
+
+  // Menu / close icon swap animation
+  useEffect(() => {
+    const el = menuIconRef.current
+    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    gsap.fromTo(el,
+      { opacity: 0, scale: 0.82, filter: 'blur(3px)' },
+      { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.16, ease: 'power2.out', clearProps: 'filter' }
+    )
+  }, [open])
 
   // Nav drop-in — wait for preloader
   useEffect(() => {
@@ -127,7 +149,9 @@ export default function Navbar() {
             <div className="flex items-center gap-3" style={{ position: 'relative', zIndex: 102 }}>
               <button onClick={toggle} aria-label="Toggle theme"
                 className="w-9 h-9 flex items-center justify-center rounded-full border border-[#1e2a0a] text-white/50 hover:text-lime hover:border-lime/40 transition-all">
-                {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
+                <span ref={themeIconRef} style={{ display: 'inline-flex' }}>
+                  {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
+                </span>
               </button>
               <a href="mailto:aldinsyah1610@gmail.com"
                 className="hidden md:inline-flex border border-lime/60 text-lime text-sm font-semibold px-5 py-2 rounded-full hover:bg-lime hover:text-dark transition-all duration-200 tracking-wide">
@@ -136,7 +160,9 @@ export default function Navbar() {
               <button
                 onClick={open ? closeMenu : () => setOpen(true)}
                 className="flex items-center gap-2 px-3.5 py-2 rounded-lg text-white/70 hover:text-lime transition-colors text-[11px] font-bold tracking-[0.15em] uppercase border border-white/15 hover:border-lime/40">
-                {open ? <X size={13} /> : <Menu size={13} />}
+                <span ref={menuIconRef} style={{ display: 'inline-flex' }}>
+                  {open ? <X size={13} /> : <Menu size={13} />}
+                </span>
                 <span>{open ? 'Close' : 'Menu'}</span>
               </button>
             </div>

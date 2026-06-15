@@ -64,8 +64,8 @@ export default function Education() {
       const arrows = achRef.current?.querySelectorAll('.ach-arrow')
       if (arrows?.length)
         gsap.from(arrows, {
-          scale: 0, opacity: 0,
-          stagger: 0.07, duration: 0.4, ease: 'back.out(3)', delay: 0.5,
+          scale: 0.88, opacity: 0,
+          stagger: 0.07, duration: 0.4, ease: 'power3.out', delay: 0.5,
           scrollTrigger: { trigger: achRef.current, start: 'top 84%' },
         })
     }, sectionRef)

@@ -97,10 +97,10 @@ export default function DesignApproach() {
         { scaleX: 1, duration: 1.8, ease: 'power2.inOut', delay: 0.5, scrollTrigger: bST })
 
       // Dots pop in sequentially
-      gsap.set(dotRefs.current, { scale: 0 })
+      gsap.set(dotRefs.current, { scale: 0.88, opacity: 0 })
       dotRefs.current.forEach((dot, i) => {
         gsap.to(dot, {
-          scale: 1, duration: 0.38, ease: 'back.out(2)',
+          scale: 1, opacity: 1, duration: 0.38, ease: 'back.out(1.4)',
           delay: 0.7 + i * 0.2,
           scrollTrigger: bST,
         })

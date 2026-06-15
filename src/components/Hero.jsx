@@ -23,7 +23,15 @@ export default function Hero() {
     let ctx
 
     const startAnim = () => {
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
       ctx = gsap.context(() => {
+        if (prefersReduced) {
+          gsap.set(italicRef.current, { clipPath: 'inset(0 0% 0 0)' })
+          gsap.set([metaRef.current, line1Ref.current, line2Ref.current, descRef.current, ctaRef.current, phoneWrapRef.current], { opacity: 1, y: 0, x: 0, scale: 1 })
+          return
+        }
+
         gsap.set(italicRef.current, { clipPath: 'inset(0 100% 0 0)' })
 
         const tl = gsap.timeline({ delay: 0.2 })
@@ -38,9 +46,13 @@ export default function Hero() {
 
         const sparkles = sectionRef.current?.querySelectorAll('.sparkle')
         if (sparkles?.length)
-          gsap.from(sparkles, { scale: 0, opacity: 0, rotation: -45, stagger: 0.15, duration: 0.6, ease: 'back.out(3)', delay: 1.0 })
+          gsap.from(sparkles, { scale: 0.88, opacity: 0, rotation: -45, stagger: 0.15, duration: 0.6, ease: 'back.out(2)', delay: 1.0 })
 
-        gsap.to(phoneRef.current, { y: -14, duration: 3.2, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 1.5 })
+        // Enter + settle: one gentle dip then hold (no infinite loop)
+        gsap.to(phoneRef.current, {
+          y: -8, duration: 0.9, ease: 'sine.inOut', delay: 1.5,
+          onComplete: () => gsap.to(phoneRef.current, { y: 0, duration: 0.7, ease: 'sine.inOut' }),
+        })
 
         gsap.to(phoneWrapRef.current, {
           y: -55, ease: 'none',
@@ -172,7 +184,7 @@ export default function Hero() {
         <div className="mt-16 pt-6 border-t border-[#1e2a0a] flex items-center justify-between text-white/20 text-xs tracking-widest uppercase">
           <span>UI/UX Portfolio</span>
           <span className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 bg-lime rounded-full animate-pulse" />
+            <span className="status-dot text-lime" />
             Available for work
           </span>
         </div>

@@ -21,7 +21,7 @@ export default function Contact() {
       // Link icons bounce in
       const icons = linkIconsRef.current?.querySelectorAll('.contact-icon')
       if (icons?.length)
-        gsap.from(icons, { scale: 0, opacity: 0, rotation: -90, stagger: 0.1, duration: 0.5, ease: 'back.out(3)', scrollTrigger: st })
+        gsap.from(icons, { scale: 0.88, opacity: 0, rotation: -20, stagger: 0.1, duration: 0.5, ease: 'power3.out', scrollTrigger: st })
 
       const links = linkIconsRef.current?.querySelectorAll('a')
       if (links?.length)
@@ -38,8 +38,8 @@ export default function Contact() {
       // Sparkle badge spin
       if (sparkleRef.current)
         gsap.fromTo(sparkleRef.current,
-          { scale: 0, rotation: -180 },
-          { scale: 1, rotation: 0, duration: 0.8, ease: 'back.out(2)', scrollTrigger: st }
+          { scale: 0.88, opacity: 0, rotation: -90 },
+          { scale: 1, opacity: 1, rotation: 0, duration: 0.8, ease: 'back.out(2)', scrollTrigger: st }
         )
 
       // Lime CTA block scale in
@@ -151,7 +151,7 @@ export default function Contact() {
         <div className="pt-6 flex items-center justify-between text-white/20 text-xs">
           <span>©2026 – Tariq Aldinsyah Portofolio</span>
           <span className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 bg-lime rounded-full animate-pulse" />
+            <span className="status-dot text-lime" />
             Available for work
           </span>
         </div>
