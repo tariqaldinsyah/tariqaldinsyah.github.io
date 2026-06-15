@@ -86,8 +86,8 @@ export default function About() {
 
           {/* Left — photo */}
           <div ref={leftRef} className="flex flex-col">
-            {/* Photo — stretches to fill remaining height */}
-            <div className="flex-1 min-h-0 rounded-2xl overflow-hidden relative mb-6" style={{ minHeight: '320px' }}>
+            {/* Photo fills full column height; skill tags overlaid at bottom */}
+            <div className="flex-1 min-h-0 rounded-2xl overflow-hidden relative" style={{ minHeight: '320px' }}>
               <div className="photo-parallax absolute inset-0" style={{ willChange: 'transform' }}>
                 <ImageWithSkeleton
                   src="/tariq-photo.jpg"
@@ -96,11 +96,13 @@ export default function About() {
                   style={{ transform: 'scale(1.12)' }}
                 />
               </div>
-            </div>
-
-            {/* Skill tags */}
-            <div className="flex flex-wrap gap-2">
-              {skills.map((s) => <span key={s} className="pill">{s}</span>)}
+              {/* Skill tags overlaid at bottom of photo */}
+              <div className="absolute bottom-0 left-0 right-0 px-5 py-5"
+                style={{ background: 'linear-gradient(to top, rgba(7,7,7,0.82) 0%, rgba(7,7,7,0.3) 60%, transparent 100%)' }}>
+                <div className="flex flex-wrap gap-2">
+                  {skills.map((s) => <span key={s} className="pill">{s}</span>)}
+                </div>
+              </div>
             </div>
           </div>
 
