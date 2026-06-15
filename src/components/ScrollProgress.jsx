@@ -20,7 +20,7 @@ export default function ScrollProgress() {
 
   return (
     <div className="fixed top-0 left-0 right-0 z-[200] h-[2px] pointer-events-none"
-      style={{ background: 'rgba(192,245,61,0.1)' }}>
+      style={{ background: 'var(--border)' }}>
       <div ref={barRef} className="h-full bg-lime"
         style={{ transformOrigin: 'left center', transform: 'scaleX(0)' }} />
     </div>

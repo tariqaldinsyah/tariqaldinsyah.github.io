@@ -115,6 +115,11 @@ function ProjectCard({ project: p }) {
   const borderRef  = useRef(null)
   const navigate   = useNavigate()
 
+  const limeHover = () =>
+    document.documentElement.dataset.theme === 'light'
+      ? 'rgba(92,138,0,0.55)'
+      : 'rgba(192,245,61,0.3)'
+
   useEffect(() => {
     borderRef.current = getComputedStyle(document.documentElement).getPropertyValue('--border').trim()
     const ctx = gsap.context(() => {
@@ -146,7 +151,7 @@ function ProjectCard({ project: p }) {
   }, [])
 
   const onMouseEnter = () =>
-    gsap.to(cardRef.current, { borderColor: 'rgba(192,245,61,0.3)', duration: 0.3 })
+    gsap.to(cardRef.current, { borderColor: limeHover(), duration: 0.3 })
 
   const onMouseLeave = () =>
     gsap.to(cardRef.current, { borderColor: borderRef.current, rotateX: 0, rotateY: 0, duration: 0.5, ease: 'power2.out', overwrite: 'auto' })
