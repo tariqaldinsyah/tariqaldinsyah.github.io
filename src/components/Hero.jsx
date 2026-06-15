@@ -32,6 +32,18 @@ export default function Hero() {
           return
         }
 
+        const isMobile = window.innerWidth < 768
+
+        if (isMobile) {
+          // On mobile, skip heavy y/clipPath transforms — just fade everything in.
+          // Complex transforms stall on mobile GPU and can leave content invisible.
+          const els = [metaRef.current, line1Ref.current, italicRef.current, line2Ref.current, descRef.current, ctaRef.current, phoneWrapRef.current].filter(Boolean)
+          gsap.set(els, { opacity: 0 })
+          gsap.to(els, { opacity: 1, duration: 0.5, stagger: 0.08, ease: 'power2.out', delay: 0.15 })
+          gsap.set(italicRef.current, { clipPath: 'inset(0 0% 0 0)' })
+          return
+        }
+
         gsap.set(italicRef.current, { clipPath: 'inset(0 100% 0 0)' })
 
         const tl = gsap.timeline({ delay: 0.2 })
@@ -83,7 +95,7 @@ export default function Hero() {
   })
 
   return (
-    <section ref={sectionRef} className="relative flex flex-col justify-center overflow-hidden bg-dark pt-16 min-h-[90vh]">
+    <section ref={sectionRef} className="relative flex flex-col justify-center overflow-hidden bg-dark pt-16 sm:min-h-[90vh]">
       <div className="absolute inset-0 grid-overlay opacity-60" />
 
       <span className="sparkle absolute top-24 left-[8%] text-lg select-none">+</span>
