@@ -11,6 +11,7 @@ import About from './components/About'
 import DesignApproach from './components/DesignApproach'
 import FeaturedProjects from './components/FeaturedProjects'
 import MoreProjects from './components/MoreProjects'
+import WorksReel from './components/WorksReel'
 import Skills from './components/Skills'
 import Education from './components/Education'
 import BeyondDesign from './components/BeyondDesign'
@@ -31,6 +32,7 @@ function Home() {
       <div className="relative z-[10]">
         <Navbar />
         <Hero />
+        <WorksReel />
         <About />
         <FeaturedProjects />
         <Marquee />

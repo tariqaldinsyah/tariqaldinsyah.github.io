@@ -48,8 +48,8 @@ const DOT_POS = ['10%', '30%', '50%', '70%', '90%']
 export default function DesignApproach() {
   const { theme } = useTheme()
   const isLight = theme === 'light'
-  // lime in dark mode = #C0F53D, in light mode = #4A7200
-  const lr = (a) => isLight ? `rgba(74,114,0,${a})` : `rgba(192,245,61,${a})`
+  // lime in dark mode = #C0F53D, in light mode = #5C8A00
+  const lr = (a) => isLight ? `rgba(92,138,0,${a})` : `rgba(192,245,61,${a})`
 
   const sectionRef = useRef(null)
   const headerRef  = useRef(null)
@@ -193,7 +193,7 @@ export default function DesignApproach() {
                 style={{ left: DOT_POS[i], transform: 'translate(-50%, -50%)' }}>
                 <div ref={el => dotRefs.current[i] = el}
                   className="w-[14px] h-[14px] rounded-full"
-                  style={{ background: isLight ? '#4A7200' : '#C0F53D', boxShadow: `0 0 10px ${lr(0.55)}` }}
+                  style={{ background: isLight ? '#5C8A00' : '#C0F53D', boxShadow: `0 0 10px ${lr(0.55)}` }}
                 />
               </div>
             ))}

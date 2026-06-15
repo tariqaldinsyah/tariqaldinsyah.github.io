@@ -58,10 +58,10 @@ const COLORS_DARK = {
 }
 
 const COLORS_LIGHT = {
-  src:      { node: 'rgba(44,110,0,0.08)',  stroke: 'rgba(44,110,0,0.50)',  link: 'rgba(44,110,0,0.22)',  txt: '#2c6e00' },
-  research: { node: 'rgba(44,110,0,0.07)',  stroke: 'rgba(44,110,0,0.42)',  link: 'rgba(44,110,0,0.20)',  txt: '#2c6e00' },
-  ux:       { node: 'rgba(34,90,0,0.07)',   stroke: 'rgba(34,90,0,0.38)',   link: 'rgba(34,90,0,0.16)',   txt: '#225a00' },
-  ui:       { node: 'rgba(24,72,0,0.07)',   stroke: 'rgba(24,72,0,0.34)',   link: 'rgba(24,72,0,0.14)',   txt: '#184800' },
+  src:      { node: 'rgba(92,138,0,0.08)',  stroke: 'rgba(92,138,0,0.45)',  link: 'rgba(92,138,0,0.20)',  txt: '#5C8A00' },
+  research: { node: 'rgba(92,138,0,0.07)',  stroke: 'rgba(92,138,0,0.38)',  link: 'rgba(92,138,0,0.18)',  txt: '#5C8A00' },
+  ux:       { node: 'rgba(75,112,0,0.07)',  stroke: 'rgba(75,112,0,0.34)',  link: 'rgba(75,112,0,0.15)',  txt: '#4B7000' },
+  ui:       { node: 'rgba(58,88,0,0.07)',   stroke: 'rgba(58,88,0,0.30)',   link: 'rgba(58,88,0,0.13)',   txt: '#3A5800' },
 }
 
 const makePath = sankeyLinkHorizontal()

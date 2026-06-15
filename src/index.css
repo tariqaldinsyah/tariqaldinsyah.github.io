@@ -28,25 +28,25 @@
 }
 
 [data-theme="light"] {
-  --bg:      #F4FDE5;
-  --card:    #FFFFFF;
-  --border:  #D5ECA0;
-  --medium:  #EBF8C8;
-  --surface: #DFF2B0;
+  --bg:      #F5F5EE;
+  --card:    #FAFAF6;
+  --border:  #D8D5CC;
+  --medium:  #EEECEA;
+  --surface: #E4E2DC;
 
-  --text:    #0D1A02;
-  --text-70: rgba(13,26,2,0.70);
-  --text-60: rgba(13,26,2,0.65);
-  --text-50: rgba(13,26,2,0.55);
-  --text-40: rgba(13,26,2,0.45);
-  --text-35: rgba(13,26,2,0.40);
-  --text-30: rgba(13,26,2,0.35);
-  --text-25: rgba(13,26,2,0.30);
-  --text-20: rgba(13,26,2,0.22);
-  --text-10: rgba(13,26,2,0.12);
+  --text:    #1E1A09;
+  --text-70: rgba(30,26,9,0.70);
+  --text-60: rgba(30,26,9,0.60);
+  --text-50: rgba(30,26,9,0.50);
+  --text-40: rgba(30,26,9,0.40);
+  --text-35: rgba(30,26,9,0.35);
+  --text-30: rgba(30,26,9,0.30);
+  --text-25: rgba(30,26,9,0.25);
+  --text-20: rgba(30,26,9,0.18);
+  --text-10: rgba(30,26,9,0.10);
 
-  --lime-text:  #4A7200;
-  --lime-muted: #5E8800;
+  --lime-text:  #5C8A00;
+  --lime-muted: #789E20;
 }
 
 /* ── Smooth theme transition ────────────────────────────────────────── */
@@ -201,8 +201,8 @@
 
 /* ── Light mode: section backgrounds ──────────────────────────────── */
 [data-theme="light"] .bg-dark     { background-color: var(--bg); }
-[data-theme="light"] .bg-dark\/95 { background-color: rgba(244,253,229,0.95); }
-[data-theme="light"] .bg-dark\/98 { background-color: rgba(244,253,229,0.98); }
+[data-theme="light"] .bg-dark\/95 { background-color: rgba(245,245,238,0.95); }
+[data-theme="light"] .bg-dark\/98 { background-color: rgba(245,245,238,0.98); }
 
 /* ── Light mode: text overrides ──────────────────────────────────── */
 [data-theme="light"] .text-white    { color: var(--text); }
