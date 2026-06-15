@@ -2,9 +2,11 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 
 export default function CursorGlow() {
-  const ref = useRef(null)
+  const ref    = useRef(null)
+  const isFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches
 
   useEffect(() => {
+    if (!isFine) return
     const SIZE = 500
     const onMove = (e) => gsap.to(ref.current, {
       x: e.clientX - SIZE / 2,
@@ -15,7 +17,9 @@ export default function CursorGlow() {
     })
     window.addEventListener('mousemove', onMove)
     return () => window.removeEventListener('mousemove', onMove)
-  }, [])
+  }, [isFine])
+
+  if (!isFine) return null
 
   return (
     <div ref={ref}

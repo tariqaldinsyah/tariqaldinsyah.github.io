@@ -16,8 +16,12 @@ export default function CustomCursor() {
   const stateRef  = useRef('idle')
   const spinRef   = useRef(null)
 
+  // Evaluate once — stable per device (media query doesn't change mid-session)
+  const isFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+
   useEffect(() => {
-    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
+    // Touch/coarse devices: no event listeners, refs are null (nothing rendered)
+    if (!isFine) return
 
     document.documentElement.classList.add('custom-cursor')
 
@@ -116,7 +120,10 @@ export default function CustomCursor() {
       window.removeEventListener('mouseup',   onUp)
       document.removeEventListener('mouseover', onOver)
     }
-  }, [])
+  }, [isFine])
+
+  // No DOM elements on touch devices — avoids circle appearing at top:0 left:0
+  if (!isFine) return null
 
   return (
     <>
