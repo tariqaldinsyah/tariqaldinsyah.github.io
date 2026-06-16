@@ -131,15 +131,15 @@ export default function Hero() {
 
                 <span className="block overflow-hidden">
                   <span ref={line1Ref} className="block">
-                    <span className="text-white">Building Scalable </span>
+                    <span className="text-white">I Design </span>
                     <span ref={italicRef} className="font-serif italic font-semibold text-lime"
-                      style={{ fontSize: '0.9em', display: 'inline-block' }}>Digital Ecosystem</span>
+                      style={{ fontSize: '0.9em', display: 'inline-block' }}>Ecosystems,</span>
                   </span>
                 </span>
 
                 <span className="block overflow-hidden">
                   <span ref={line2Ref} className="block">
-                    <span className="text-white">& User-Centered Products</span>
+                    <span className="text-white">Not Just Screens.</span>
                   </span>
                 </span>
 
@@ -167,9 +167,9 @@ export default function Hero() {
               </a>
               <button ref={aboutBtnRef}
                 {...magnetic(aboutBtnRef)}
-                onClick={() => { const el = document.querySelector('#about'); if (window.__lenis) window.__lenis.scrollTo(el); else el?.scrollIntoView({ behavior: 'smooth' }) }}
+                onClick={() => { const el = document.querySelector('#projects'); if (window.__lenis) window.__lenis.scrollTo(el); else el?.scrollIntoView({ behavior: 'smooth' }) }}
                 className="border border-white/20 text-white/70 font-medium px-7 py-3 rounded-full text-sm tracking-wide hover:border-lime/40 hover:text-lime transition-all">
-                About Me
+                View Work
               </button>
             </div>
           </div>

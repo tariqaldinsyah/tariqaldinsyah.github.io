@@ -14,7 +14,6 @@ import DesignApproach from './components/DesignApproach'
 import FeaturedProjects from './components/FeaturedProjects'
 import MoreProjects from './components/MoreProjects'
 import WorksReel from './components/WorksReel'
-import Skills from './components/Skills'
 import SkillRadar from './components/SkillRadar'
 import Education from './components/Education'
 import WorkExperience from './components/WorkExperience'
@@ -47,7 +46,6 @@ function Home() {
         <Marquee />
         <DesignApproach />
         <MoreProjects />
-        <Skills />
         <SkillRadar />
         <Education />
         <WorkExperience />

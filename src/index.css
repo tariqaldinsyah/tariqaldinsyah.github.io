@@ -102,14 +102,6 @@
 }
 
 @layer utilities {
-  /* Lime text gradient */
-  .text-lime-gradient {
-    background: linear-gradient(135deg, #C0F53D 0%, #e8ff80 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
   /* Serif italic accent */
   .accent-serif {
     font-family: 'Cormorant Garamond', Georgia, serif;

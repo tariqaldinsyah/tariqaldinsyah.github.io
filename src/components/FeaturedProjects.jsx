@@ -20,7 +20,7 @@ const featured = [
     tags: ['Product & UX Strategy', 'Ecosystem Planning', 'UI/UX Design', 'Design System Thinking'],
     challenge: 'Product development was repetitive and difficult to scale. Each product rebuilt similar features from scratch.',
     solution: 'A modular ecosystem approach that standardized reusable components, workflows, and system structures.',
-    metrics: [{ val: '40%', label: 'Dev Efficiency Improved' }, { val: '3x', label: 'Faster Multi-Product Dev' }, { val: '↑', label: 'Consistency Across Platforms' }],
+    metrics: [{ val: '40%', label: 'Dev Efficiency Improved' }, { val: '3×', label: 'Faster Multi-Product Dev' }],
     images: [
       { src: '/rakit-4.jpg', alt: 'Rakit Merchandise',      bg: '#f5b800', fit: 'cover', pos: 'top', cellClass: 'row-span-2' },
       { src: '/rakit-3.jpg', alt: 'Rakit Branding',         bg: '#0a0a0a', fit: 'cover'   },
@@ -36,7 +36,7 @@ const featured = [
     tags: ['Product & UX Design', 'Mobile & Web Interface', 'Cross Functional Collaboration', 'Information Architecture'],
     challenge: 'Cooperatives relied on fragmented, manual processes making financial management and digital adoption inefficient.',
     solution: 'An integrated ecosystem combining savings, loans, membership management, and digital commerce in one platform.',
-    metrics: [{ val: '20+', label: 'Cooperatives Integrated' }, { val: '↑', label: 'Operational Accessibility' }, { val: '3', label: 'Platforms Connected' }],
+    metrics: [{ val: '20+', label: 'Cooperatives Integrated' }, { val: '3', label: 'Platforms Connected' }],
     images: [
       { src: '/coopin-1.jpg', alt: 'CoopIn Web App',         bg: '#111111', fit: 'cover'   },
       { src: '/coopin-2.jpg', alt: 'CoopIn Supply Chain',    bg: '#ffffff', fit: 'contain' },
@@ -53,7 +53,7 @@ const featured = [
     tags: ['UI/UX Redesign', 'User Flow Optimization', 'Feature Experience Design', 'Design System Implementation'],
     challenge: 'Complex navigation and limited accessibility made it hard to access cooperative services and transactions.',
     solution: 'A full UI/UX redesign with simplified navigation, E-Cafeteria, and peer-to-peer transfer features.',
-    metrics: [{ val: '+20%', label: 'Active Users in 3 Months' }, { val: '↓', label: 'Navigation Complexity' }, { val: '↑', label: 'New Ecosystem Features' }],
+    metrics: [{ val: '+20%', label: 'Active Users in 3 Months' }],
     gridCols: '1fr 2fr 1fr',
     images: [
       { src: '/mykisel-3.jpg', alt: 'MyKisel New Features', bg: '#F5FAFF', fit: 'contain', cellClass: 'row-span-2' },
@@ -220,16 +220,6 @@ function ProjectCard({ project: p }) {
               {p.tags.map((t) => <span key={t} className="pill">{t}</span>)}
             </div>
 
-            {/* Problem / Solution — like Adspace */}
-            <div className="grid sm:grid-cols-2 gap-4 pt-2">
-              {[['PROBLEM', p.challenge], ['SOLUTION', p.solution]].map(([label, body]) => (
-                <div key={label}>
-                  <p className="label-tag mb-2">{label}</p>
-                  <p className="text-white/40 text-xs leading-relaxed">{body}</p>
-                </div>
-              ))}
-            </div>
-
             <button onClick={() => navigate(`/projects/${p.id}`)}
               className="inline-flex items-center gap-2 text-sm font-semibold text-lime hover:text-lime/70 transition-colors group/btn">
               View Case Study
@@ -280,8 +270,8 @@ function ProjectCard({ project: p }) {
               </div>
             )}
 
-            {/* Metrics — like stat blocks in Adspace */}
-            <div className="grid grid-cols-3 gap-3">
+            {/* Metrics */}
+            <div className={`grid gap-3 ${p.metrics.length === 1 ? 'grid-cols-1' : 'grid-cols-2'}`}>
               {p.metrics.map((m, i) => (
                 <div key={m.label}
                   className="rounded-xl p-4 text-center"

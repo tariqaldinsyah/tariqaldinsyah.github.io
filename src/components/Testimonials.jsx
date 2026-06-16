@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 const TESTIMONIALS = [
   {
-    quote: 'Redesign MyKisel melampaui ekspektasi kami. Navigasi lebih bersih, onboarding lebih cepat, dan anggota koperasi merespons sangat positif terhadap pengalaman baru yang jauh lebih user friendly.',
+    quote: 'The MyKisel redesign exceeded our expectations. Cleaner navigation, faster onboarding, and cooperative members responded very positively to the new, far more user-friendly experience.',
     author: 'Ifan Ramadhan',
     role: 'Member Service',
     company: 'Kisel Group',
@@ -15,7 +15,7 @@ const TESTIMONIALS = [
     featured: false,
   },
   {
-    quote: 'Kolaborasi dengan Tariq sangat mulus. Ia memahami keterbatasan teknis sekaligus kebutuhan pengguna, dan menghasilkan design system yang benar-benar bisa diimplementasikan oleh tim engineering secara efisien.',
+    quote: 'Collaborating with Tariq was seamless. He understood our technical constraints while addressing user needs, and delivered a design system the engineering team could implement efficiently.',
     author: 'Dany Sentiana',
     role: 'Frontend Engineer',
     company: 'Kisel Group',
@@ -23,7 +23,7 @@ const TESTIMONIALS = [
     featured: false,
   },
   {
-    quote: 'Tariq memiliki kemampuan luar biasa untuk menerjemahkan kebutuhan bisnis yang kompleks menjadi antarmuka yang intuitif. Rakit Ecosystem mengubah cara kami membangun produk secara fundamental — lebih cepat, lebih konsisten, dan lebih scalable.',
+    quote: 'Tariq has a remarkable ability to translate complex business requirements into intuitive interfaces. The Rakit Ecosystem fundamentally changed how we build products — faster, more consistent, and more scalable.',
     author: 'Dimas Erlangga Putera',
     role: 'IT Business Solution Supervisor',
     company: 'Kisel Group',

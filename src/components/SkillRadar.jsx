@@ -25,6 +25,14 @@ const SKILLS = [
   { label: 'Product Strategy', value: 85, desc: 'Roadmap alignment, business context & product thinking' },
 ]
 
+const TOOL_GROUPS = [
+  { category: 'Product & UX',   tags: ['Product Thinking', 'UX Strategy', 'User Research', 'Wireframing', 'Prototyping', 'User Flow', 'Usability Testing'] },
+  { category: 'Design Systems', tags: ['Component Libraries', 'Design Tokens', 'Pattern Libraries', 'Material UI (MUI)', 'Modular Design'] },
+  { category: 'Tools',          tags: ['Figma', 'Miro', 'Notion', 'Adobe Illustrator', 'Adobe Photoshop', 'Canva'] },
+  { category: 'Collaboration',  tags: ['Stakeholder Management', 'Cross Functional Teamwork', 'Design Handoff', 'Product Discussion', 'PRD Analysis'] },
+  { category: 'AI & Emerging',  tags: ['ChatGPT', 'Claude', 'Gemini', 'MidJourney'] },
+]
+
 function anchor(angle) {
   const c = Math.cos(angle)
   if (c > 0.3) return 'start'
@@ -32,7 +40,6 @@ function anchor(angle) {
   return 'middle'
 }
 
-// Offset label position slightly away from the chart edge
 function labelOffset(angle) {
   const c = Math.cos(angle)
   const s = Math.sin(angle)
@@ -53,6 +60,7 @@ export default function SkillRadar() {
   const polygonRef = useRef(null)
   const dotsRef    = useRef([])
   const cardsRef   = useRef(null)
+  const toolsRef   = useRef(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -69,19 +77,16 @@ export default function SkillRadar() {
         gsap.from(chars, { y: '105%', stagger: 0.055, duration: 0.55, ease: 'back.out(2.5)', scrollTrigger: st })
       }
 
-      // Grid fade in
       if (gridRef.current)
         gsap.fromTo(gridRef.current,
           { opacity: 0 },
           { opacity: 1, duration: 0.7, ease: 'power2.out', scrollTrigger: st })
 
-      // Polygon fade + scale from center via svgOrigin on the polygon itself
       if (polygonRef.current)
         gsap.fromTo(polygonRef.current,
           { opacity: 0, scale: 0, svgOrigin: `${CX} ${CY}` },
           { opacity: 1, scale: 1, svgOrigin: `${CX} ${CY}`, duration: 1.2, ease: 'power3.out', delay: 0.15, scrollTrigger: st })
 
-      // Dots — each <g> is pre-translated so scale from '50% 50%' works
       dotsRef.current.forEach((el, i) => {
         if (!el) return
         gsap.fromTo(el,
@@ -89,17 +94,24 @@ export default function SkillRadar() {
           { scale: 1, transformOrigin: '50% 50%', duration: 0.45, ease: 'back.out(2)', delay: 0.7 + i * 0.07, scrollTrigger: st })
       })
 
-      // Skill cards
       const cards = cardsRef.current?.children
       if (cards?.length)
         gsap.fromTo(cards,
           { opacity: 0, y: 24 },
           { opacity: 1, y: 0, stagger: 0.08, duration: 0.6, ease: 'power3.out', delay: 0.25, scrollTrigger: st })
+
+      const tags = toolsRef.current?.querySelectorAll('.skill-tag')
+      if (tags?.length)
+        gsap.from(tags, {
+          scale: 0.7, opacity: 0,
+          stagger: { amount: 0.9, from: 'start' },
+          duration: 0.35, ease: 'back.out(2)',
+          scrollTrigger: { trigger: toolsRef.current, start: 'top 85%' },
+        })
     }, sectionRef)
     return () => ctx.revert()
   }, [])
 
-  // Precompute data polygon vertices
   const pts = SKILLS.map((s, i) => {
     const a = ANGLES[i]
     const r = (s.value / 100) * R
@@ -108,7 +120,7 @@ export default function SkillRadar() {
   const polyPts = pts.map(([x, y]) => `${x.toFixed(2)},${y.toFixed(2)}`).join(' ')
 
   return (
-    <section id="skill-radar" ref={sectionRef} className="relative py-24 bg-dark overflow-hidden">
+    <section id="skills" ref={sectionRef} className="relative py-24 bg-dark overflow-hidden">
       <div className="blob blob-lime w-[500px] h-[500px] top-[-80px] right-[-80px] opacity-15" />
       <div className="absolute inset-0 grid-overlay opacity-30" />
 
@@ -148,13 +160,12 @@ export default function SkillRadar() {
             ))}
           </div>
 
-          {/* Radar SVG — square viewBox prevents hexagon distortion */}
+          {/* Radar SVG */}
           <div className="flex items-center justify-center">
             <svg viewBox={`0 0 ${VIEW} ${VIEW}`} width="100%"
               style={{ maxWidth: 480, display: 'block', overflow: 'visible' }}
               role="img" aria-label="Hexagonal competency radar chart">
 
-              {/* Grid hexagons + axis lines */}
               <g ref={gridRef}>
                 {LEVELS.map((lv) => {
                   const hexPts = ANGLES.map(a =>
@@ -174,7 +185,6 @@ export default function SkillRadar() {
                     stroke={lr(0.2)} strokeWidth="1" />
                 ))}
 
-                {/* Percentage ticks on vertical upward axis */}
                 {LEVELS.map((lv) => (
                   <text key={lv}
                     x={(CX + 5).toFixed(2)}
@@ -186,7 +196,6 @@ export default function SkillRadar() {
                 ))}
               </g>
 
-              {/* Data polygon */}
               <polygon ref={polygonRef}
                 points={polyPts}
                 fill={lr(0.10)}
@@ -194,7 +203,6 @@ export default function SkillRadar() {
                 strokeWidth="1.5"
                 strokeLinejoin="round" />
 
-              {/* Dots — circles at cx=0,cy=0 so transform-origin 50% 50% = dot center */}
               {pts.map(([x, y], i) => (
                 <g key={i}
                   ref={el => { dotsRef.current[i] = el }}
@@ -204,7 +212,6 @@ export default function SkillRadar() {
                 </g>
               ))}
 
-              {/* Axis labels */}
               {SKILLS.map((s, i) => {
                 const a          = ANGLES[i]
                 const [odx, ody] = labelOffset(a)
@@ -230,6 +237,33 @@ export default function SkillRadar() {
             </svg>
           </div>
         </div>
+
+        {/* Tools & specializations — merged from Skills section */}
+        <div ref={toolsRef} className="mt-16 pt-10" style={{ borderTop: '1px solid var(--border)' }}>
+          <p className="text-xs font-bold uppercase tracking-widest mb-8" style={{ color: 'var(--text-35)' }}>
+            Tools & Specializations
+          </p>
+          <div className="space-y-5">
+            {TOOL_GROUPS.map((g) => (
+              <div key={g.category} className="flex flex-wrap items-baseline gap-x-6 gap-y-3">
+                <span className="text-xs font-bold shrink-0 w-32" style={{ color: 'var(--lime-text)', opacity: 0.75 }}>
+                  {g.category}
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {g.tags.map((t) => (
+                    <span key={t}
+                      className="skill-tag text-xs font-medium rounded-full px-3 py-1.5 cursor-default transition-all
+                        hover:border-lime/40"
+                      style={{ color: 'var(--text-40)', border: '1px solid var(--border)' }}>
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   )
