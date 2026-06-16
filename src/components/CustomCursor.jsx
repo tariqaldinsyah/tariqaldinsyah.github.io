@@ -130,7 +130,7 @@ export default function CustomCursor() {
       {/* Dot — snaps to exact cursor */}
       <div ref={dotRef}
         className="fixed top-0 left-0 z-[1002] pointer-events-none rounded-full"
-        style={{ width: 6, height: 6, background: '#C0F53D', willChange: 'transform' }}
+        style={{ width: 6, height: 6, background: 'var(--lime-text)', willChange: 'transform' }}
       />
 
       {/* Ring wrapper — follows with lag */}
@@ -142,14 +142,14 @@ export default function CustomCursor() {
           viewBox={`0 0 ${SIZE} ${SIZE}`}
           width={SIZE}
           height={SIZE}
-          style={{ position: 'absolute', inset: 0, transformOrigin: 'center' }}>
+          style={{ position: 'absolute', inset: 0, transformOrigin: 'center', color: 'var(--lime-text)' }}>
           <circle
             ref={arcRef}
             cx={CX}
             cy={CY}
             r={R}
             fill="none"
-            stroke="#C0F53D"
+            stroke="currentColor"
             strokeWidth="1"
             strokeLinecap="round"
           />
