@@ -26,7 +26,7 @@ export default function GradientBars({
   // Explicit rgba stops (no 'transparent' keyword) = zero color banding on any bg.
   // Light mode: light vivid green on cream bg. Dark mode: dark green matching --border (#1e2a0a).
   const barBg = theme === 'light'
-    ? 'linear-gradient(to top, rgba(130,185,50,0.72) 0%, rgba(130,185,50,0) 100%)'
+    ? 'linear-gradient(to top, rgba(190,220,140,0.42) 0%, rgba(190,220,140,0) 100%)'
     : 'linear-gradient(to top, rgba(30,42,10,0.95) 0%, rgba(30,42,10,0) 100%)'
 
   return (
