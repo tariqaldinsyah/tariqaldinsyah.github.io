@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useNavigate } from 'react-router-dom'
+import { useTheme } from '../hooks/useTheme'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -26,6 +27,7 @@ const TILT_X  = 72  // deg — tilts orbit ring nearly flat; makes back cards hi
 const ANGLE_STEP = 360 / N
 
 export default function WorksWheel() {
+  const { theme } = useTheme()
   const navigate  = useNavigate()
   const outerRef  = useRef(null)
   const stickyRef = useRef(null)
@@ -189,7 +191,9 @@ export default function WorksWheel() {
         {/* ── Radial vignette — keeps centre text readable ── */}
         <div style={{
           position: 'absolute', inset: 0, zIndex: 8, pointerEvents: 'none',
-          background: 'radial-gradient(ellipse 52% 52% at 50% 50%, rgba(8,12,2,0.82) 0%, transparent 100%)',
+          background: theme === 'light'
+            ? 'radial-gradient(ellipse 52% 52% at 50% 50%, rgba(245,245,238,0.90) 0%, transparent 100%)'
+            : 'radial-gradient(ellipse 52% 52% at 50% 50%, rgba(8,12,2,0.82) 0%, transparent 100%)',
         }} />
 
         {/* ── Centre editorial text ── */}
@@ -202,7 +206,7 @@ export default function WorksWheel() {
           textAlign: 'center',
         }}>
           <p style={{
-            color: 'rgba(192,245,61,0.55)',
+            color: theme === 'light' ? 'rgba(92,138,0,0.75)' : 'rgba(192,245,61,0.55)',
             fontSize: 10, fontWeight: 700,
             letterSpacing: '0.22em', textTransform: 'uppercase',
             marginBottom: 22,
@@ -213,7 +217,7 @@ export default function WorksWheel() {
           <h2 style={{
             fontSize: 'clamp(1.9rem, 4.2vw, 4.8rem)',
             fontWeight: 900,
-            color: '#ffffff',
+            color: 'var(--text)',
             lineHeight: 1.15,
             letterSpacing: '-0.03em',
             maxWidth: '16ch',
