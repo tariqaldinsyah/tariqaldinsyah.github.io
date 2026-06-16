@@ -38,10 +38,12 @@ export default function WorksWheel() {
     let RADIUS = 0, CARD_W = 0, CARD_H = 0
 
     function applyLayout() {
-      const isMobile = (outerRef.current?.offsetWidth ?? window.innerWidth) < 768
-      RADIUS = isMobile ? 150 : Math.min(window.innerWidth * 0.265, 400)
-      CARD_W = isMobile ? 92  : 168
-      CARD_H = isMobile ? 72  : 132
+      const w        = outerRef.current?.offsetWidth ?? window.innerWidth
+      const isMobile = w < 768
+      const isTablet = w < 1024
+      RADIUS = isMobile ? 150 : isTablet ? 220 : Math.min(window.innerWidth * 0.265, 400)
+      CARD_W = isMobile ? 92  : isTablet ? 130 : 168
+      CARD_H = isMobile ? 72  : isTablet ? 100 : 132
       spokeRefs.current.forEach(spoke => {
         if (!spoke) return
         spoke.style.width  = `${CARD_W}px`
@@ -238,7 +240,7 @@ export default function WorksWheel() {
             lineHeight: 1.15,
             letterSpacing: '-0.03em',
             maxWidth: '16ch',
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "'DM Sans', sans-serif",
           }}>
             Every project is a chance to{' '}
             <em style={{ fontStyle: 'italic', fontFamily: "'Bodoni Moda', Georgia, serif", fontWeight: 400 }}>solve</em>

@@ -92,7 +92,7 @@ export default function BeyondDesign() {
               } : {})}>
               <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-4"
                 style={{ background: lr(0.08), border: `1px solid ${lr(0.15)}` }}>
-                <c.Icon size={15} style={{ color: 'var(--lime-text)' }} />
+                <c.Icon size={15} aria-hidden="true" style={{ color: 'var(--lime-text)' }} />
               </div>
               <h3 className="text-white font-bold text-base mb-3 group-hover:text-lime transition-colors leading-snug">
                 {c.title}

@@ -24,7 +24,7 @@ export default {
         },
       },
       fontFamily: {
-        sans:  ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+        sans:  ['"DM Sans"', 'system-ui', 'sans-serif'],
         serif: ['"Bodoni Moda"', 'Georgia', 'serif'],
       },
       boxShadow: {

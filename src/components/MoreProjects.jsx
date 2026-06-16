@@ -70,7 +70,7 @@ function ProjectRow({ project: p, index }) {
   const thumbRef = useRef(null)
   const navigate = useNavigate()
 
-  const limeText = () => document.documentElement.dataset.theme === 'light' ? '#5C8A00' : '#C0F53D'
+  const limeText = () => getComputedStyle(document.documentElement).getPropertyValue('--lime-text').trim()
 
   const onMouseEnter = () => {
     gsap.to(rowRef.current, { backgroundColor: 'var(--medium)', borderLeftColor: limeText(), duration: 0.2, ease: 'power2.out' })
