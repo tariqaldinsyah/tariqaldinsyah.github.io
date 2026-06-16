@@ -188,7 +188,7 @@ export default function Hero() {
 
         </div>
 
-        <div className="mt-16 pt-6 border-t border-[#1e2a0a] flex items-center justify-between text-white/20 text-xs tracking-widest uppercase">
+        <div className="mt-16 pt-6 border-t border-[#1e2a0a] flex items-center justify-between text-xs tracking-widest uppercase" style={{ color: 'var(--text-40)' }}>
           <span>UI/UX Portfolio</span>
           <span className="flex items-center gap-2">
             <span className="status-dot text-lime" />
