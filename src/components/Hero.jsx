@@ -100,10 +100,10 @@ export default function Hero() {
       <GradientBars />
       <div className="absolute inset-0 grid-overlay opacity-15" />
 
-      <span className="sparkle absolute top-24 left-[8%] text-lg select-none">+</span>
-      <span className="sparkle absolute top-32 right-[8%] text-base select-none">+</span>
-      <span className="sparkle absolute bottom-32 left-[20%] text-base select-none">+</span>
-      <span className="sparkle absolute bottom-24 right-[25%] text-lg select-none">✦</span>
+      <span aria-hidden="true" className="sparkle absolute top-24 left-[8%] text-lg select-none">+</span>
+      <span aria-hidden="true" className="sparkle absolute top-32 right-[8%] text-base select-none">+</span>
+      <span aria-hidden="true" className="sparkle absolute bottom-32 left-[20%] text-base select-none">+</span>
+      <span aria-hidden="true" className="sparkle absolute bottom-24 right-[25%] text-lg select-none">✦</span>
 
       <div className="relative max-w-7xl mx-auto px-5 sm:px-8 py-12 lg:py-20 w-full">
 

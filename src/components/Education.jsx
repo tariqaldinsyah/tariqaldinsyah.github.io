@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ArrowUpRight } from 'lucide-react'
 import { splitWords, splitChars } from '../utils/splitText'
 import { useTheme } from '../hooks/useTheme'
 
@@ -74,14 +73,6 @@ export default function Education() {
           scrollTrigger: { trigger: achRef.current, start: 'top 84%' },
         })
 
-      // ArrowUpRight icons bounce in
-      const arrows = achRef.current?.querySelectorAll('.ach-arrow')
-      if (arrows?.length)
-        gsap.from(arrows, {
-          scale: 0.88, opacity: 0,
-          stagger: 0.07, duration: 0.4, ease: 'power3.out', delay: 0.5,
-          scrollTrigger: { trigger: achRef.current, start: 'top 84%' },
-        })
     }, sectionRef)
     return () => ctx.revert()
   }, [])
@@ -160,17 +151,14 @@ export default function Education() {
             <div className="lg:col-span-2 divide-y divide-[#1e2a0a]">
               {achievements.map((a, i) => (
                 <div key={a.title}
-                  className="ach-row px-8 py-5 flex items-start justify-between gap-4 group hover:bg-lime/[0.03] transition-colors cursor-default">
-                  <div className="flex items-start gap-3">
-                    <span className="text-lime/40 text-sm font-bold tabular-nums flex-shrink-0">
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-                    <div>
-                      <h4 className="font-semibold text-white/80 text-sm leading-snug group-hover:text-white transition-colors">{a.title}</h4>
-                      <p className="text-white/30 text-xs uppercase tracking-wider mt-1">{a.org}</p>
-                    </div>
+                  className="ach-row px-8 py-5 flex items-start gap-4 group hover:bg-lime/[0.03] transition-colors cursor-default">
+                  <span className="text-lime/40 text-sm font-bold tabular-nums flex-shrink-0 pt-0.5">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <div>
+                    <h4 className="font-semibold text-white/80 text-sm leading-snug group-hover:text-white transition-colors">{a.title}</h4>
+                    <p className="text-white/30 text-xs uppercase tracking-wider mt-1">{a.org}</p>
                   </div>
-                  <ArrowUpRight size={14} className="ach-arrow text-white/20 group-hover:text-lime transition-colors flex-shrink-0 mt-1" />
                 </div>
               ))}
             </div>

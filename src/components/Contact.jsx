@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ArrowRight, ExternalLink, Globe, Phone } from 'lucide-react'
+import { ArrowRight, ExternalLink, Phone } from 'lucide-react'
 import { splitWords, splitChars } from '../utils/splitText'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -69,7 +69,7 @@ export default function Contact() {
             </a>
             <a href="https://behance.net/tariqaldinsyah" target="_blank" rel="noopener noreferrer"
               className="flex items-center gap-2 hover:text-lime transition-colors">
-              <Globe size={11} className="contact-icon" />behance.net/tariqaldinsyah
+              <ExternalLink size={11} className="contact-icon" />behance.net/tariqaldinsyah
             </a>
             <a href="tel:+62811922857"
               className="flex items-center gap-2 hover:text-lime transition-colors">
