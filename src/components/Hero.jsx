@@ -172,9 +172,9 @@ export default function Hero() {
             </div>
           </div>
 
-          <div ref={phoneWrapRef} className="flex items-center justify-center overflow-hidden"
+          <div ref={phoneWrapRef} className="relative overflow-hidden"
             style={{ alignSelf: 'stretch' }}>
-            <div ref={phoneRef} className="w-full h-full relative">
+            <div ref={phoneRef} className="absolute inset-0">
               <ImageWithSkeleton
                 src="/phone-mockup.jpg"
                 alt="MyKisel app interface"
