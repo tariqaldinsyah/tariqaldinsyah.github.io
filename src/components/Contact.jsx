@@ -97,7 +97,7 @@ export default function Contact() {
         <div className="py-20 px-8 lg:px-16 text-center">
           <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'rgba(8,12,2,0.55)' }}>Let's Collaborate</p>
           <h3 className="font-black leading-[1.05] tracking-tight mb-2" style={{ color: '#080c02', fontSize: 'clamp(1.8rem, 4vw, 4.2rem)' }}>
-            Let us help your company accelerate{' '}
+            Let me help you accelerate{' '}
             <span className="font-serif italic font-semibold">years ahead.</span>
           </h3>
           <div className="mt-10">

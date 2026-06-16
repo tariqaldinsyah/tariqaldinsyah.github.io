@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger)
 const STATS = [
   { raw: 40, fmt: v => `${v}%`, label: 'development efficiency gain' },
   { raw: 20, fmt: v => `${v}%`, label: 'growth in active users' },
-  { raw: 50, fmt: v => `${v}+`, label: 'cooperatives integrated' },
+  { raw: 20, fmt: v => `${v}+`, label: 'cooperatives integrated' },
   { raw: 1,  fmt: v => `#${v}`, label: 'innovation award 2024' },
 ]
 

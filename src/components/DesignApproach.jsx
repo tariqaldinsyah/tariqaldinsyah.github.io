@@ -50,6 +50,8 @@ export default function DesignApproach() {
   const isLight = theme === 'light'
   // lime in dark mode = #C0F53D, in light mode = #5C8A00
   const lr = (a) => isLight ? `rgba(92,138,0,${a})` : `rgba(192,245,61,${a})`
+  // Computed at render time — stays in sync when theme changes (useTheme triggers re-render)
+  const borderDefault = getComputedStyle(document.documentElement).getPropertyValue('--border').trim()
 
   const sectionRef = useRef(null)
   const headerRef  = useRef(null)
@@ -219,7 +221,7 @@ export default function DesignApproach() {
                 className="flex-1 rounded-2xl p-5 flex flex-col gap-3 group transition-colors cursor-default"
                 style={{ background: 'var(--card)', border: '1px solid var(--border)' }}
                 onMouseEnter={e => gsap.to(e.currentTarget, { borderColor: lr(0.45), duration: 0.25 })}
-                onMouseLeave={e => gsap.to(e.currentTarget, { borderColor: getComputedStyle(document.documentElement).getPropertyValue('--border').trim(), duration: 0.3 })}>
+                onMouseLeave={e => gsap.to(e.currentTarget, { borderColor: borderDefault, duration: 0.3 })}>
                 <span className="text-lime font-black text-xs tabular-nums">{step.num}</span>
                 <h3 className="text-white font-bold text-sm leading-snug">{step.title}</h3>
                 <p className="text-white/40 text-xs leading-relaxed flex-1">{step.desc}</p>
