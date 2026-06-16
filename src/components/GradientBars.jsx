@@ -2,15 +2,16 @@ function calcH(index, total, min, max) {
   const center = (total - 1) / 2
   const dist = Math.abs(index - center)
   const maxDist = center || 1
-  // Peak at center, taper to edges. Swap to (dist/maxDist) to invert.
+  // Peak at center, taper to edges.
+  // FLIP height shape: change to (dist / maxDist) for tall-at-edges instead.
   const pct = 1 - dist / maxDist
   return min + pct * (max - min)
 }
 
 export default function GradientBars({
-  numBars = 11,
-  minH = 50,
-  maxH = 340,
+  numBars = 13,
+  minH = 60,
+  maxH = 400,
   duration = 3,
 }) {
   const reduced =
@@ -30,9 +31,15 @@ export default function GradientBars({
       <div
         aria-hidden="true"
         style={{
+          // Explicit bottom-anchored container — only as tall as the tallest bar.
+          // This guarantees bars grow from the floor of Hero upward, no ambiguity.
           position: 'absolute',
-          inset: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: maxH,
           display: 'flex',
+          // FLIP bar anchor: change 'flex-end' → 'flex-start' to anchor at TOP instead.
           alignItems: 'flex-end',
           gap: '4px',
           padding: '0 4px',
@@ -49,8 +56,11 @@ export default function GradientBars({
               style={{
                 flex: 1,
                 height: h,
-                background: 'linear-gradient(to bottom, var(--lime-text) 0%, color-mix(in srgb, var(--lime-text) 30%, var(--bg)) 55%, var(--bg) 100%)',
-                borderRadius: '4px 4px 0 0',
+                // LIME at peak (top of bar), fades to var(--bg) at base (Hero floor).
+                // FLIP gradient direction: change 'to bottom' → 'to top' for lime-at-base.
+                background: 'linear-gradient(to bottom, var(--lime-text) 0%, var(--bg) 100%)',
+                // scaleY animation squishes from the bottom (floor stays fixed).
+                // FLIP animation origin: change 'bottom center' → 'top center'.
                 transformOrigin: 'bottom center',
                 willChange: reduced ? 'auto' : 'transform',
                 animation: reduced
