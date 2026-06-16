@@ -50,8 +50,10 @@ export default function DesignApproach() {
   const isLight = theme === 'light'
   // lime in dark mode = #C0F53D, in light mode = #5C8A00
   const lr = (a) => isLight ? `rgba(92,138,0,${a})` : `rgba(192,245,61,${a})`
-  // Computed at render time — stays in sync when theme changes (useTheme triggers re-render)
-  const borderDefault = getComputedStyle(document.documentElement).getPropertyValue('--border').trim()
+  const borderDefaultRef = useRef('')
+  useEffect(() => {
+    borderDefaultRef.current = getComputedStyle(document.documentElement).getPropertyValue('--border').trim()
+  }, [theme])
 
   const sectionRef = useRef(null)
   const headerRef  = useRef(null)
@@ -163,7 +165,7 @@ export default function DesignApproach() {
                   style={{ background: 'var(--card)', border: `1px solid ${lr(0.40)}` }}
                   onMouseEnter={e => gsap.to(e.currentTarget.querySelector('svg'), { rotation: 360, duration: 0.5, ease: 'power2.out', overwrite: 'auto' })}
                   onMouseLeave={e => gsap.to(e.currentTarget.querySelector('svg'), { rotation: 0, duration: 0.4, ease: 'power2.inOut', overwrite: 'auto' })}>
-                  <step.Icon size={16} className="text-lime" style={{ display: 'block' }} />
+                  <step.Icon size={16} aria-hidden="true" className="text-lime" style={{ display: 'block' }} />
                 </div>
               </div>
             ))}
@@ -221,7 +223,7 @@ export default function DesignApproach() {
                 className="flex-1 rounded-2xl p-5 flex flex-col gap-3 group transition-colors cursor-default"
                 style={{ background: 'var(--card)', border: '1px solid var(--border)' }}
                 onMouseEnter={e => gsap.to(e.currentTarget, { borderColor: lr(0.45), duration: 0.25 })}
-                onMouseLeave={e => gsap.to(e.currentTarget, { borderColor: borderDefault, duration: 0.3 })}>
+                onMouseLeave={e => gsap.to(e.currentTarget, { borderColor: borderDefaultRef.current, duration: 0.3 })}>
                 <span className="text-lime font-black text-xs tabular-nums">{step.num}</span>
                 <h3 className="text-white font-bold text-sm leading-snug">{step.title}</h3>
                 <p className="text-white/40 text-xs leading-relaxed flex-1">{step.desc}</p>
@@ -243,7 +245,7 @@ export default function DesignApproach() {
               <div className="flex flex-col items-center">
                 <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
                   style={{ background: 'var(--card)', border: `1px solid ${lr(0.40)}` }}>
-                  <step.Icon size={14} className="text-lime" />
+                  <step.Icon size={14} aria-hidden="true" className="text-lime" />
                 </div>
                 {i < steps.length - 1 && (
                   <div className="w-px flex-1 my-1" style={{ background: lr(0.22) }} />

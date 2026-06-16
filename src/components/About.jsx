@@ -77,7 +77,7 @@ export default function About() {
 
         {/* Section meta row — like Adspace "Client / Services / Year" */}
         <div className="flex flex-wrap gap-10 mb-16 pb-8 border-b border-[#1e2a0a] text-sm">
-          <div><p className="text-white/30 uppercase text-xs tracking-widest mb-1">About Me</p></div>
+          <div><h2 className="text-white/30 uppercase text-xs tracking-widest mb-1 font-normal">About Me</h2></div>
           <div className="ml-auto max-w-lg">
             <p className="text-white/40 text-sm leading-relaxed">
               I'm a UI/UX Product Designer with 2+ years of experience designing digital platforms

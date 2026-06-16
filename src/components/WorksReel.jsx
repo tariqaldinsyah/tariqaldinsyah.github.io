@@ -29,49 +29,47 @@ const ANGLE_STEP = 360 / N
 export default function WorksWheel() {
   const { theme } = useTheme()
   const navigate  = useNavigate()
-  const defaultCardBorder = theme === 'light' ? 'rgba(30,26,9,0.12)' : 'rgba(255,255,255,0.13)'
   const outerRef  = useRef(null)
   const stickyRef = useRef(null)
   const spokeRefs = useRef([])   // position on ring: updated per frame
   const faceRefs  = useRef([])   // counter-rotation:  updated per frame
 
   useEffect(() => {
-    const isMobile = window.innerWidth < 768
-    const RADIUS   = isMobile ? 150 : Math.min(window.innerWidth * 0.265, 400)
-    const CARD_W   = isMobile ? 92  : 168
-    const CARD_H   = isMobile ? 72  : 132
+    let RADIUS = 0, CARD_W = 0, CARD_H = 0
 
-    // Set card dimensions (static — don't go through transform)
-    spokeRefs.current.forEach(spoke => {
-      if (!spoke) return
-      spoke.style.width  = `${CARD_W}px`
-      spoke.style.height = `${CARD_H}px`
-    })
+    function applyLayout() {
+      const isMobile = (outerRef.current?.offsetWidth ?? window.innerWidth) < 768
+      RADIUS = isMobile ? 150 : Math.min(window.innerWidth * 0.265, 400)
+      CARD_W = isMobile ? 92  : 168
+      CARD_H = isMobile ? 72  : 132
+      spokeRefs.current.forEach(spoke => {
+        if (!spoke) return
+        spoke.style.width  = `${CARD_W}px`
+        spoke.style.height = `${CARD_H}px`
+      })
+    }
 
-    // Update all spoke/face transforms for a given orbit angle
     function updateCards(angle) {
       spokeRefs.current.forEach((spoke, i) => {
         const face = faceRefs.current[i]
         if (!spoke || !face) return
         const total = ANGLE_STEP * i + angle
-        // Position card on the tilted ring
         spoke.style.transform = `rotateZ(${total}deg) translateY(-${RADIUS}px)`
-        // Counter-rotate so card always faces the viewer:
-        //   rotateX(TILT_X) × rotateZ(total) × [rotateZ(-total) × rotateX(-TILT_X)] = identity
         face.style.transform  = `rotateZ(${-total}deg) rotateX(${-TILT_X}deg)`
       })
     }
 
-    // Initialise cards at angle=0
+    applyLayout()
     updateCards(0)
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduced) {
       if (stickyRef.current) stickyRef.current.style.opacity = '1'
-      return
+      const ro = new ResizeObserver(() => { applyLayout(); updateCards(0) })
+      ro.observe(outerRef.current)
+      return () => ro.disconnect()
     }
 
-    // ScrollTrigger drives the orbit angle via a proxy object
     const proxy = { angle: 0 }
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -87,7 +85,6 @@ export default function WorksWheel() {
       onUpdate() { updateCards(proxy.angle) },
     })
 
-    // Fade in on first enter
     const enterST = ScrollTrigger.create({
       trigger: outerRef.current,
       start: 'top 88%',
@@ -99,9 +96,13 @@ export default function WorksWheel() {
       },
     })
 
+    const ro = new ResizeObserver(() => { applyLayout(); updateCards(proxy.angle) })
+    ro.observe(outerRef.current)
+
     return () => {
       tl.scrollTrigger?.kill()
       enterST.kill()
+      ro.disconnect()
     }
   }, [])
 
@@ -109,6 +110,7 @@ export default function WorksWheel() {
     <section
       ref={outerRef}
       id="works"
+      aria-label="Selected Works"
       style={{ height: '100vh', position: 'relative', backgroundColor: 'var(--bg)', overflow: 'hidden' }}
     >
       <div
@@ -166,17 +168,11 @@ export default function WorksWheel() {
                           navigate(`/projects/${p.slug}`)
                         }
                       }}
-                      onFocus={e => {
-                        const lt = document.documentElement.dataset.theme === 'light'
-                        e.currentTarget.style.outline = lt ? '2px solid rgba(92,138,0,0.9)' : '2px solid rgba(192,245,61,0.9)'
-                        e.currentTarget.style.outlineOffset = '3px'
-                      }}
-                      onBlur={e => { e.currentTarget.style.outline = 'none' }}
                       style={{
                         width: '100%', height: '100%',
                         borderRadius: 12,
                         overflow: 'hidden',
-                        border: `1px solid ${defaultCardBorder}`,
+                        border: `1px solid ${theme === 'light' ? 'rgba(30,26,9,0.12)' : 'rgba(255,255,255,0.13)'}`,
                         boxShadow: '0 12px 48px rgba(0,0,0,0.85)',
                         cursor: 'pointer',
                         transition: 'border-color 0.3s, box-shadow 0.3s',
@@ -189,13 +185,15 @@ export default function WorksWheel() {
                           : '0 16px 56px rgba(0,0,0,0.9), 0 0 0 1px rgba(192,245,61,0.3)'
                       }}
                       onMouseLeave={e => {
-                        e.currentTarget.style.borderColor = defaultCardBorder
+                        const lt = document.documentElement.dataset.theme === 'light'
+                        e.currentTarget.style.borderColor = lt ? 'rgba(30,26,9,0.12)' : 'rgba(255,255,255,0.13)'
                         e.currentTarget.style.boxShadow  = '0 12px 48px rgba(0,0,0,0.85)'
                       }}
                     >
                       <img
                         src={p.src}
-                        alt={p.name}
+                        alt=""
+                        loading="lazy"
                         style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', pointerEvents: 'none' }}
                         draggable={false}
                       />

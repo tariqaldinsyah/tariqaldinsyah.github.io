@@ -18,7 +18,10 @@ const cards = [
 export default function BeyondDesign() {
   const { theme } = useTheme()
   const lr = (a) => theme === 'light' ? `rgba(92,138,0,${a})` : `rgba(192,245,61,${a})`
-  const borderDefault = getComputedStyle(document.documentElement).getPropertyValue('--border').trim()
+  const borderDefaultRef = useRef('')
+  useEffect(() => {
+    borderDefaultRef.current = getComputedStyle(document.documentElement).getPropertyValue('--border').trim()
+  }, [theme])
 
   const sectionRef = useRef(null)
   const headRef    = useRef(null)
@@ -44,7 +47,7 @@ export default function BeyondDesign() {
     return () => ctx.revert()
   }, [])
 
-  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+  const canHover = typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches
 
   return (
     <section ref={sectionRef} className="relative py-24 bg-dark overflow-hidden">
@@ -65,20 +68,27 @@ export default function BeyondDesign() {
               className={`rounded-2xl p-6 group cursor-default
                 ${i < 3 ? 'lg:col-span-2' : 'lg:col-span-3'}
                 ${i === 4 ? 'sm:col-span-2 lg:col-span-3' : ''}`}
-              style={{ background: 'var(--card)', border: '1px solid var(--border)', willChange: 'transform' }}
+              style={{ background: 'var(--card)', border: '1px solid var(--border)' }}
               {...(canHover ? {
-                onMouseEnter: (e) => gsap.to(e.currentTarget, {
-                  y: -4,
-                  borderColor: lr(0.3),
-                  boxShadow: `0 0 30px ${lr(0.10)}`,
-                  duration: 0.25, ease: 'power2.out', overwrite: 'auto',
-                }),
-                onMouseLeave: (e) => gsap.to(e.currentTarget, {
-                  y: 0,
-                  borderColor: borderDefault,
-                  boxShadow: 'none',
-                  duration: 0.4, ease: 'power2.out', overwrite: 'auto',
-                }),
+                onMouseEnter: (e) => {
+                  e.currentTarget.style.willChange = 'transform'
+                  gsap.to(e.currentTarget, {
+                    y: -4,
+                    borderColor: lr(0.3),
+                    boxShadow: `0 0 30px ${lr(0.10)}`,
+                    duration: 0.25, ease: 'power2.out', overwrite: 'auto',
+                  })
+                },
+                onMouseLeave: (e) => {
+                  const el = e.currentTarget
+                  gsap.to(el, {
+                    y: 0,
+                    borderColor: borderDefaultRef.current,
+                    boxShadow: 'none',
+                    duration: 0.4, ease: 'power2.out', overwrite: 'auto',
+                    onComplete: () => { el.style.willChange = 'auto' },
+                  })
+                },
               } : {})}>
               <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-4"
                 style={{ background: lr(0.08), border: `1px solid ${lr(0.15)}` }}>

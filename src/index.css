@@ -107,7 +107,7 @@
     font-family: 'Cormorant Garamond', Georgia, serif;
     font-style: italic;
     font-weight: 600;
-    color: #C0F53D;
+    color: var(--lime-text);
   }
 
   /* Section label */
@@ -198,9 +198,12 @@
   [data-theme="light"] .wordmark-box {
     border-color: rgba(92,138,0,0.55);
   }
-  [data-theme="light"] .accent-serif {
-    color: var(--lime-text);
-  }
+}
+
+/* ── Keyboard focus ring for div-as-button elements ─────────────────── */
+[role="button"]:focus-visible {
+  outline: 2px solid var(--lime-text);
+  outline-offset: 3px;
 }
 
 /* ── Scrollbar ──────────────────────────────────────────────────────── */

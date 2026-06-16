@@ -190,7 +190,7 @@ export default function WorkExperience() {
                   </p>
                   <p className="text-xs flex items-center gap-1.5"
                     style={{ color: 'var(--text-30)' }}>
-                    <MapPin size={10} /> Jakarta Selatan
+                    <MapPin size={10} aria-hidden="true" /> Jakarta Selatan
                   </p>
                 </div>
                 <div className="flex sm:flex-col items-center sm:items-end gap-3">
@@ -306,7 +306,7 @@ export default function WorkExperience() {
                   Product Designer Intern
                 </p>
                 <p className="text-xs flex items-center gap-1.5 mb-1" style={{ color: 'var(--text-30)' }}>
-                  <MapPin size={10} /> Bandung
+                  <MapPin size={10} aria-hidden="true" /> Bandung
                 </p>
                 <p className="text-xs" style={{ color: 'var(--text-30)' }}>Aug – Oct 2023</p>
               </div>
@@ -322,7 +322,7 @@ export default function WorkExperience() {
                   {AKI_CARDS.map(({ Icon, label, sub }) => (
                     <div key={label} className="rounded-xl p-4"
                       style={{ background: 'var(--medium)', border: '1px solid var(--border)' }}>
-                      <Icon size={14} className="mb-2.5" style={{ color: 'var(--lime-text)', opacity: 0.55 }} />
+                      <Icon size={14} aria-hidden="true" className="mb-2.5" style={{ color: 'var(--lime-text)', opacity: 0.55 }} />
                       <p className="text-xs font-semibold mb-1" style={{ color: 'var(--text-70)' }}>{label}</p>
                       <p className="text-xs leading-relaxed" style={{ color: 'var(--text-30)' }}>{sub}</p>
                     </div>

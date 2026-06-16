@@ -158,6 +158,12 @@ export default function Navbar() {
 
   return (
     <>
+      <a
+        href="#about"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:px-4 focus:py-2 focus:rounded-lg focus:font-bold focus:text-sm focus:text-dark"
+        style={{ background: 'var(--lime-text)' }}>
+        Skip to content
+      </a>
       <nav ref={navRef}
         className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
           scrolled && !open ? 'bg-dark/95 backdrop-blur-lg border-b border-[#1e2a0a]' : 'bg-transparent'

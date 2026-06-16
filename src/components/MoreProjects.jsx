@@ -84,11 +84,15 @@ function ProjectRow({ project: p, index }) {
 
   return (
     <div ref={rowRef}
+      role="button"
+      tabIndex={0}
+      aria-label={`View ${p.name} case study`}
       data-cursor="view"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onClick={() => navigate(`/projects/${p.id}`)}
-      className="cursor-pointer flex items-center gap-5 sm:gap-6 py-4 px-3 rounded-lg"
+      onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigate(`/projects/${p.id}`) } }}
+      className="cursor-pointer flex items-center gap-5 sm:gap-6 py-4 px-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lime-text)]"
       style={{ borderBottom: '1px solid var(--border)', borderLeft: '2px solid transparent' }}>
 
       {/* Index */}
@@ -124,7 +128,7 @@ function ProjectRow({ project: p, index }) {
       </div>
 
       {/* Arrow */}
-      <ArrowUpRight size={15} className="shrink-0 text-white/20 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" style={{ color: 'var(--text-40)' }} />
+      <ArrowUpRight size={15} aria-hidden="true" className="shrink-0 text-white/20 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" style={{ color: 'var(--text-40)' }} />
     </div>
   )
 }
