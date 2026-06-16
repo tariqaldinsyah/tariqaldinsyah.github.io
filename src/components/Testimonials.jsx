@@ -99,7 +99,7 @@ export default function Testimonials() {
               </div>
 
               {/* Quote */}
-              <p className="text-sm leading-relaxed flex-1 font-serif italic"
+              <p className="text-sm leading-relaxed flex-1"
                 style={{ color: 'var(--text-70)' }}>
                 {t.quote}
               </p>
