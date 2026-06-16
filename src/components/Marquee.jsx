@@ -31,7 +31,7 @@ export default function Marquee({ reverse = false, speed = 22 }) {
       <div ref={trackRef} className="flex gap-10 w-max" style={{ willChange: 'transform' }}>
         {items.map((item, i) => (
           <span key={i} className="flex items-center gap-4 whitespace-nowrap select-none"
-            style={{ color: 'var(--text-20)', fontSize: '0.65rem', letterSpacing: '0.16em', fontWeight: 700, textTransform: 'uppercase' }}>
+            style={{ color: 'var(--text-35)', fontSize: '0.65rem', letterSpacing: '0.16em', fontWeight: 700, textTransform: 'uppercase' }}>
             {item}
             <span style={{ color: 'var(--lime-text)', opacity: 0.4, fontSize: '0.8rem' }}>✦</span>
           </span>

@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowLeft, ArrowRight, ArrowDown, Calendar, Building2, User } from 'lucide-react'
+import { useTheme } from '../hooks/useTheme'
 import { getProjectById, getNextProject } from '../data/projects'
 import ImageWithSkeleton from '../components/ImageWithSkeleton'
 import Navbar from '../components/Navbar'
@@ -13,6 +14,10 @@ import MetricMini from '../components/MetricMini'
 gsap.registerPlugin(ScrollTrigger)
 
 export default function ProjectDetail() {
+  const { theme } = useTheme()
+  const lr = (a) => theme === 'light' ? `rgba(92,138,0,${a})` : `rgba(192,245,61,${a})`
+  const borderDefault = getComputedStyle(document.documentElement).getPropertyValue('--border').trim()
+
   const { id } = useParams()
   const navigate = useNavigate()
   const project = getProjectById(id)
@@ -141,7 +146,7 @@ export default function ProjectDetail() {
               <p className="text-sm leading-relaxed" style={{ color: 'var(--text-60)' }}>{project.problem}</p>
             </div>
             <div className="rounded-2xl p-7"
-              style={{ background: 'var(--card)', border: '1px solid rgba(192,245,61,0.2)' }}>
+              style={{ background: 'var(--card)', border: `1px solid ${lr(0.2)}` }}>
               <p className="label-tag mb-4">Solution</p>
               <p className="text-sm leading-relaxed" style={{ color: 'var(--text-60)' }}>{project.solution}</p>
             </div>
@@ -243,7 +248,7 @@ export default function ProjectDetail() {
               <div key={i} className="rounded-2xl p-6"
                 style={{ background: 'var(--card)', border: '1px solid var(--border)' }}>
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-4"
-                  style={{ background: 'rgba(192,245,61,0.12)', border: '1px solid rgba(192,245,61,0.2)' }}>
+                  style={{ background: lr(0.12), border: `1px solid ${lr(0.2)}` }}>
                   <span className="text-lime font-black text-xs">{String(i + 1).padStart(2, '0')}</span>
                 </div>
                 <h4 className="font-bold text-sm mb-2" style={{ color: 'var(--text)' }}>{f.title}</h4>
@@ -357,8 +362,8 @@ export default function ProjectDetail() {
             <Link to={`/projects/${next.id}`}
               className="group flex items-center justify-between rounded-2xl p-8 transition-all"
               style={{ background: 'var(--card)', border: '1px solid var(--border)' }}
-              onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(192,245,61,0.3)'}
-              onMouseLeave={e => e.currentTarget.style.borderColor = getComputedStyle(document.documentElement).getPropertyValue('--border').trim()}>
+              onMouseEnter={e => { e.currentTarget.style.borderColor = lr(0.3) }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = borderDefault }}>
               <div>
                 <p className="text-xs mb-2" style={{ color: 'var(--text-30)' }}>{next.label}</p>
                 <h3 className="font-bold text-xl capitalize" style={{ color: 'var(--text)' }}>{next.name}</h3>
@@ -385,12 +390,14 @@ function SectionLabel({ children }) {
 }
 
 function BeforeAfterCard({ type, data }) {
+  const { theme } = useTheme()
+  const lr = (a) => theme === 'light' ? `rgba(92,138,0,${a})` : `rgba(192,245,61,${a})`
   const isAfter = type === 'after'
   return (
     <div className="rounded-2xl overflow-hidden"
       style={{
         background: 'var(--card)',
-        border: isAfter ? '1px solid rgba(192,245,61,0.22)' : '1px solid var(--border)',
+        border: isAfter ? `1px solid ${lr(0.22)}` : '1px solid var(--border)',
       }}>
       {data.src && (
         <div className="aspect-video overflow-hidden" style={{ background: 'var(--medium)' }}>

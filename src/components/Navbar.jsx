@@ -17,6 +17,7 @@ const navLinks = [
 export default function Navbar() {
   const [open, setOpen]         = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [activeHref, setActiveHref] = useState('')
   const navRef       = useRef(null)
   const overlayRef   = useRef(null)
   const linksRef     = useRef([])
@@ -33,6 +34,25 @@ export default function Navbar() {
     window.addEventListener('scroll', fn, { passive: true })
     return () => window.removeEventListener('scroll', fn)
   }, [])
+
+  // Active section tracker via IntersectionObserver
+  useEffect(() => {
+    if (location.pathname !== '/') return
+    const sections = navLinks.map(l => document.querySelector(l.href)).filter(Boolean)
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const link = navLinks.find(l => l.href === `#${entry.target.id}`)
+            if (link) setActiveHref(link.href)
+          }
+        })
+      },
+      { rootMargin: '-25% 0px -65% 0px', threshold: 0 }
+    )
+    sections.forEach(s => observer.observe(s))
+    return () => observer.disconnect()
+  }, [location.pathname])
 
   // Theme icon swap animation
   useEffect(() => {
@@ -162,7 +182,11 @@ export default function Navbar() {
                     if (window.__lenis) window.__lenis.scrollTo(el)
                     else el.scrollIntoView({ behavior: 'smooth' })
                   }}
-                  className="px-3.5 py-1.5 text-[11px] font-bold tracking-[0.12em] uppercase text-white/40 hover:text-lime transition-colors rounded-md hover:bg-lime/5">
+                  className={`px-3.5 py-1.5 text-[11px] font-bold tracking-[0.12em] uppercase transition-colors rounded-md hover:bg-lime/5 ${
+                    activeHref === l.href
+                      ? 'text-lime'
+                      : 'text-white/40 hover:text-lime'
+                  }`}>
                   {l.label}
                 </button>
               ))}
