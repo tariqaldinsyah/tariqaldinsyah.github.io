@@ -29,6 +29,7 @@ const ANGLE_STEP = 360 / N
 export default function WorksWheel() {
   const { theme } = useTheme()
   const navigate  = useNavigate()
+  const defaultCardBorder = theme === 'light' ? 'rgba(30,26,9,0.12)' : 'rgba(255,255,255,0.13)'
   const outerRef  = useRef(null)
   const stickyRef = useRef(null)
   const spokeRefs = useRef([])   // position on ring: updated per frame
@@ -160,7 +161,7 @@ export default function WorksWheel() {
                         width: '100%', height: '100%',
                         borderRadius: 12,
                         overflow: 'hidden',
-                        border: '1px solid rgba(255,255,255,0.13)',
+                        border: `1px solid ${defaultCardBorder}`,
                         boxShadow: '0 12px 48px rgba(0,0,0,0.85)',
                         cursor: 'pointer',
                         transition: 'border-color 0.3s, box-shadow 0.3s',
@@ -170,7 +171,7 @@ export default function WorksWheel() {
                         e.currentTarget.style.boxShadow  = '0 16px 56px rgba(0,0,0,0.9), 0 0 0 1px rgba(192,245,61,0.3)'
                       }}
                       onMouseLeave={e => {
-                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.13)'
+                        e.currentTarget.style.borderColor = defaultCardBorder
                         e.currentTarget.style.boxShadow  = '0 12px 48px rgba(0,0,0,0.85)'
                       }}
                     >

@@ -93,8 +93,8 @@ export default function FeaturedProjects() {
         <div ref={headerRef} className="mb-16">
           <h2 className="font-black leading-[1.05] tracking-tight"
             style={{ fontSize: 'clamp(2rem, 4vw, 4.5rem)' }}>
-            <span className="text-white">Next Level </span>
-            <span className="font-serif italic font-semibold text-lime">Results</span>
+            <span className="text-white">Featured </span>
+            <span className="font-serif italic font-semibold text-lime">Projects</span>
           </h2>
         </div>
 
