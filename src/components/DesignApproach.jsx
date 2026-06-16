@@ -114,7 +114,7 @@ export default function DesignApproach() {
   const TICKS = Array.from({ length: 30 }, (_, i) => i)
 
   return (
-    <section id="approach" ref={sectionRef} className="relative py-24 bg-dark overflow-hidden">
+    <section id="approach" ref={sectionRef} className="relative py-32 overflow-hidden" style={{ background: 'var(--card)' }}>
       <div className="blob blob-lime w-[500px] h-[500px] top-[-80px] right-[-80px] opacity-15" />
       <div className="absolute inset-0 grid-overlay opacity-40" />
 

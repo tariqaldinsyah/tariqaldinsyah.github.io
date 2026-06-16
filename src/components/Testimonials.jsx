@@ -28,6 +28,10 @@ const TESTIMONIALS = [
   },
 ]
 
+function getInitials(name) {
+  return name.split(' ').slice(0, 2).map(w => w[0]).join('')
+}
+
 export default function Testimonials() {
   const sectionRef = useRef(null)
   const headRef    = useRef(null)
@@ -62,7 +66,6 @@ export default function Testimonials() {
 
   return (
     <section ref={sectionRef} id="testimonials" className="relative py-24 bg-dark overflow-hidden">
-      <div className="absolute inset-0 grid-overlay opacity-30" />
 
       <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
 
@@ -87,7 +90,8 @@ export default function Testimonials() {
               className="rounded-2xl p-6 sm:p-8 flex flex-col"
               style={{
                 background: 'var(--card)',
-                border: t.featured ? '1px solid rgba(192,245,61,0.18)' : '1px solid var(--border)',
+                border: t.featured ? '1px solid rgba(192,245,61,0.35)' : '1px solid var(--border)',
+                boxShadow: t.featured ? '0 0 40px rgba(192,245,61,0.18)' : 'none',
               }}
             >
               {/* Decorative quote mark */}
@@ -105,13 +109,25 @@ export default function Testimonials() {
               </p>
 
               {/* Author */}
-              <div className="mt-6 pt-5" style={{ borderTop: '1px solid var(--border)' }}>
-                <p className="text-sm font-bold leading-snug" style={{ color: 'var(--text)' }}>
-                  {t.author}
-                </p>
-                <p className="text-xs mt-1" style={{ color: 'var(--text-40)' }}>
-                  {t.role} · {t.company}
-                </p>
+              <div className="mt-6 pt-5 flex items-center gap-3" style={{ borderTop: '1px solid var(--border)' }}>
+                {t.avatar ? (
+                  <img src={t.avatar} alt={t.author} className="w-9 h-9 rounded-full object-cover shrink-0" />
+                ) : (
+                  <div
+                    className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 font-bold text-xs"
+                    style={{ background: '#C0F53D', color: '#080c02' }}
+                  >
+                    {getInitials(t.author)}
+                  </div>
+                )}
+                <div>
+                  <p className="text-sm font-bold leading-snug" style={{ color: 'var(--text)' }}>
+                    {t.author}
+                  </p>
+                  <p className="text-xs mt-0.5" style={{ color: 'var(--text-40)' }}>
+                    {t.role} · {t.company}
+                  </p>
+                </div>
               </div>
             </div>
           ))}

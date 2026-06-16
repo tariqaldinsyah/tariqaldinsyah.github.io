@@ -118,9 +118,8 @@ export default function WorkExperience() {
   }, [])
 
   return (
-    <section id="experience" ref={sectionRef} className="relative py-24 bg-dark overflow-hidden">
+    <section id="experience" ref={sectionRef} className="relative py-20 overflow-hidden" style={{ background: 'var(--card)' }}>
       <div className="blob blob-lime w-[600px] h-[600px] top-[-100px] right-[-150px] opacity-10" />
-      <div className="absolute inset-0 grid-overlay opacity-30" />
 
       <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
 

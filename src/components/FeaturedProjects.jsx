@@ -84,7 +84,7 @@ export default function FeaturedProjects() {
   }, [])
 
   return (
-    <section id="projects" ref={sectionRef} className="relative py-24 bg-dark overflow-hidden">
+    <section id="projects" ref={sectionRef} className="relative py-32 overflow-hidden" style={{ background: 'var(--card)' }}>
       <div className="blob blob-lime w-[500px] h-[500px] bottom-0 left-[-100px] opacity-20" />
       <div className="absolute inset-0 grid-overlay opacity-30" />
 

@@ -23,6 +23,7 @@ import CustomCursor from './components/CustomCursor'
 import BackgroundFX from './components/BackgroundFX'
 import Marquee from './components/Marquee'
 import Testimonials from './components/Testimonials'
+import Breather from './components/Breather'
 
 function Home() {
   return (
@@ -38,6 +39,7 @@ function Home() {
         <About />
         <FeaturedProjects />
         <Testimonials />
+        <Breather />
         <Marquee />
         <DesignApproach />
         <MoreProjects />

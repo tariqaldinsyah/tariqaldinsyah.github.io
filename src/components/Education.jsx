@@ -72,7 +72,6 @@ export default function Education() {
 
   return (
     <section id="education" ref={sectionRef} className="relative py-24 bg-dark overflow-hidden">
-      <div className="absolute inset-0 grid-overlay opacity-30" />
       <div className="blob blob-lime w-[400px] h-[400px] bottom-0 right-[-60px] opacity-20" />
 
       <div className="relative max-w-7xl mx-auto px-5 sm:px-8 space-y-8">

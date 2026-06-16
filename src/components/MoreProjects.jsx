@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Plus } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import ImageWithSkeleton from './ImageWithSkeleton'
 import { splitWords, splitChars } from '../utils/splitText'
@@ -22,37 +22,34 @@ const projects = [
 export default function MoreProjects() {
   const sectionRef = useRef(null)
   const headerRef  = useRef(null)
-  const gridRef    = useRef(null)
+  const listRef    = useRef(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
       if (reduced) return
       const st  = { trigger: sectionRef.current, start: 'top 80%' }
-      const gst = { trigger: gridRef.current, start: 'top 85%' }
+      const lst = { trigger: listRef.current, start: 'top 85%' }
       const h2  = headerRef.current?.querySelector('h2')
       if (h2) {
         const words = splitWords(h2.children[0])
         const chars = splitChars(h2.children[1])
         gsap.from(words, { y: '105%', duration: 0.75, stagger: 0.09, ease: 'power3.out', scrollTrigger: st })
-        // "Grow" chars bounce in with elastic
         gsap.from(chars, { y: '105%', scale: 0.6, stagger: 0.07, duration: 0.6, ease: 'back.out(3)', scrollTrigger: st })
       }
 
-      // Grid cards
-      gsap.fromTo(gridRef.current?.children, { opacity: 0, y: 32, scale: 0.96 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.07, ease: 'power3.out', delay: 0.2, scrollTrigger: gst })
+      gsap.fromTo(listRef.current?.children, { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.06, ease: 'power3.out', delay: 0.15, scrollTrigger: lst })
     }, sectionRef)
     return () => ctx.revert()
   }, [])
 
   return (
-    <section id="more-projects" className="relative py-24 bg-dark overflow-hidden" ref={sectionRef}>
-      <div className="absolute inset-0 grid-overlay opacity-30" />
+    <section id="more-projects" className="relative py-20 bg-dark overflow-hidden" ref={sectionRef}>
       <div className="blob blob-lime w-[400px] h-[400px] top-0 right-[-80px] opacity-20" />
 
       <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
-        <div ref={headerRef} className="mb-16">
+        <div ref={headerRef} className="mb-12">
           <h2 className="font-black leading-[1.05] tracking-tight"
             style={{ fontSize: 'clamp(2rem, 4vw, 4.5rem)' }}>
             <span className="text-white">We Help Companies </span>
@@ -60,75 +57,72 @@ export default function MoreProjects() {
           </h2>
         </div>
 
-        <div ref={gridRef} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {projects.map((p) => <ProjectItem key={p.name} project={p} />)}
+        <div ref={listRef} style={{ borderTop: '1px solid var(--border)' }}>
+          {projects.map((p, i) => <ProjectRow key={p.id} project={p} index={i} />)}
         </div>
       </div>
     </section>
   )
 }
 
-function ProjectItem({ project: p }) {
-  const cardRef    = useRef(null)
-  const borderRef  = useRef(null)
-  const navigate   = useNavigate()
+function ProjectRow({ project: p, index }) {
+  const rowRef   = useRef(null)
+  const thumbRef = useRef(null)
+  const navigate = useNavigate()
 
-  const limeHover = () =>
-    document.documentElement.dataset.theme === 'light'
-      ? 'rgba(92,138,0,0.55)'
-      : 'rgba(192,245,61,0.3)'
+  const onMouseEnter = () => {
+    gsap.to(rowRef.current, { backgroundColor: 'var(--medium)', borderLeftColor: '#C0F53D', duration: 0.2, ease: 'power2.out' })
+    gsap.to(thumbRef.current, { scale: 1.06, duration: 0.3, ease: 'power2.out' })
+  }
 
-  useEffect(() => {
-    borderRef.current = getComputedStyle(document.documentElement).getPropertyValue('--border').trim()
-  }, [])
-
-  const onMouseEnter = () =>
-    gsap.to(cardRef.current, { borderColor: limeHover(), y: -4, duration: 0.25, ease: 'power2.out', overwrite: 'auto' })
-
-  const onMouseLeave = () =>
-    gsap.to(cardRef.current, {
-      borderColor: borderRef.current, y: 0,
-      rotateX: 0, rotateY: 0, scale: 1,
-      duration: 0.5, ease: 'power2.out', overwrite: 'auto',
-    })
-
-  const onMouseMove = (e) => {
-    const r = cardRef.current.getBoundingClientRect()
-    const x = (e.clientX - r.left - r.width  / 2) / (r.width  / 2)
-    const y = (e.clientY - r.top  - r.height / 2) / (r.height / 2)
-    gsap.to(cardRef.current, { rotateY: x * 8, rotateX: -y * 8, scale: 1.02, duration: 0.3, ease: 'power2.out', overwrite: 'auto' })
+  const onMouseLeave = () => {
+    gsap.to(rowRef.current, { backgroundColor: 'transparent', borderLeftColor: 'transparent', duration: 0.35, ease: 'power2.out' })
+    gsap.to(thumbRef.current, { scale: 1, duration: 0.35, ease: 'power2.out' })
   }
 
   return (
-    <div ref={cardRef}
+    <div ref={rowRef}
       data-cursor="view"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      onMouseMove={onMouseMove}
       onClick={() => navigate(`/projects/${p.id}`)}
-      className="rounded-2xl overflow-hidden cursor-pointer group"
-      style={{ background: 'var(--card)', border: '1px solid var(--border)' }}>
+      className="cursor-pointer flex items-center gap-5 sm:gap-6 py-4 px-3 rounded-lg"
+      style={{ borderBottom: '1px solid var(--border)', borderLeft: '2px solid transparent' }}>
+
+      {/* Index */}
+      <span className="text-white/20 font-mono text-xs w-6 shrink-0 select-none">
+        {String(index + 1).padStart(2, '0')}
+      </span>
 
       {/* Thumbnail */}
-      <div className="w-full aspect-square overflow-hidden relative" style={{ background: p.bg }}>
-        <ImageWithSkeleton
-          src={p.img}
-          alt={p.name}
-          imgClassName="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
-        />
+      <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg overflow-hidden shrink-0 flex items-center justify-center"
+        style={{ background: p.bg }}>
+        <div ref={thumbRef} className="w-full h-full">
+          <ImageWithSkeleton
+            src={p.img}
+            alt={p.name}
+            imgClassName="w-full h-full object-contain"
+          />
+        </div>
       </div>
 
-      {/* Info */}
-      <div className="p-5">
-        <div className="flex items-start justify-between mb-2">
-          <h3 className="text-white font-bold group-hover:text-lime transition-colors">{p.name}</h3>
-          <Plus size={16} className="text-white/20 group-hover:text-lime transition-colors mt-0.5 shrink-0 ml-2" />
-        </div>
-        <p className="text-white/35 text-sm leading-relaxed mb-4 line-clamp-2">{p.desc}</p>
-        <div className="flex flex-wrap gap-1.5">
-          {p.tags.map((t) => <span key={t} className="pill text-xs">{t}</span>)}
-        </div>
+      {/* Name + desc */}
+      <div className="flex-1 min-w-0">
+        <p className="text-white font-semibold text-sm sm:text-base leading-tight group-hover:text-lime transition-colors truncate">
+          {p.name}
+        </p>
+        <p className="text-white/30 text-xs mt-0.5 leading-snug line-clamp-1 hidden sm:block">{p.desc}</p>
       </div>
+
+      {/* Tags (md+ only) */}
+      <div className="hidden lg:flex flex-wrap gap-1.5 max-w-xs justify-end shrink-0">
+        {p.tags.slice(0, 2).map((t) => (
+          <span key={t} className="pill text-xs">{t}</span>
+        ))}
+      </div>
+
+      {/* Arrow */}
+      <ArrowUpRight size={15} className="shrink-0 text-white/20 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" style={{ color: 'var(--text-40)' }} />
     </div>
   )
 }

@@ -41,7 +41,6 @@ export default function BeyondDesign() {
   return (
     <section ref={sectionRef} className="relative py-24 bg-dark overflow-hidden">
       <div className="blob blob-lime w-[500px] h-[500px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-15" />
-      <div className="absolute inset-0 grid-overlay opacity-30" />
 
       <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
         <div ref={headRef} className="mb-16">

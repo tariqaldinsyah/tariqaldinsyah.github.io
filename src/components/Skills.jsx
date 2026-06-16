@@ -53,7 +53,7 @@ export default function Skills() {
   }, [])
 
   return (
-    <section id="skills" ref={sectionRef} className="relative py-24 bg-dark overflow-hidden">
+    <section id="skills" ref={sectionRef} className="relative py-20 overflow-hidden" style={{ background: 'var(--card)' }}>
       <div className="blob blob-lime w-[450px] h-[450px] bottom-0 left-[-80px] opacity-15" />
       <div className="absolute inset-0 grid-overlay opacity-30" />
 
