@@ -198,7 +198,7 @@ export default function WorkExperience() {
                     Aug 2024 – Present
                   </p>
                   <span className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full tracking-widest uppercase"
-                    style={{ background: 'rgba(192,245,61,0.08)', color: 'var(--lime-text)', border: '1px solid rgba(192,245,61,0.18)' }}>
+                    style={{ background: lr(0.08), color: 'var(--lime-text)', border: `1px solid ${lr(0.18)}` }}>
                     <span className="w-1.5 h-1.5 rounded-full animate-pulse"
                       style={{ background: 'var(--lime-text)' }} />
                     Current
@@ -242,8 +242,8 @@ export default function WorkExperience() {
                     className="rounded-xl p-5 group transition-colors"
                     style={{
                       background: 'var(--medium)',
-                      border: p.award ? '1px solid rgba(192,245,61,0.28)' : '1px solid var(--border)',
-                      boxShadow: p.award ? '0 0 32px rgba(192,245,61,0.06)' : 'none',
+                      border: p.award ? `1px solid ${lr(0.28)}` : '1px solid var(--border)',
+                      boxShadow: p.award ? `0 0 32px ${lr(0.06)}` : 'none',
                     }}>
                     <div className="flex items-start justify-between mb-3">
                       <span className="text-[0.65rem] font-bold tracking-[0.1em] uppercase"
@@ -252,7 +252,7 @@ export default function WorkExperience() {
                       </span>
                       {p.award && (
                         <span className="text-[0.58rem] font-black tracking-widest uppercase rounded-full px-2 py-0.5 leading-none"
-                          style={{ background: 'rgba(192,245,61,0.1)', color: 'var(--lime-text)' }}>
+                          style={{ background: lr(0.1), color: 'var(--lime-text)' }}>
                           ✦ Award
                         </span>
                       )}

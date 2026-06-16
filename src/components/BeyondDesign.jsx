@@ -3,6 +3,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Scale, Users, Network, BarChart2, RefreshCw } from 'lucide-react'
 import { splitWords, splitChars } from '../utils/splitText'
+import { useTheme } from '../hooks/useTheme'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -15,6 +16,10 @@ const cards = [
 ]
 
 export default function BeyondDesign() {
+  const { theme } = useTheme()
+  const lr = (a) => theme === 'light' ? `rgba(92,138,0,${a})` : `rgba(192,245,61,${a})`
+  const borderDefault = getComputedStyle(document.documentElement).getPropertyValue('--border').trim()
+
   const sectionRef = useRef(null)
   const headRef    = useRef(null)
   const cardsRef   = useRef(null)
@@ -64,19 +69,19 @@ export default function BeyondDesign() {
               {...(canHover ? {
                 onMouseEnter: (e) => gsap.to(e.currentTarget, {
                   y: -4,
-                  borderColor: 'rgba(192,245,61,0.3)',
-                  boxShadow: '0 0 30px rgba(192,245,61,0.10)',
+                  borderColor: lr(0.3),
+                  boxShadow: `0 0 30px ${lr(0.10)}`,
                   duration: 0.25, ease: 'power2.out', overwrite: 'auto',
                 }),
                 onMouseLeave: (e) => gsap.to(e.currentTarget, {
                   y: 0,
-                  borderColor: getComputedStyle(document.documentElement).getPropertyValue('--border').trim(),
+                  borderColor: borderDefault,
                   boxShadow: 'none',
                   duration: 0.4, ease: 'power2.out', overwrite: 'auto',
                 }),
               } : {})}>
               <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-4"
-                style={{ background: 'rgba(192,245,61,0.08)', border: '1px solid rgba(192,245,61,0.15)' }}>
+                style={{ background: lr(0.08), border: `1px solid ${lr(0.15)}` }}>
                 <c.Icon size={15} style={{ color: 'var(--lime-text)' }} />
               </div>
               <h3 className="text-white font-bold text-base mb-3 group-hover:text-lime transition-colors leading-snug">

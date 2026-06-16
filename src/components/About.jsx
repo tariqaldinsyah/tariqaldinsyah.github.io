@@ -4,12 +4,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ImageWithSkeleton from './ImageWithSkeleton'
 import { splitWords } from '../utils/splitText'
 import DomainBreakdown from './DomainBreakdown'
+import { useTheme } from '../hooks/useTheme'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const skills = ['Product Design', 'UX Strategy', 'Design System', 'User Research', 'Ecosystem & Platform Design', 'Cross Functional Collaboration']
 
 export default function About() {
+  const { theme } = useTheme()
   const sectionRef = useRef(null)
   const leftRef    = useRef(null)
   const rightRef   = useRef(null)
@@ -100,7 +102,9 @@ export default function About() {
               </div>
               {/* Skill tags overlaid at bottom of photo */}
               <div className="absolute bottom-0 left-0 right-0 px-5 py-5"
-                style={{ background: 'linear-gradient(to top, rgba(7,7,7,0.82) 0%, rgba(7,7,7,0.3) 60%, transparent 100%)' }}>
+                style={{ background: theme === 'light'
+                  ? 'linear-gradient(to top, rgba(245,245,238,0.92) 0%, rgba(245,245,238,0.45) 55%, transparent 100%)'
+                  : 'linear-gradient(to top, rgba(7,7,7,0.82) 0%, rgba(7,7,7,0.3) 60%, transparent 100%)' }}>
                 <div className="flex flex-wrap gap-2">
                   {skills.map((s) => <span key={s} className="pill">{s}</span>)}
                 </div>
