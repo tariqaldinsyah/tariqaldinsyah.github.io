@@ -2,16 +2,16 @@ function calcH(index, total, min, max) {
   const center = (total - 1) / 2
   const dist = Math.abs(index - center)
   const maxDist = center || 1
-  // Peak at center (tallest), taper to edges.
-  // FLIP shape: change to (dist / maxDist) for tall-at-edges instead.
-  const pct = 1 - dist / maxDist
+  // V shape: tallest at edges, shortest at center (matches 21st.dev reference).
+  // FLIP shape: change to (1 - dist / maxDist) for mountain/peak-at-center.
+  const pct = dist / maxDist
   return min + pct * (max - min)
 }
 
 export default function GradientBars({
   numBars = 13,
-  minH = 60,
-  maxH = 400,
+  minH = 20,
+  maxH = 420,
   duration = 3,
 }) {
   const reduced =
