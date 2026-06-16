@@ -7,17 +7,18 @@ import { splitWords, splitChars } from '../utils/splitText'
 gsap.registerPlugin(ScrollTrigger)
 
 const skillGroups = [
-  { category: 'Product & UX',   Icon: Compass, tags: ['Product Thinking', 'UX Strategy', 'User Research', 'Wireframing', 'Prototyping', 'User Flow', 'Usability Testing'] },
-  { category: 'Design Systems', Icon: Layers,  tags: ['Component Libraries', 'Design Tokens', 'Pattern Libraries', 'Material UI (MUI)', 'Modular Design'] },
-  { category: 'Tools',          Icon: Wrench,  tags: ['Figma', 'Miro', 'Notion', 'Adobe Illustrator', 'Adobe Photoshop', 'Canva'] },
-  { category: 'Collaboration',  Icon: Users,   tags: ['Stakeholder Management', 'Cross Functional Teamwork', 'Design Handoff', 'Product Discussion', 'PRD Analysis'] },
-  { category: 'AI & Emerging',  Icon: Cpu,     tags: ['ChatGPT', 'Claude', 'Gemini', 'MidJourney'] },
+  { category: 'Product & UX',   Icon: Compass, proficiency: 88, tags: ['Product Thinking', 'UX Strategy', 'User Research', 'Wireframing', 'Prototyping', 'User Flow', 'Usability Testing'] },
+  { category: 'Design Systems', Icon: Layers,  proficiency: 82, tags: ['Component Libraries', 'Design Tokens', 'Pattern Libraries', 'Material UI (MUI)', 'Modular Design'] },
+  { category: 'Tools',          Icon: Wrench,  proficiency: 85, tags: ['Figma', 'Miro', 'Notion', 'Adobe Illustrator', 'Adobe Photoshop', 'Canva'] },
+  { category: 'Collaboration',  Icon: Users,   proficiency: 90, tags: ['Stakeholder Management', 'Cross Functional Teamwork', 'Design Handoff', 'Product Discussion', 'PRD Analysis'] },
+  { category: 'AI & Emerging',  Icon: Cpu,     proficiency: 70, tags: ['ChatGPT', 'Claude', 'Gemini', 'MidJourney'] },
 ]
 
 export default function Skills() {
   const sectionRef = useRef(null)
   const headerRef  = useRef(null)
   const listRef    = useRef(null)
+  const barRefs    = useRef([])
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -37,6 +38,13 @@ export default function Skills() {
       if (listRef.current)
         gsap.fromTo(listRef.current.children, { opacity: 0, x: -20 },
           { opacity: 1, x: 0, duration: 0.5, stagger: 0.08, ease: 'power2.out', scrollTrigger: lst })
+
+      // Proficiency bars sweep left→right
+      const bars = barRefs.current.filter(Boolean)
+      if (bars.length)
+        gsap.fromTo(bars,
+          { scaleX: 0, transformOrigin: 'left center', immediateRender: false },
+          { scaleX: 1, duration: 1.2, stagger: 0.09, ease: 'power3.out', delay: 0.2, scrollTrigger: lst })
 
       // Each individual skill tag pops in
       const tags = listRef.current?.querySelectorAll('.skill-tag')
@@ -85,8 +93,11 @@ export default function Skills() {
                   <span className="font-serif italic font-semibold text-lime">know best.</span>
                 </h3>
               </div>
-              <div className="mt-8 hidden lg:block">
+              <div className="mt-8 hidden lg:block space-y-2">
                 <p className="text-white/20 text-xs uppercase tracking-widest">{skillGroups.length} Skill Areas</p>
+                <p className="text-white/15 text-[10px] uppercase tracking-widest">
+                  Self-assessed proficiency
+                </p>
               </div>
             </div>
 
@@ -99,12 +110,29 @@ export default function Skills() {
                     <span className="text-lime/40 text-sm font-bold tabular-nums shrink-0 mt-0.5">
                       {String(i + 1).padStart(2, '0')}
                     </span>
-                    <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 rounded flex items-center justify-center shrink-0"
-                        style={{ background: 'rgba(192,245,61,0.08)', border: '1px solid rgba(192,245,61,0.14)' }}>
-                        <g.Icon size={11} style={{ color: 'var(--lime-text)', opacity: 0.8 }} />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-2.5">
+                        <div className="w-5 h-5 rounded flex items-center justify-center shrink-0"
+                          style={{ background: 'rgba(192,245,61,0.08)', border: '1px solid rgba(192,245,61,0.14)' }}>
+                          <g.Icon size={11} style={{ color: 'var(--lime-text)', opacity: 0.8 }} />
+                        </div>
+                        <h4 className="text-white/70 font-bold text-sm leading-snug">{g.category}</h4>
                       </div>
-                      <h4 className="text-white/70 font-bold text-sm leading-snug">{g.category}</h4>
+                      {/* Proficiency bar */}
+                      <div className="h-[3px] rounded-full overflow-hidden mb-1.5"
+                        style={{ background: 'rgba(255,255,255,0.06)' }}>
+                        <div
+                          ref={el => { barRefs.current[i] = el }}
+                          className="h-full rounded-full"
+                          style={{
+                            width: `${g.proficiency}%`,
+                            background: 'linear-gradient(to right, var(--viz-1), rgba(192,245,61,0.55))',
+                          }}
+                        />
+                      </div>
+                      <p className="text-[10px] tabular-nums" style={{ color: 'var(--text-25)' }}>
+                        {g.proficiency}%
+                      </p>
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-2 sm:col-span-2">

@@ -7,6 +7,8 @@ import { getProjectById, getNextProject } from '../data/projects'
 import ImageWithSkeleton from '../components/ImageWithSkeleton'
 import Navbar from '../components/Navbar'
 import CountUp from '../components/CountUp'
+import EcosystemGraph from '../components/EcosystemGraph'
+import MetricMini from '../components/MetricMini'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -251,6 +253,16 @@ export default function ProjectDetail() {
           </div>
         </div>
 
+        {/* Ecosystem Graph — only for projects with ecosystem data */}
+        {project.ecosystem && (
+          <div className="pd-section">
+            <SectionLabel>Ecosystem Overview</SectionLabel>
+            <div className="mt-6">
+              <EcosystemGraph data={project.ecosystem} />
+            </div>
+          </div>
+        )}
+
         {/* Gallery */}
         {project.gallery.length > 0 && (
           <div className="pd-section">
@@ -315,6 +327,7 @@ export default function ProjectDetail() {
             {project.metrics.map((m, i) => (
               <div key={i} className="rounded-2xl p-6 text-center flex flex-col items-center"
                 style={{ background: 'var(--card)', border: '1px solid var(--border)' }}>
+                <MetricMini val={m.val} />
                 <p className="text-lime font-black text-2xl leading-none mb-2">
                   <CountUp value={m.val} />
                 </p>

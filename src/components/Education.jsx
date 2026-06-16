@@ -3,6 +3,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowUpRight } from 'lucide-react'
 import { splitWords, splitChars } from '../utils/splitText'
+import { useTheme } from '../hooks/useTheme'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -21,10 +22,14 @@ const achievements = [
 ]
 
 export default function Education() {
-  const sectionRef  = useRef(null)
-  const headerRef   = useRef(null)
-  const eduRef      = useRef(null)
-  const achRef      = useRef(null)
+  const { theme } = useTheme()
+  const lr = (a) => theme === 'light' ? `rgba(92,138,0,${a})` : `rgba(192,245,61,${a})`
+
+  const sectionRef    = useRef(null)
+  const headerRef     = useRef(null)
+  const eduRef        = useRef(null)
+  const achRef        = useRef(null)
+  const eduLineRefs   = useRef([])
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -39,10 +44,21 @@ export default function Education() {
         gsap.from(chars, { y: '105%', stagger: 0.055, duration: 0.55, ease: 'back.out(2.5)', scrollTrigger: hst })
       }
 
-      // Education cards slide up
+      // Education rows slide up
       gsap.fromTo(eduRef.current?.children, { opacity: 0, y: 36 },
         { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out',
           scrollTrigger: { trigger: eduRef.current, start: 'top 82%' } })
+
+      // Timeline lines draw progressively
+      eduLineRefs.current.forEach((el) => {
+        if (!el) return
+        gsap.fromTo(el, { scaleY: 0 },
+          { scaleY: 1, ease: 'none',
+            scrollTrigger: {
+              trigger: el, start: 'top 80%', end: 'bottom 65%', scrub: 1.8,
+            },
+          })
+      })
 
       // Achievements block
       gsap.fromTo(achRef.current, { opacity: 0, y: 36 },
@@ -85,20 +101,48 @@ export default function Education() {
           </h2>
         </div>
 
-        {/* Education cards — dark */}
-        <div ref={eduRef} className="grid md:grid-cols-3 gap-4">
-          {education.map((e) => (
-            <div key={e.degree}
-              className="rounded-2xl p-7 hover:border-lime/25 transition-colors space-y-4"
-              style={{ background: 'var(--card)', border: '1px solid var(--border)' }}>
-              <div>
-                <p className="label-tag mb-1">{e.period}</p>
-                <h3 className="text-white font-bold text-sm leading-snug mt-2">{e.degree}</h3>
-                <p className="text-lime/70 text-xs font-medium mt-1">{e.school}</p>
+        {/* Education — vertical timeline list */}
+        <div className="flex gap-6 md:gap-10">
+
+          {/* Timeline rail — sm+ only */}
+          <div className="hidden sm:flex flex-col items-center shrink-0 pt-8" style={{ width: 16 }}>
+            {/* Dot 1 — current/latest */}
+            <div className="w-3 h-3 rounded-full shrink-0"
+              style={{ background: 'var(--lime-text)', boxShadow: `0 0 10px ${lr(0.5)}` }} />
+            {/* Line 1→2 */}
+            <div ref={el => { eduLineRefs.current[0] = el }} className="w-px flex-1 my-2 origin-top"
+              style={{ background: `linear-gradient(to bottom, ${lr(0.45)}, ${lr(0.1)})` }} />
+            {/* Dot 2 */}
+            <div className="w-2.5 h-2.5 rounded-full shrink-0"
+              style={{ background: 'var(--medium)', border: '1px solid var(--border)' }} />
+            {/* Line 2→3 */}
+            <div ref={el => { eduLineRefs.current[1] = el }} className="w-px flex-1 my-2 origin-top"
+              style={{ background: `linear-gradient(to bottom, ${lr(0.12)}, ${lr(0.04)})` }} />
+            {/* Dot 3 — oldest */}
+            <div className="w-2.5 h-2.5 rounded-full shrink-0 mb-8"
+              style={{ background: 'var(--medium)', border: '1px solid var(--border)' }} />
+          </div>
+
+          {/* Education rows */}
+          <div ref={eduRef} className="flex-1 divide-y" style={{ borderColor: 'var(--border)' }}>
+            {education.map((e) => (
+              <div key={e.degree}
+                className="py-7 grid sm:grid-cols-[200px_1fr] gap-3 sm:gap-8">
+                <div>
+                  <p className="label-tag">{e.period}</p>
+                  <p className="text-xs font-medium mt-2" style={{ color: 'var(--lime-text)', opacity: 0.75 }}>
+                    {e.school}
+                  </p>
+                </div>
+                <div>
+                  <h3 className="font-bold text-sm leading-snug mb-2" style={{ color: 'var(--text)' }}>
+                    {e.degree}
+                  </h3>
+                  <p className="text-xs leading-relaxed" style={{ color: 'var(--text-35)' }}>{e.desc}</p>
+                </div>
               </div>
-              <p className="text-white/35 text-xs leading-relaxed">{e.desc}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {/* Achievements — dark card */}

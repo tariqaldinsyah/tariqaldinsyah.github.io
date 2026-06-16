@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { MapPin, Search, Box, FileText } from 'lucide-react'
+import { useTheme } from '../hooks/useTheme'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -53,6 +54,9 @@ const AKI_CARDS = [
 ]
 
 export default function WorkExperience() {
+  const { theme } = useTheme()
+  const lr = (a) => theme === 'light' ? `rgba(92,138,0,${a})` : `rgba(192,245,61,${a})`
+
   const sectionRef = useRef(null)
   const headerRef  = useRef(null)
   const kiselRef   = useRef(null)
@@ -60,6 +64,8 @@ export default function WorkExperience() {
   const cardRefs   = useRef([])
   const pillRefs   = useRef([])
   const akiRef     = useRef(null)
+  const railRef    = useRef(null)
+  const dot2Ref    = useRef(null)
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -112,6 +118,25 @@ export default function WorkExperience() {
         { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
           scrollTrigger: { trigger: akiRef.current, start: 'top 84%' } }
       )
+
+      // Timeline rail draws as you scroll through section
+      if (railRef.current) {
+        gsap.set(railRef.current, { scaleY: 0, transformOrigin: 'top center' })
+        gsap.to(railRef.current, {
+          scaleY: 1, ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 68%',
+            end: 'bottom 62%',
+            scrub: 2,
+          },
+        })
+      }
+      if (dot2Ref.current)
+        gsap.fromTo(dot2Ref.current,
+          { opacity: 0, scale: 0 },
+          { opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(2)',
+            scrollTrigger: { trigger: akiRef.current, start: 'top 84%' } })
     }, sectionRef)
 
     return () => ctx.revert()
@@ -132,7 +157,20 @@ export default function WorkExperience() {
           </h2>
         </div>
 
-        <div className="space-y-5">
+        <div className="flex gap-6 md:gap-8">
+
+          {/* Timeline rail — desktop only */}
+          <div className="hidden md:flex flex-col items-center shrink-0 pt-9" style={{ width: 16 }}>
+            <div className="w-3 h-3 rounded-full shrink-0"
+              style={{ background: 'var(--lime-text)', boxShadow: `0 0 10px ${lr(0.5)}` }} />
+            <div ref={railRef} className="w-px flex-1 my-2"
+              style={{ background: `linear-gradient(to bottom, ${lr(0.5)}, ${lr(0.06)})` }} />
+            <div ref={dot2Ref} className="w-2.5 h-2.5 rounded-full shrink-0 mb-9"
+              style={{ background: 'var(--medium)', border: '1px solid var(--border)' }} />
+          </div>
+
+          {/* Cards */}
+          <div className="flex-1 space-y-5">
 
           {/* ── Kisel Group ── */}
           <div ref={kiselRef} className="rounded-2xl overflow-hidden"
@@ -294,7 +332,8 @@ export default function WorkExperience() {
             </div>
           </div>
 
-        </div>
+          </div> {/* /Cards */}
+        </div> {/* /flex timeline wrapper */}
       </div>
     </section>
   )

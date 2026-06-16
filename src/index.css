@@ -25,6 +25,11 @@
 
   --lime-text:  #C0F53D;
   --lime-muted: #9aab6a;
+
+  /* Data-viz accent tokens (multi-series charts) */
+  --viz-1: #C0F53D;  /* primary  — lime (alias of --lime-text) */
+  --viz-2: #4ECDC4;  /* secondary — teal-mint muted */
+  --viz-3: #95A5B8;  /* tertiary  — blue-slate muted */
 }
 
 [data-theme="light"] {
@@ -47,6 +52,11 @@
 
   --lime-text:  #5C8A00;
   --lime-muted: #6B9200;
+
+  /* Data-viz accent tokens — darker for light bg readability */
+  --viz-1: #5C8A00;  /* primary  — lime (alias of --lime-text) */
+  --viz-2: #0E7490;  /* secondary — dark teal */
+  --viz-3: #475569;  /* tertiary  — slate */
 }
 
 /* ── Smooth theme transition ────────────────────────────────────────── */

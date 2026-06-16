@@ -18,6 +18,10 @@ export default {
           hover:   '#2d3d12',
         },
         cream: '#FAFFF3',
+        viz: {
+          teal:  '#4ECDC4',  // secondary data series (muted teal-mint)
+          slate: '#95A5B8',  // tertiary data series (blue-slate)
+        },
       },
       fontFamily: {
         sans:  ['"Space Grotesk"', 'system-ui', 'sans-serif'],

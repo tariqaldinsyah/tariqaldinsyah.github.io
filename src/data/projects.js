@@ -70,6 +70,17 @@ export const projects = [
       { src: '/rakit-5.jpg', alt: 'Rakit Detail', bg: '#f0f0f0', fit: 'contain' },
     ],
     figmaEmbed: null, // paste Figma proto share URL: https://www.figma.com/proto/...
+    ecosystem: {
+      hub: { name: 'Rakit', sub: 'Modular Design System · Kisel Group 2024' },
+      nodes: [
+        { id: 'coopin',    name: 'CoopIn',              cat: 'product', desc: 'Cooperative platform' },
+        { id: 'bayaraja',  name: 'BayarAja',            cat: 'product', desc: 'Payment app' },
+        { id: 'canvasser', name: 'BayarAja\nCanvasser', cat: 'product', desc: 'Field sales app' },
+        { id: 'pos',       name: 'BayarAja\nPOS',       cat: 'product', desc: 'Point of sale' },
+        { id: 'marissa',   name: 'Marissa\nHRIS',       cat: 'product', desc: 'HR management' },
+        { id: 'ifmc',      name: 'iFMC',                cat: 'product', desc: 'Field operations' },
+      ],
+    },
     heroImage: { src: '/rakit-4.jpg', bg: '#f5b800' },
   },
   {
@@ -146,6 +157,17 @@ export const projects = [
       { src: '/coopin-g6.jpg', area: 'g6', alt: 'CoopIn Design System',         bg: '#AB000E', ratio: '2432/1120', bentoRatio: '9/4' },
     ],
     figmaEmbed: null, // paste Figma proto share URL: https://www.figma.com/proto/...
+    ecosystem: {
+      hub: { name: 'CoopIn', sub: 'Cooperative Ecosystem · Kisel Group 2024' },
+      nodes: [
+        { id: 'web',    name: 'CoopIn Web',        cat: 'platform', desc: 'Admin dashboard' },
+        { id: 'mobile', name: 'CoopIn Mobile',      cat: 'platform', desc: 'Member app' },
+        { id: 'tender', name: 'Ecra Tender',         cat: 'commerce', desc: 'B2B procurement' },
+        { id: 'bid',    name: 'Ecra Bid',            cat: 'commerce', desc: 'Digital auction' },
+        { id: 'ecomm',  name: 'Ecra\nE-Commerce',   cat: 'commerce', desc: 'Online store' },
+        { id: 'pos',    name: 'BayarAja POS',        cat: 'payment',  desc: 'POS integration' },
+      ],
+    },
     heroImage: { src: '/coopin-g1.jpg', bg: '#AB000E' },
   },
   {
