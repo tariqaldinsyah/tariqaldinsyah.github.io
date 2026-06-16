@@ -106,6 +106,7 @@ export default function SkillRadar() {
           scale: 0.7, opacity: 0,
           stagger: { amount: 0.9, from: 'start' },
           duration: 0.35, ease: 'back.out(2)',
+          immediateRender: false,
           scrollTrigger: { trigger: toolsRef.current, start: 'top 85%' },
         })
     }, sectionRef)
