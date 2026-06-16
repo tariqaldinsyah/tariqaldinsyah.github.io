@@ -19,14 +19,15 @@ export default function About() {
     const ctx = gsap.context(() => {
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
       if (reduced) return
+      const isFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches
       const st = { trigger: sectionRef.current, start: 'top 78%' }
 
       gsap.fromTo(leftRef.current,  { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out', scrollTrigger: st })
       gsap.fromTo(rightRef.current, { opacity: 0, x:  40 }, { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out', delay: 0.15, scrollTrigger: st })
 
-      // Photo parallax scrub
+      // Photo parallax scrub — pointer-fine only to avoid jank on touch
       const photo = leftRef.current?.querySelector('.photo-parallax')
-      if (photo)
+      if (photo && isFine)
         gsap.to(photo, {
           y: -40,
           ease: 'none',

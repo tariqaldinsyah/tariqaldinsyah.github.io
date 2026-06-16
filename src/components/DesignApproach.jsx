@@ -55,6 +55,7 @@ export default function DesignApproach() {
   const headerRef  = useRef(null)
   const barRef     = useRef(null)
   const fillRef    = useRef(null)
+  const blobRef    = useRef(null)
   const iconRefs   = useRef([])
   const lineRefs   = useRef([])
   const dotRefs    = useRef([])
@@ -107,6 +108,20 @@ export default function DesignApproach() {
       // Cards fade up
       gsap.fromTo(cardRefs.current, { opacity: 0, y: 22 },
         { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out', delay: 0.5, scrollTrigger: bST })
+
+      // Blob parallax — pointer-fine only (decorative, skip on touch)
+      const isFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+      if (blobRef.current && isFine)
+        gsap.to(blobRef.current, {
+          y: 70,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 2,
+          },
+        })
     }, sectionRef)
     return () => ctx.revert()
   }, [])
@@ -115,7 +130,7 @@ export default function DesignApproach() {
 
   return (
     <section id="approach" ref={sectionRef} className="relative py-32 overflow-hidden" style={{ background: 'var(--card)' }}>
-      <div className="blob blob-lime w-[500px] h-[500px] top-[-80px] right-[-80px] opacity-15" />
+      <div ref={blobRef} className="blob blob-lime w-[500px] h-[500px] top-[-80px] right-[-80px] opacity-15" />
       <div className="absolute inset-0 grid-overlay opacity-40" />
 
       <div className="relative max-w-7xl mx-auto px-5 sm:px-8">

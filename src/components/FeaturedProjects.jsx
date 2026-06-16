@@ -109,6 +109,7 @@ function ProjectCard({ project: p }) {
   const cardRef    = useRef(null)
   const metricRefs = useRef([])
   const borderRef  = useRef(null)
+  const isFine     = useRef(window.matchMedia('(hover: hover) and (pointer: fine)').matches)
   const navigate   = useNavigate()
 
   const limeHover = () =>
@@ -149,16 +150,36 @@ function ProjectCard({ project: p }) {
   }, [])
 
   const onMouseEnter = () =>
-    gsap.to(cardRef.current, { borderColor: limeHover(), duration: 0.3 })
+    gsap.to(cardRef.current, {
+      borderColor: limeHover(),
+      y: -4,
+      boxShadow: '0 0 40px rgba(192,245,61,0.18)',
+      duration: 0.3,
+      overwrite: 'auto',
+    })
 
   const onMouseLeave = () =>
-    gsap.to(cardRef.current, { borderColor: borderRef.current, rotateX: 0, rotateY: 0, duration: 0.5, ease: 'power2.out', overwrite: 'auto' })
+    gsap.to(cardRef.current, {
+      borderColor: borderRef.current,
+      y: 0,
+      boxShadow: 'none',
+      rotateX: 0,
+      rotateY: 0,
+      duration: 0.5,
+      ease: 'power2.out',
+      overwrite: 'auto',
+    })
 
   const onMouseMove = (e) => {
+    if (!isFine.current) return
     const r = cardRef.current.getBoundingClientRect()
     const x = (e.clientX - r.left - r.width  / 2) / (r.width  / 2)
     const y = (e.clientY - r.top  - r.height / 2) / (r.height / 2)
-    gsap.to(cardRef.current, { rotateY: x * 2.5, rotateX: -y * 2.5, duration: 0.4, ease: 'power2.out', overwrite: 'auto' })
+    gsap.to(cardRef.current, {
+      rotateY: x * 2.5, rotateX: -y * 2.5,
+      transformPerspective: 1200,
+      duration: 0.4, ease: 'power2.out', overwrite: 'auto',
+    })
   }
 
   return (

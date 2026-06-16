@@ -1,16 +1,17 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Compass, Layers, Wrench, Users, Cpu } from 'lucide-react'
 import { splitWords, splitChars } from '../utils/splitText'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const skillGroups = [
-  { category: 'Product & UX',   tags: ['Product Thinking', 'UX Strategy', 'User Research', 'Wireframing', 'Prototyping', 'User Flow', 'Usability Testing'] },
-  { category: 'Design Systems', tags: ['Component Libraries', 'Design Tokens', 'Pattern Libraries', 'Material UI (MUI)', 'Modular Design'] },
-  { category: 'Tools',          tags: ['Figma', 'Miro', 'Notion', 'Adobe Illustrator', 'Adobe Photoshop', 'Canva'] },
-  { category: 'Collaboration',  tags: ['Stakeholder Management', 'Cross Functional Teamwork', 'Design Handoff', 'Product Discussion', 'PRD Analysis'] },
-  { category: 'AI & Emerging',  tags: ['ChatGPT', 'Claude', 'Gemini', 'MidJourney'] },
+  { category: 'Product & UX',   Icon: Compass, tags: ['Product Thinking', 'UX Strategy', 'User Research', 'Wireframing', 'Prototyping', 'User Flow', 'Usability Testing'] },
+  { category: 'Design Systems', Icon: Layers,  tags: ['Component Libraries', 'Design Tokens', 'Pattern Libraries', 'Material UI (MUI)', 'Modular Design'] },
+  { category: 'Tools',          Icon: Wrench,  tags: ['Figma', 'Miro', 'Notion', 'Adobe Illustrator', 'Adobe Photoshop', 'Canva'] },
+  { category: 'Collaboration',  Icon: Users,   tags: ['Stakeholder Management', 'Cross Functional Teamwork', 'Design Handoff', 'Product Discussion', 'PRD Analysis'] },
+  { category: 'AI & Emerging',  Icon: Cpu,     tags: ['ChatGPT', 'Claude', 'Gemini', 'MidJourney'] },
 ]
 
 export default function Skills() {
@@ -95,10 +96,16 @@ export default function Skills() {
                 <div key={g.category}
                   className="px-8 py-6 grid sm:grid-cols-3 gap-4 items-start hover:bg-lime/[0.03] transition-colors">
                   <div className="flex items-start gap-3">
-                    <span className="text-lime/40 text-sm font-bold tabular-nums">
+                    <span className="text-lime/40 text-sm font-bold tabular-nums shrink-0 mt-0.5">
                       {String(i + 1).padStart(2, '0')}
                     </span>
-                    <h4 className="text-white/70 font-bold text-sm">{g.category}</h4>
+                    <div className="flex items-center gap-2">
+                      <div className="w-5 h-5 rounded flex items-center justify-center shrink-0"
+                        style={{ background: 'rgba(192,245,61,0.08)', border: '1px solid rgba(192,245,61,0.14)' }}>
+                        <g.Icon size={11} style={{ color: 'var(--lime-text)', opacity: 0.8 }} />
+                      </div>
+                      <h4 className="text-white/70 font-bold text-sm leading-snug">{g.category}</h4>
+                    </div>
                   </div>
                   <div className="flex flex-wrap gap-2 sm:col-span-2">
                     {g.tags.map((t) => (

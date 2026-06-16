@@ -42,20 +42,28 @@ export default function Testimonials() {
     const ctx = gsap.context(() => {
       if (reduced) return
 
-      gsap.fromTo(
-        headRef.current,
-        { opacity: 0, y: 24 },
-        {
-          opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' },
-        }
-      )
+      const st = { trigger: sectionRef.current, start: 'top 80%' }
 
+      // Heading: clip-path wipe left→right, subtitle fades from right
+      const h2 = headRef.current?.querySelector('h2')
+      const sub = headRef.current?.querySelector('p')
+      if (h2)
+        gsap.fromTo(h2,
+          { clipPath: 'inset(0 100% 0 0)' },
+          { clipPath: 'inset(0 0% 0 0)', duration: 0.85, ease: 'power3.inOut', scrollTrigger: st })
+      if (sub)
+        gsap.fromTo(sub,
+          { opacity: 0, x: 24 },
+          { opacity: 1, x: 0, duration: 0.6, delay: 0.4, ease: 'power2.out', scrollTrigger: st })
+
+      // Cards: scale + pop-expand instead of plain fade-up
       gsap.fromTo(
         cardRefs.current.filter(Boolean),
-        { opacity: 0, y: 32 },
+        { opacity: 0, y: 44, scale: 0.94 },
         {
-          opacity: 1, y: 0, duration: 0.65, ease: 'power3.out', stagger: 0.12,
+          opacity: 1, y: 0, scale: 1,
+          duration: 0.7, ease: 'back.out(1.25)',
+          stagger: { amount: 0.38, from: 'start' },
           scrollTrigger: { trigger: sectionRef.current, start: 'top 68%' },
         }
       )
@@ -63,6 +71,21 @@ export default function Testimonials() {
 
     return () => ctx.revert()
   }, [])
+
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+
+  const cardHover = (t) => canHover ? {
+    onMouseEnter: (e) => gsap.to(e.currentTarget, {
+      y: -4,
+      boxShadow: t.featured ? '0 0 60px rgba(192,245,61,0.28)' : '0 0 30px rgba(192,245,61,0.12)',
+      duration: 0.25, ease: 'power2.out', overwrite: 'auto',
+    }),
+    onMouseLeave: (e) => gsap.to(e.currentTarget, {
+      y: 0,
+      boxShadow: t.featured ? '0 0 40px rgba(192,245,61,0.18)' : 'none',
+      duration: 0.4, ease: 'power2.out', overwrite: 'auto',
+    }),
+  } : {}
 
   return (
     <section ref={sectionRef} id="testimonials" className="relative py-24 bg-dark overflow-hidden">
@@ -92,7 +115,9 @@ export default function Testimonials() {
                 background: 'var(--card)',
                 border: t.featured ? '1px solid rgba(192,245,61,0.35)' : '1px solid var(--border)',
                 boxShadow: t.featured ? '0 0 40px rgba(192,245,61,0.18)' : 'none',
+                willChange: 'transform',
               }}
+              {...cardHover(t)}
             >
               {/* Decorative quote mark */}
               <div

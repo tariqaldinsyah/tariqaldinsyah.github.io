@@ -1,16 +1,17 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Scale, Users, Network, BarChart2, RefreshCw } from 'lucide-react'
 import { splitWords, splitChars } from '../utils/splitText'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const cards = [
-  { title: 'User & Business Balance',        desc: 'Balancing user needs with operational and business objectives to deliver meaningful, sustainable solutions.' },
-  { title: 'Cross Functional Collaboration', desc: 'Working closely with product, engineering, and stakeholders to ship impactful solutions together.' },
-  { title: 'System & Ecosystem Thinking',    desc: 'Designing interconnected products and platforms that scale cohesively across a larger digital ecosystem.' },
-  { title: 'Data-Informed Design',           desc: 'Using research, usability feedback, and metrics to continuously refine and improve product experiences.' },
-  { title: 'Continuous Iteration',           desc: 'Constantly testing assumptions, gathering feedback, and refining solutions to ensure long-term product relevance and impact.' },
+  { Icon: Scale,     title: 'User & Business Balance',        desc: 'Balancing user needs with operational and business objectives to deliver meaningful, sustainable solutions.' },
+  { Icon: Users,     title: 'Cross Functional Collaboration', desc: 'Working closely with product, engineering, and stakeholders to ship impactful solutions together.' },
+  { Icon: Network,   title: 'System & Ecosystem Thinking',    desc: 'Designing interconnected products and platforms that scale cohesively across a larger digital ecosystem.' },
+  { Icon: BarChart2, title: 'Data-Informed Design',           desc: 'Using research, usability feedback, and metrics to continuously refine and improve product experiences.' },
+  { Icon: RefreshCw, title: 'Continuous Iteration',           desc: 'Constantly testing assumptions, gathering feedback, and refining solutions to ensure long-term product relevance and impact.' },
 ]
 
 export default function BeyondDesign() {
@@ -38,6 +39,8 @@ export default function BeyondDesign() {
     return () => ctx.revert()
   }, [])
 
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+
   return (
     <section ref={sectionRef} className="relative py-24 bg-dark overflow-hidden">
       <div className="blob blob-lime w-[500px] h-[500px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-15" />
@@ -54,10 +57,28 @@ export default function BeyondDesign() {
         <div ref={cardsRef} className="grid sm:grid-cols-2 lg:grid-cols-6 gap-4">
           {cards.map((c, i) => (
             <div key={c.title}
-              className={`rounded-2xl p-6 hover:border-lime/30 transition-all group cursor-default
+              className={`rounded-2xl p-6 group cursor-default
                 ${i < 3 ? 'lg:col-span-2' : 'lg:col-span-3'}
                 ${i === 4 ? 'sm:col-span-2 lg:col-span-3' : ''}`}
-              style={{ background: 'var(--card)', border: '1px solid var(--border)' }}>
+              style={{ background: 'var(--card)', border: '1px solid var(--border)', willChange: 'transform' }}
+              {...(canHover ? {
+                onMouseEnter: (e) => gsap.to(e.currentTarget, {
+                  y: -4,
+                  borderColor: 'rgba(192,245,61,0.3)',
+                  boxShadow: '0 0 30px rgba(192,245,61,0.10)',
+                  duration: 0.25, ease: 'power2.out', overwrite: 'auto',
+                }),
+                onMouseLeave: (e) => gsap.to(e.currentTarget, {
+                  y: 0,
+                  borderColor: getComputedStyle(document.documentElement).getPropertyValue('--border').trim(),
+                  boxShadow: 'none',
+                  duration: 0.4, ease: 'power2.out', overwrite: 'auto',
+                }),
+              } : {})}>
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-4"
+                style={{ background: 'rgba(192,245,61,0.08)', border: '1px solid rgba(192,245,61,0.15)' }}>
+                <c.Icon size={15} style={{ color: 'var(--lime-text)' }} />
+              </div>
               <h3 className="text-white font-bold text-base mb-3 group-hover:text-lime transition-colors leading-snug">
                 {c.title}
               </h3>

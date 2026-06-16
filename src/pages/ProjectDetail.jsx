@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight, ArrowDown, Calendar, Building2, User } from 'luc
 import { getProjectById, getNextProject } from '../data/projects'
 import ImageWithSkeleton from '../components/ImageWithSkeleton'
 import Navbar from '../components/Navbar'
+import CountUp from '../components/CountUp'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -314,7 +315,9 @@ export default function ProjectDetail() {
             {project.metrics.map((m, i) => (
               <div key={i} className="rounded-2xl p-6 text-center flex flex-col items-center"
                 style={{ background: 'var(--card)', border: '1px solid var(--border)' }}>
-                <p className="text-lime font-black text-2xl leading-none mb-2">{m.val}</p>
+                <p className="text-lime font-black text-2xl leading-none mb-2">
+                  <CountUp value={m.val} />
+                </p>
                 <p className="text-xs leading-tight" style={{ color: 'var(--text-30)' }}>{m.label}</p>
                 {m.context && !m.context.startsWith('[isi:') && (
                   <p className="text-[10px] leading-relaxed mt-3 italic"
