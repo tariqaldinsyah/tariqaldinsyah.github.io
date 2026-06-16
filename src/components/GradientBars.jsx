@@ -56,9 +56,9 @@ export default function GradientBars({
               style={{
                 flex: 1,
                 height: h,
-                // LIME at peak (top of bar), fades to var(--bg) at base (Hero floor).
-                // FLIP gradient direction: change 'to bottom' → 'to top' for lime-at-base.
-                background: 'linear-gradient(to bottom, var(--lime-text) 0%, var(--bg) 100%)',
+                // LIME at base (Hero floor), fades to var(--bg) going up — matches Hero dark bg.
+                // FLIP gradient direction: change 'to top' → 'to bottom' for lime-at-peak.
+                background: 'linear-gradient(to top, var(--lime-text) 0%, var(--bg) 100%)',
                 // scaleY animation squishes from the bottom (floor stays fixed).
                 // FLIP animation origin: change 'bottom center' → 'top center'.
                 transformOrigin: 'bottom center',
