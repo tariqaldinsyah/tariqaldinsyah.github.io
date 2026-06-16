@@ -2,17 +2,16 @@ function calcH(index, total, min, max) {
   const center = (total - 1) / 2
   const dist = Math.abs(index - center)
   const maxDist = center || 1
-  // Peak at center, taper to edges. Swap numerator to (dist/maxDist) to invert.
+  // Peak at center, taper to edges. Swap to (dist/maxDist) to invert.
   const pct = 1 - dist / maxDist
   return min + pct * (max - min)
 }
 
 export default function GradientBars({
   numBars = 11,
-  minH = 40,
-  maxH = 280,
+  minH = 50,
+  maxH = 340,
   duration = 3,
-  opacity = 0.35,
 }) {
   const reduced =
     typeof window !== 'undefined' &&
@@ -35,9 +34,8 @@ export default function GradientBars({
           inset: 0,
           display: 'flex',
           alignItems: 'flex-end',
-          gap: '3px',
-          padding: '0 2px',
-          opacity,
+          gap: '4px',
+          padding: '0 4px',
           pointerEvents: 'none',
           overflow: 'hidden',
         }}
@@ -51,7 +49,7 @@ export default function GradientBars({
               style={{
                 flex: 1,
                 height: h,
-                background: 'linear-gradient(to bottom, var(--lime-text), transparent)',
+                background: 'linear-gradient(to bottom, var(--lime-text) 0%, color-mix(in srgb, var(--lime-text) 30%, var(--bg)) 55%, var(--bg) 100%)',
                 borderRadius: '4px 4px 0 0',
                 transformOrigin: 'bottom center',
                 willChange: reduced ? 'auto' : 'transform',
