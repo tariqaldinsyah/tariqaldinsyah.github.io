@@ -156,7 +156,22 @@ export default function WorksWheel() {
                     transform: 'translate(-50%, -50%)',
                   }}>
                     <div
+                      role="button"
+                      tabIndex={0}
+                      aria-label={`${p.name} — ${p.type}`}
                       onClick={() => navigate(`/projects/${p.slug}`)}
+                      onKeyDown={e => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault()
+                          navigate(`/projects/${p.slug}`)
+                        }
+                      }}
+                      onFocus={e => {
+                        const lt = document.documentElement.dataset.theme === 'light'
+                        e.currentTarget.style.outline = lt ? '2px solid rgba(92,138,0,0.9)' : '2px solid rgba(192,245,61,0.9)'
+                        e.currentTarget.style.outlineOffset = '3px'
+                      }}
+                      onBlur={e => { e.currentTarget.style.outline = 'none' }}
                       style={{
                         width: '100%', height: '100%',
                         borderRadius: 12,

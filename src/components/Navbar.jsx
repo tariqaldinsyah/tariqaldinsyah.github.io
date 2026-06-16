@@ -279,12 +279,12 @@ function NavOverlayLink({ link, innerRef, onClick }) {
   const { ref, scramble, reset } = useScramble(link.label.toUpperCase())
 
   return (
-    <div
+    <button
       ref={innerRef}
       onClick={onClick}
       onMouseEnter={scramble}
       onMouseLeave={reset}
-      className="group flex items-baseline gap-5 py-4 lg:py-5 cursor-pointer border-b border-white/[0.06] hover:border-lime/20 transition-colors">
+      className="group flex items-baseline gap-5 py-4 lg:py-5 w-full text-left border-b border-white/[0.06] hover:border-lime/20 transition-colors focus-visible:outline-none focus-visible:border-lime/50">
       <span className="text-lime/35 text-xs font-bold tabular-nums w-7 shrink-0">{link.num}</span>
       <span ref={ref}
         className="font-black text-white/75 group-hover:text-white transition-colors"
@@ -296,6 +296,6 @@ function NavOverlayLink({ link, innerRef, onClick }) {
         }}>
         {link.label.toUpperCase()}
       </span>
-    </div>
+    </button>
   )
 }

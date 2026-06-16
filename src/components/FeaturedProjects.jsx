@@ -105,7 +105,7 @@ function ProjectCard({ project: p }) {
   const cardRef    = useRef(null)
   const metricRefs = useRef([])
   const borderRef  = useRef(null)
-  const isFine     = useRef(window.matchMedia('(hover: hover) and (pointer: fine)').matches)
+  const isFine     = useRef(typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches)
   const navigate   = useNavigate()
 
   const limeHover = () =>

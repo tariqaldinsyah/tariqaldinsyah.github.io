@@ -1,12 +1,15 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ArrowRight, ExternalLink, Phone } from 'lucide-react'
+import { ArrowRight, ExternalLink, Phone, Copy, Check } from 'lucide-react'
 import { splitWords, splitChars } from '../utils/splitText'
 
 gsap.registerPlugin(ScrollTrigger)
 
+const EMAIL = 'aldinsyah1610@gmail.com'
+
 export default function Contact() {
+  const [copied, setCopied] = useState(false)
   const sectionRef  = useRef(null)
   const darkRef     = useRef(null)
   const limeRef     = useRef(null)
@@ -100,14 +103,26 @@ export default function Contact() {
             Let me help you accelerate{' '}
             <span className="font-serif italic font-semibold">years ahead.</span>
           </h3>
-          <div className="mt-10">
-            <a href="mailto:aldinsyah1610@gmail.com"
+          <div className="mt-10 flex flex-col items-center gap-4">
+            <a href={`mailto:${EMAIL}`}
               className="inline-flex items-center gap-2 border-2 font-bold px-8 py-3.5 rounded-full text-sm tracking-wide transition-all"
               style={{ color: '#080c02', borderColor: '#080c02' }}
               onMouseEnter={e => { e.currentTarget.style.background='#080c02'; e.currentTarget.style.color='#C0F53D' }}
               onMouseLeave={e => { e.currentTarget.style.background='transparent'; e.currentTarget.style.color='#080c02' }}>
               Contact Me <ArrowRight size={15} />
             </a>
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(EMAIL).then(() => {
+                  setCopied(true)
+                  setTimeout(() => setCopied(false), 2000)
+                })
+              }}
+              className="inline-flex items-center gap-1.5 text-xs font-medium transition-opacity"
+              style={{ color: 'rgba(8,12,2,0.55)' }}>
+              {copied ? <Check size={12} /> : <Copy size={12} />}
+              {copied ? 'Copied!' : EMAIL}
+            </button>
           </div>
         </div>
       </div>
