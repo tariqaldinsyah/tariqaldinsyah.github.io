@@ -153,11 +153,16 @@ function ProjectCard({ project: p }) {
     return () => ctx.revert()
   }, [])
 
+  const limeGlow = () =>
+    document.documentElement.dataset.theme === 'light'
+      ? '0 0 40px rgba(92,138,0,0.12)'
+      : '0 0 40px rgba(192,245,61,0.18)'
+
   const onMouseEnter = () =>
     gsap.to(cardRef.current, {
       borderColor: limeHover(),
       y: -4,
-      boxShadow: '0 0 40px rgba(192,245,61,0.18)',
+      boxShadow: limeGlow(),
       duration: 0.3,
       overwrite: 'auto',
     })

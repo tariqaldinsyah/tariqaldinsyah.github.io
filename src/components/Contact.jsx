@@ -151,7 +151,7 @@ export default function Contact() {
         </div>
 
         <div className="pt-6 flex items-center justify-between text-white/20 text-xs">
-          <span>©2026 – Tariq Aldinsyah Portofolio</span>
+          <span>©2026 – Tariq Aldinsyah Portfolio</span>
           <span className="flex items-center gap-2">
             <span className="status-dot text-lime" />
             Available for work

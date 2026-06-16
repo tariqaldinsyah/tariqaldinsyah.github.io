@@ -167,8 +167,11 @@ export default function WorksWheel() {
                         transition: 'border-color 0.3s, box-shadow 0.3s',
                       }}
                       onMouseEnter={e => {
-                        e.currentTarget.style.borderColor = 'rgba(192,245,61,0.65)'
-                        e.currentTarget.style.boxShadow  = '0 16px 56px rgba(0,0,0,0.9), 0 0 0 1px rgba(192,245,61,0.3)'
+                        const lt = document.documentElement.dataset.theme === 'light'
+                        e.currentTarget.style.borderColor = lt ? 'rgba(92,138,0,0.65)' : 'rgba(192,245,61,0.65)'
+                        e.currentTarget.style.boxShadow  = lt
+                          ? '0 16px 56px rgba(0,0,0,0.18), 0 0 0 1px rgba(92,138,0,0.3)'
+                          : '0 16px 56px rgba(0,0,0,0.9), 0 0 0 1px rgba(192,245,61,0.3)'
                       }}
                       onMouseLeave={e => {
                         e.currentTarget.style.borderColor = defaultCardBorder

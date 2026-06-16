@@ -188,6 +188,9 @@
     line-height: 1;
     user-select: none;
   }
+  [data-theme="light"] .sparkle {
+    color: rgba(92,138,0,0.35);
+  }
 
   /* Wordmark box */
   .wordmark-box {

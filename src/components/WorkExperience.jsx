@@ -31,7 +31,7 @@ const FEATURED = [
   {
     name: 'CoopIn',
     tag: 'Ecosystem',
-    impact: '50+ cooperatives integrated',
+    impact: '20+ cooperatives integrated',
     desc: 'Digital cooperative ecosystem (web + mobile) for savings, loans, membership, and financial management.',
     award: false,
   },
