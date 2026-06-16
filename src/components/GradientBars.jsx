@@ -12,7 +12,7 @@ export default function GradientBars({
   numBars = 13,
   minPct = 3,
   maxPct = 92,
-  duration = 3,
+  duration = 8,
 }) {
   const reduced =
     typeof window !== 'undefined' &&
