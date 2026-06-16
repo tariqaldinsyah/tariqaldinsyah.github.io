@@ -18,8 +18,6 @@ const featured = [
     accent: '#C0F53D',
     desc: 'A modular digital development system to accelerate the creation of scalable products — e-commerce, cooperative systems, and POS platforms — through reusable and integrated modules.',
     tags: ['Product & UX Strategy', 'Ecosystem Planning', 'UI/UX Design', 'Design System Thinking'],
-    challenge: 'Product development was repetitive and difficult to scale. Each product rebuilt similar features from scratch.',
-    solution: 'A modular ecosystem approach that standardized reusable components, workflows, and system structures.',
     metrics: [{ val: '40%', label: 'Dev Efficiency Improved' }, { val: '3×', label: 'Faster Multi-Product Dev' }],
     images: [
       { src: '/rakit-4.jpg', alt: 'Rakit Merchandise',      bg: '#f5b800', fit: 'cover', pos: 'top', cellClass: 'row-span-2' },
@@ -34,8 +32,6 @@ const featured = [
     accent: '#C0F53D',
     desc: 'A web and mobile-based digital cooperative ecosystem modernizing operations through integrated financial management, membership systems, and connected digital services.',
     tags: ['Product & UX Design', 'Mobile & Web Interface', 'Cross Functional Collaboration', 'Information Architecture'],
-    challenge: 'Cooperatives relied on fragmented, manual processes making financial management and digital adoption inefficient.',
-    solution: 'An integrated ecosystem combining savings, loans, membership management, and digital commerce in one platform.',
     metrics: [{ val: '20+', label: 'Cooperatives Integrated' }, { val: '3', label: 'Platforms Connected' }],
     images: [
       { src: '/coopin-1.jpg', alt: 'CoopIn Web App',         bg: '#111111', fit: 'cover'   },
@@ -51,8 +47,6 @@ const featured = [
     accent: '#C0F53D',
     desc: 'A digital member service platform redesign for Telkomsel Cooperative improving accessibility, simplifying transactions, and enhancing overall member experience.',
     tags: ['UI/UX Redesign', 'User Flow Optimization', 'Feature Experience Design', 'Design System Implementation'],
-    challenge: 'Complex navigation and limited accessibility made it hard to access cooperative services and transactions.',
-    solution: 'A full UI/UX redesign with simplified navigation, E-Cafeteria, and peer-to-peer transfer features.',
     metrics: [{ val: '+20%', label: 'Active Users in 3 Months' }],
     gridCols: '1fr 2fr 1fr',
     images: [

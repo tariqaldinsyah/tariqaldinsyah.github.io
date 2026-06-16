@@ -79,7 +79,7 @@ export default function Testimonials() {
   const { theme } = useTheme()
   const lime = (a) => theme === 'light' ? `rgba(92,138,0,${a})` : `rgba(192,245,61,${a})`
 
-  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+  const canHover = typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches
 
   const cardHover = (t) => canHover ? {
     onMouseEnter: (e) => gsap.to(e.currentTarget, {
