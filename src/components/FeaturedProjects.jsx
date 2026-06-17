@@ -110,7 +110,7 @@ function ProjectCard({ project: p }) {
   const navigate   = useNavigate()
 
   const limeHover = () =>
-    document.documentElement.dataset.theme === 'light'
+    theme === 'light'
       ? 'rgba(92,138,0,0.55)'
       : 'rgba(192,245,61,0.3)'
 
@@ -149,7 +149,7 @@ function ProjectCard({ project: p }) {
   }, [])
 
   const limeGlow = () =>
-    document.documentElement.dataset.theme === 'light'
+    theme === 'light'
       ? '0 0 40px rgba(92,138,0,0.12)'
       : '0 0 40px rgba(192,245,61,0.18)'
 

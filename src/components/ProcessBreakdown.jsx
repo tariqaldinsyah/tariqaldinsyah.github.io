@@ -13,7 +13,10 @@ export default function ProcessBreakdown() {
         <div className="flex flex-wrap gap-10 mb-16 pb-8 border-b border-[#1e2a0a]">
           <div>
             <p className="label-tag mb-3">Design Process</p>
-            <h2 className="text-3xl sm:text-4xl font-bold" style={{ color: 'var(--text)' }}>How I Work</h2>
+            <h2 className="font-black leading-[1.05] tracking-tight" style={{ fontSize: 'clamp(2rem, 4vw, 4.5rem)' }}>
+              <span className="text-white">How I </span>
+              <span className="font-serif italic font-semibold text-lime">Work</span>
+            </h2>
           </div>
           <div className="ml-auto max-w-lg flex items-end">
             <p className="text-sm leading-relaxed" style={{ color: 'var(--text-40)' }}>

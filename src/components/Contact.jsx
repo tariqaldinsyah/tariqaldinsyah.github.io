@@ -113,10 +113,16 @@ export default function Contact() {
             </a>
             <button
               onClick={() => {
-                navigator.clipboard.writeText(EMAIL).then(() => {
-                  setCopied(true)
-                  setTimeout(() => setCopied(false), 2000)
-                })
+                const done = () => { setCopied(true); setTimeout(() => setCopied(false), 2000) }
+                if (navigator.clipboard) {
+                  navigator.clipboard.writeText(EMAIL).then(done).catch(() => done())
+                } else {
+                  const ta = Object.assign(document.createElement('textarea'), { value: EMAIL })
+                  ta.style.cssText = 'position:fixed;opacity:0'
+                  document.body.appendChild(ta); ta.select()
+                  document.execCommand('copy')
+                  document.body.removeChild(ta); done()
+                }
               }}
               className="inline-flex items-center gap-1.5 text-xs font-medium transition-opacity"
               style={{ color: 'rgba(8,12,2,0.55)' }}>
