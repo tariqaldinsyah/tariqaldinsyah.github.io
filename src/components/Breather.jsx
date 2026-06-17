@@ -31,7 +31,7 @@ export default function Breather() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-16 overflow-hidden" style={{ background: '#C0F53D' }}>
+    <section ref={sectionRef} className="py-16 overflow-hidden" style={{ background: 'var(--lime-text)' }}>
       <div className="max-w-7xl mx-auto px-5 sm:px-8 flex flex-col sm:flex-row sm:items-center justify-between gap-8">
         <p ref={taglineRef} className="font-black text-dark leading-[1.0] tracking-tight"
           style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.8rem)' }}>

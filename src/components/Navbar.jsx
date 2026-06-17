@@ -298,7 +298,7 @@ function NavOverlayLink({ link, innerRef, onClick }) {
           fontSize: 'clamp(2rem, 5.5vw, 4.5rem)',
           lineHeight: 1.05,
           letterSpacing: '-0.03em',
-          fontFamily: "'Space Grotesk', sans-serif",
+          fontFamily: "'DM Sans', sans-serif",
         }}>
         {link.label.toUpperCase()}
       </span>

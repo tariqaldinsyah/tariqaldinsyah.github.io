@@ -96,7 +96,7 @@ export default function Contact() {
 
       {/* Lime CTA block — like Adspace "Let's orbit" lime section */}
       <div ref={limeRef} className="relative rounded-3xl mx-4 sm:mx-8 lg:mx-16 mb-8 overflow-hidden"
-        style={{ background: '#8fc922' }}>
+        style={{ background: 'var(--lime-text)' }}>
         <div className="py-20 px-8 lg:px-16 text-center">
           <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'rgba(8,12,2,0.55)' }}>Let's Collaborate</p>
           <h3 className="font-black leading-[1.05] tracking-tight mb-2" style={{ color: '#080c02', fontSize: 'clamp(1.8rem, 4vw, 4.2rem)' }}>
@@ -107,8 +107,8 @@ export default function Contact() {
             <a href={`mailto:${EMAIL}`}
               className="inline-flex items-center gap-2 border-2 font-bold px-8 py-3.5 rounded-full text-sm tracking-wide transition-all"
               style={{ color: '#080c02', borderColor: '#080c02' }}
-              onMouseEnter={e => { e.currentTarget.style.background='#080c02'; e.currentTarget.style.color='#C0F53D' }}
-              onMouseLeave={e => { e.currentTarget.style.background='transparent'; e.currentTarget.style.color='#080c02' }}>
+              onMouseEnter={e => { e.currentTarget.style.background='var(--bg)'; e.currentTarget.style.color='var(--lime-text)' }}
+              onMouseLeave={e => { e.currentTarget.style.background='transparent'; e.currentTarget.style.color='var(--bg)' }}>
               Contact Me <ArrowRight size={15} />
             </a>
             <button
